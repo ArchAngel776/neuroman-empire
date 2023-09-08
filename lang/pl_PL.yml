@@ -1,0 +1,86 @@
+window:
+  menu:
+    - name: "Program"
+      actions:
+        home:
+          name: "Strona startowa"
+        close:
+          name: "Zamknij"
+  screens:
+    home:
+      title: "NeuRoman Empire"
+      description: "Program do kreacji i modyfikacji sieci neuronowych mających umożliwić rozpoznawanie klas na obrazku wejściowym, wytrenowana na zbiorze danych CIFAR-10"
+      menu:
+        create: "Stwórz nową sieć"
+    network:
+      entry:
+        title: "Budowa sieci neuronowej"
+        description:
+          - "Ta sekcja pozwala na graficzną budowę oraz przegląd sieci neuronowej"
+          - "Aby rozpocząć proces kreacji nowego neuronu wciśnij przycisk \"{window.screens.network.entry.buttons.add}\""
+          - "Aby modyfikować lub usunąć neuron wciśnij jego graficzną interpretację na matrycy obok"
+        buttons:
+          add: "Rozpocznij dodawanie neuronu"
+      creation:
+        title: "Dodaj neuron"
+        labels:
+          name: "Nazwa: "
+          type: "Typ: "
+        buttons:
+          add: "Dodaj"
+      modification:
+        title: "Modyfikuj neuron"
+        labels:
+          name: "Nazwa: "
+          type: "Typ: "
+        buttons:
+          modify: "Zmodyfikuj"
+          remove: "Usnuń neuron"
+          cancel: "Anuluj"
+      neurons:
+        conv1d:
+          dimensions:
+            length: "Długość"
+          labels:
+            input: "Wejście: "
+            output: "Wyjście: "
+            kernel: "Rozmiar jądra: "
+            stride: "Przeskok: "
+            padding: "Margines: "
+            dilation: "Odstęp: "
+            groups: "Ilość grup: "
+            bias: "Bias: "
+        conv2d:
+          dimensions:
+            width: "Szerokość"
+            height: "Wysokość"
+          labels:
+            input: "Wejście: "
+            output: "Wyjście: "
+            square: "Wymiary kwadratowe: "
+            kernel: "Rozmiar jądra: "
+            stride: "Przeskok: "
+            padding: "Margines: "
+            dilation: "Odstęp: "
+            groups: "Ilość grup: "
+            bias: "Bias: "
+        conv3d:
+          dimensions:
+            depth: "Głębia"
+            width: "Szerokość"
+            height: "Wysokość"
+          labels:
+            input: "Wejście: "
+            output: "Wyjście: "
+            cube: "Wymiary sześcienne: "
+            kernel: "Rozmiar jądra: "
+            stride: "Przeskok: "
+            padding: "Margines: "
+            dilation: "Odstęp: "
+            groups: "Ilość grup: "
+            bias: "Bias: "
+        linear:
+          labels:
+            input: "Wejście: "
+            output: "Wyjście: "
+            bias: "Bias: "

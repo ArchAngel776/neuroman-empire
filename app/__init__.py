@@ -1,0 +1,24 @@
+# https://arxiv.org/pdf/1409.1556.pdf
+
+ROOT = "data"
+MODEL = "./data/model"
+
+ML_BATCH_SIZE = 64
+
+ML_OPT_LEARNING_RATE = 1e-3
+ML_OPT_MOMENTUM = .9
+
+ML_EPOCHS = 400
+
+GUI_TITLE = "NeuRoman Empire"
+GUI_ICON = "assets/ai.png"
+
+GUI_SIZE_WIDTH = 640
+GUI_SIZE_HEIGHT = 480
+GUI_SIZE_RATIO = 1
+
+CANVAS_NEURON = 32
+CANVAS_INDENT = 64
+CANVAS_PADDING = 4
+
+SCROLLBAR_SIZE = 12

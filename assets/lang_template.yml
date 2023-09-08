@@ -1,0 +1,44 @@
+window:
+  menu:
+    - name: ""
+      actions:
+        home:
+          name: ""
+        close:
+          name: ""
+  screens:
+    home:
+      title: ""
+      description: ""
+      menu:
+        create: ""
+    network:
+      creation:
+        title: ""
+        labels:
+          name: ""
+          type: ""
+        buttons:
+          add: ""
+      modification:
+        title: ""
+      neurons:
+        conv2d:
+          dimensions:
+            width: ""
+            height: ""
+          labels:
+            input: ""
+            output: ""
+            square: ""
+            kernel: ""
+            stride: ""
+            padding: ""
+            dilation: ""
+            groups: ""
+            bias: ""
+        linear:
+          labels:
+            input: ""
+            output: ""
+            bias: ""

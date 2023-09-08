@@ -1,0 +1,4 @@
+torch>=2.0.1
+torchvision>=0.15.2
+PyQt5>=5.15.9
+PyYAML>=6.0

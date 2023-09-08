@@ -1,0 +1,24 @@
+# https://arxiv.org/pdf/1409.1556.pdf
+
+ROOT: str
+MODEL: str
+
+ML_BATCH_SIZE: int
+
+ML_OPT_LEARNING_RATE: float
+ML_OPT_MOMENTUM: float
+
+ML_EPOCHS: int
+
+GUI_TITLE: str
+GUI_ICON: str
+
+GUI_SIZE_WIDTH: int
+GUI_SIZE_HEIGHT: int
+GUI_SIZE_RATIO: int
+
+CANVAS_NEURON: int
+CANVAS_INDENT: int
+CANVAS_PADDING: int
+
+SCROLLBAR_SIZE: int
