@@ -16,7 +16,9 @@ from app import SCROLLBAR_SIZE
 from app.hooks import i18n
 from app.network.neuron.conv3d import Convolution3d
 from app.network.neuron.conv3d.params import Conv3dParams
+from app.network.neuron.conv3d.options import Conv3dOptions
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.params import NeuronStrategyParams
 from app.gui.neuron.conv3d.view import Dimension3dView, Dimension3dSwitcher
 
 
@@ -38,12 +40,17 @@ class NeuronBuilderConvolution3dStrategy(NeuronStrategy):
 
     @property
     def params(self):
-        return Conv3dParams(
-            in_channels=self._input_channels.value,
-            out_channels=self._output_channels.value,
-            **self.dimension_params,
-            groups=self._groups.value,
-            bias=self._bias.value,
+        return NeuronStrategyParams(
+            params=Conv3dParams(
+                in_channels=self._input_channels.value,
+                out_channels=self._output_channels.value,
+                **self.dimension_params.params,
+                groups=self._groups.value,
+                bias=self._bias.value,
+            ),
+            options=Conv3dOptions(
+                cube=self._reflection.value
+            )
         )
 
     @property
@@ -57,6 +64,14 @@ class NeuronBuilderConvolution3dStrategy(NeuronStrategy):
     @property
     def dimension_params(self):
         return self.dimension_switcher_program.params
+
+    @property
+    def init_param(self):
+        return self.dependencies["init_param"]
+
+    @property
+    def init_option(self):
+        return self.dependencies["init_option"]
 
     def change_dimension(self, event):
         key = Dimension3dView.SINGLE if event.checked else Dimension3dView.TRIPLE
@@ -140,7 +155,11 @@ class NeuronBuilderConvolution3dStrategy(NeuronStrategy):
                 .Content(
                     self.watch(
                         NeuronBuilderConvolution3dStrategy.DIMENSION_SWITCHER,
-                        Switcher(root, Dimension3dSwitcher(Dimension3dView.TRIPLE, {}), LayoutType.VERTICAL)
+                        Switcher(
+                            root,
+                            Dimension3dSwitcher(Dimension3dView.TRIPLE, self.dependencies),
+                            LayoutType.VERTICAL
+                        )
                         .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
                         .On(
                             Event.Type.Resize, self.adjust_dimension_params_area,

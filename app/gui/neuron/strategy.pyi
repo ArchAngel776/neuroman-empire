@@ -3,6 +3,8 @@ from typing import TypeVar, TypedDict, Generic
 
 from lib.gui.element.switcher.strategy import SwitcherStrategy
 
+from .params import NeuronStrategyParams as StrategyParams
+
 # Types
 
 NeuronStrategyDependencies = TypeVar("NeuronStrategyDependencies", dict, TypedDict)
@@ -13,7 +15,7 @@ NeuronStrategyOptions = TypeVar("NeuronStrategyOptions", dict, TypedDict)
 # Main
 
 class NeuronStrategy(
-    SwitcherStrategy[NeuronStrategyDependencies, NeuronStrategyParams],
+    SwitcherStrategy[NeuronStrategyDependencies, StrategyParams[NeuronStrategyParams, NeuronStrategyOptions]],
     ABC,
     Generic[NeuronStrategyDependencies, NeuronStrategyParams, NeuronStrategyOptions]
 ):

@@ -47,7 +47,8 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
     def params(self):
         return NeuronCreationParams(
             name=self._neuron_name.value,
-            params=self.switcher_program.params
+            params=self.switcher_program.params.params,
+            options=self.switcher_program.params.options
         )
 
     def select_neuron(self, event):
@@ -66,6 +67,12 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
     def neuron_type(self):
         index, neuron = self._neuron_type.value
         return neuron
+
+    def init_param(self, strategy, setter):
+        pass
+
+    def init_option(self, strategy, setter):
+        pass
 
     @property
     def create(self):
@@ -138,7 +145,9 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                             NeuronOperationCreationStrategy.NEURON_SWITCHER_ELEMENT,
                             Switcher(
                                 root,
-                                NeuronBuilderSwitcher(NeuronType.CONV1D, {}),
+                                NeuronBuilderSwitcher(NeuronType.CONV1D, {
+
+                                }),
                                 LayoutType.VERTICAL
                             )
                             .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)

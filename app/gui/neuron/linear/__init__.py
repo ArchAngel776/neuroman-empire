@@ -11,7 +11,9 @@ from lib.gui.layout.factory import LayoutFactory
 from app.hooks import i18n
 from app.network.neuron.linear import Linear
 from app.network.neuron.linear.params import LinearParams
+from app.network.neuron.linear.options import LinearOptions
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.params import NeuronStrategyParams
 
 
 # Main
@@ -28,10 +30,13 @@ class NeuronBuilderLinearStrategy(NeuronStrategy):
 
     @property
     def params(self):
-        return LinearParams(
-            in_features=self._input_features.value,
-            out_features=self._output_features.value,
-            bias=self._bias.value
+        return NeuronStrategyParams(
+            params=LinearParams(
+                in_features=self._input_features.value,
+                out_features=self._output_features.value,
+                bias=self._bias.value
+            ),
+            options=LinearOptions()
         )
 
     @property
@@ -41,6 +46,14 @@ class NeuronBuilderLinearStrategy(NeuronStrategy):
     @property
     def default_options(self):
         return Linear.default_options()
+
+    @property
+    def init_param(self):
+        return self.dependencies["init_param"]
+
+    @property
+    def init_option(self):
+        return self.dependencies["init_option"]
 
     def render(self, root):
         return (

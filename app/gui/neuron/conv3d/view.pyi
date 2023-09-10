@@ -2,9 +2,11 @@ from enum import Enum
 from typing import Union
 
 from lib.gui.element.switcher.program import SwitcherProgram
-from lib.gui.element.switcher.strategy import SwitcherStrategy
 
-from app.network.neuron.conv3d.dimension import Conv3dDimensionParams
+from app.network.neuron.conv3d.dimension.params import Conv3dDimensionParams
+from app.network.neuron.conv3d.dimension.options import Conv3dDimensionOptions
+from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.params import NeuronStrategyParams
 from app.gui.neuron.conv1d.dimension import SingleDimensionStrategy
 from app.gui.neuron.conv3d.dimension import TripleDimensionStrategy
 from app.gui.neuron.conv1d.dimension.dependencies import SingleDimensionStrategyDependencies
@@ -24,7 +26,13 @@ class Dimension3dView(Enum):
 
 # Main
 
-class Dimension3dSwitcher(SwitcherProgram[Dimension3dView, Dimension3dDependencies, Conv3dDimensionParams]):
+class Dimension3dSwitcher(
+    SwitcherProgram[
+        Dimension3dView,
+        Dimension3dDependencies,
+        NeuronStrategyParams[Conv3dDimensionParams, Conv3dDimensionOptions]
+    ]
+):
     _single_strategy: SingleDimensionStrategy
     _triple_strategy: TripleDimensionStrategy
 
@@ -33,5 +41,5 @@ class Dimension3dSwitcher(SwitcherProgram[Dimension3dView, Dimension3dDependenci
     @property
     def strategy(self) -> dict[
         Dimension3dView,
-        SwitcherStrategy[Dimension3dDependencies, Conv3dDimensionParams]
+        NeuronStrategy[Dimension3dDependencies, Conv3dDimensionParams, Conv3dDimensionOptions]
     ]: ...

@@ -1,5 +1,6 @@
 from PyQt5.QtCore import Qt
 
+from app.network.neuron.conv2d.dimension.options import Conv2dDimensionOptions
 from lib.gui import LS
 from lib.gui.element.font import Font
 from lib.gui.element.form import FormInput
@@ -12,6 +13,7 @@ from app.hooks import i18n
 from app.network.neuron.conv2d import Convolution2d
 from app.network.neuron.conv2d.dimension.params import Conv2dDimensionParams
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.params import NeuronStrategyParams
 
 
 # Main
@@ -39,11 +41,26 @@ class DoubleDimensionStrategy(NeuronStrategy):
 
     @property
     def params(self):
-        return Conv2dDimensionParams(
-            kernel_size=(self._kernel_size_height.value, self._kernel_size_width.value),
-            stride=(self._stride_height.value, self._stride_width.value),
-            padding=(self._padding_height.value, self._padding_width.value),
-            dilation=(self._dilation_height.value, self._dilation_width.value)
+        return NeuronStrategyParams(
+            params=Conv2dDimensionParams(
+                kernel_size=(
+                    self._kernel_size_height.value,
+                    self._kernel_size_width.value
+                ),
+                stride=(
+                    self._stride_height.value,
+                    self._stride_width.value
+                ),
+                padding=(
+                    self._padding_height.value,
+                    self._padding_width.value
+                ),
+                dilation=(
+                    self._dilation_height.value,
+                    self._dilation_width.value
+                )
+            ),
+            options=Conv2dDimensionOptions()
         )
 
     @property
@@ -52,7 +69,15 @@ class DoubleDimensionStrategy(NeuronStrategy):
 
     @property
     def default_options(self):
-        return {}
+        return Convolution2d.default_options()
+
+    @property
+    def init_param(self):
+        return self.dependencies["init_param"]
+
+    @property
+    def init_option(self):
+        return self.dependencies["init_option"]
 
     def render(self, root):
         return (

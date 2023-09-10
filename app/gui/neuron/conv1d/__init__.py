@@ -14,7 +14,9 @@ from lib.gui.layout.type import LayoutType
 from app.hooks import i18n
 from app.network.neuron.conv1d import Convolution1d
 from app.network.neuron.conv1d.params import Conv1dParams
+from app.network.neuron.conv1d.options import Conv1dOptions
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.params import NeuronStrategyParams
 from app.gui.neuron.conv1d.view import Dimension1dSwitcher, Dimension1dView
 from app.gui.neuron.conv1d.dimension import SingleDimensionStrategy
 from app.gui.neuron.conv1d.dimension.dependencies import SingleDimensionStrategyDependencies
@@ -37,12 +39,15 @@ class NeuronBuilderConvolution1dStrategy(NeuronStrategy):
 
     @property
     def params(self):
-        return Conv1dParams(
-            in_channels=self._input_channels.value,
-            out_channels=self._output_channels.value,
-            **self.dimension_params,
-            groups=self._groups.value,
-            bias=self._bias.value
+        return NeuronStrategyParams(
+            params=Conv1dParams(
+                in_channels=self._input_channels.value,
+                out_channels=self._output_channels.value,
+                **self.dimension_params.params,
+                groups=self._groups.value,
+                bias=self._bias.value
+            ),
+            options=Conv1dOptions()
         )
 
     @property
@@ -56,6 +61,14 @@ class NeuronBuilderConvolution1dStrategy(NeuronStrategy):
     @property
     def dimension_params(self):
         return self.dimension_switcher_program.params
+
+    @property
+    def init_param(self):
+        return self.dependencies["init_param"]
+
+    @property
+    def init_option(self):
+        return self.dependencies["init_option"]
 
     @property
     def dimension_switcher_program(self):
@@ -105,7 +118,7 @@ class NeuronBuilderConvolution1dStrategy(NeuronStrategy):
                     NeuronBuilderConvolution1dStrategy.DIMENSION_SWITCHER,
                     Switcher(
                         root,
-                        Dimension1dSwitcher(Dimension1dView.SINGLE, {}),
+                        Dimension1dSwitcher(Dimension1dView.SINGLE, self.dependencies),
                         LayoutType.VERTICAL
                     )
                     .InnerSizing(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Fixed)

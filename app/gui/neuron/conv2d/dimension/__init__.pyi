@@ -3,15 +3,19 @@ from lib.gui.element.form import FormInput
 from lib.gui.layout import Layout
 
 from app.network.neuron.conv2d.dimension.params import Conv2dDimensionParams
+from app.network.neuron.conv2d.dimension.options import Conv2dDimensionOptions
 from app.gui import MainWindow
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.params import NeuronStrategyParams
 
-from .dependencies import DoubleDimensionStrategyDependencies
+from .dependencies import DoubleDimensionStrategyDependencies, InitParamCallback, InitOptionCallback
 
 
 # Main
 
-class DoubleDimensionStrategy(NeuronStrategy[DoubleDimensionStrategyDependencies, Conv2dDimensionParams, {}]):
+class DoubleDimensionStrategy(
+    NeuronStrategy[DoubleDimensionStrategyDependencies, Conv2dDimensionParams, Conv2dDimensionOptions]
+):
     class Dimension(int):
         HEIGHT = ... #type: DoubleDimensionStrategy.Dimension
         WIDTH = ... #type: DoubleDimensionStrategy.Dimension
@@ -32,12 +36,18 @@ class DoubleDimensionStrategy(NeuronStrategy[DoubleDimensionStrategyDependencies
     def __init__(self, dependencies: DoubleDimensionStrategyDependencies) -> None: ...
 
     @property
-    def params(self) -> Conv2dDimensionParams: ...
+    def params(self) -> NeuronStrategyParams[Conv2dDimensionParams, Conv2dDimensionOptions]: ...
 
     @property
     def default_params(self) -> Conv2dDimensionParams: ...
 
     @property
-    def default_options(self) -> {}: ...
+    def default_options(self) -> Conv2dDimensionOptions: ...
+
+    @property
+    def init_param(self) -> InitParamCallback: ...
+
+    @property
+    def init_option(self) -> InitOptionCallback: ...
 
     def render(self, root: MainWindow) -> Layout: ...

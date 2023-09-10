@@ -10,6 +10,8 @@ from lib.gui.layout.type import LayoutType
 from app.hooks import i18n
 from app.network.neuron.conv1d import Convolution1d
 from app.network.neuron.conv1d.dimension.params import Conv1dDimensionParams
+from app.network.neuron.conv1d.dimension.options import Conv1dDimensionOptions
+from app.gui.neuron.params import NeuronStrategyParams
 from app.gui.neuron.strategy import NeuronStrategy
 
 
@@ -28,11 +30,14 @@ class SingleDimensionStrategy(NeuronStrategy):
 
     @property
     def params(self):
-        return Conv1dDimensionParams(
-            kernel_size=self._kernel_size.value,
-            stride=self._stride.value,
-            padding=self._padding.value,
-            dilation=self._dilation.value
+        return NeuronStrategyParams(
+            params=Conv1dDimensionParams(
+                kernel_size=self._kernel_size.value,
+                stride=self._stride.value,
+                padding=self._padding.value,
+                dilation=self._dilation.value
+            ),
+            options=Conv1dDimensionOptions()
         )
 
     @property
@@ -41,7 +46,15 @@ class SingleDimensionStrategy(NeuronStrategy):
 
     @property
     def default_options(self):
-        return {}
+        return Convolution1d.default_options()
+
+    @property
+    def init_param(self):
+        return self.dependencies["init_param"]
+
+    @property
+    def init_option(self):
+        return self.dependencies["init_option"]
 
     def render(self, root):
         return (

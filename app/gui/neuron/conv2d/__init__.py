@@ -14,7 +14,9 @@ from lib.gui.layout.factory import LayoutFactory
 from app.hooks import i18n
 from app.network.neuron.conv2d import Convolution2d
 from app.network.neuron.conv2d.params import Conv2dParams
+from app.network.neuron.conv2d.options import Conv2dOptions
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.params import NeuronStrategyParams
 from app.gui.neuron.conv2d.view import Dimension2dView, Dimension2dSwitcher
 
 
@@ -36,12 +38,17 @@ class NeuronBuilderConvolution2dStrategy(NeuronStrategy):
 
     @property
     def params(self):
-        return Conv2dParams(
-            in_channels=self._input_channels.value,
-            out_channels=self._output_channels.value,
-            **self.dimension_params,
-            groups=self._groups.value,
-            bias=self._bias.value,
+        return NeuronStrategyParams(
+            params=Conv2dParams(
+                in_channels=self._input_channels.value,
+                out_channels=self._output_channels.value,
+                **self.dimension_params.params,
+                groups=self._groups.value,
+                bias=self._bias.value,
+            ),
+            options=Conv2dOptions(
+                square=self._reflection.value
+            )
         )
 
     @property
@@ -55,6 +62,14 @@ class NeuronBuilderConvolution2dStrategy(NeuronStrategy):
     @property
     def dimension_params(self):
         return self.dimension_switcher_program.params
+
+    @property
+    def init_param(self):
+        return self.dependencies["init_param"]
+
+    @property
+    def init_option(self):
+        return self.dependencies["init_option"]
 
     def change_dimension(self, event):
         key = Dimension2dView.SINGLE if event.checked else Dimension2dView.DOUBLE
@@ -126,7 +141,11 @@ class NeuronBuilderConvolution2dStrategy(NeuronStrategy):
             .add(
                 self.watch(
                     NeuronBuilderConvolution2dStrategy.DIMENSION_SWITCHER,
-                    Switcher(root, Dimension2dSwitcher(Dimension2dView.DOUBLE, {}), LayoutType.VERTICAL)
+                    Switcher(
+                        root,
+                        Dimension2dSwitcher(Dimension2dView.DOUBLE, self.dependencies),
+                        LayoutType.VERTICAL
+                    )
                     .InnerSizing(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Fixed)
                 )
             )

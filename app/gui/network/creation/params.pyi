@@ -1,6 +1,6 @@
 from typing import TypedDict
 
-from app.gui.neuron import NeuronParams
+from app.gui.neuron import NeuronParams, NeuronOptions
 
 
 # Main
@@ -8,3 +8,4 @@ from app.gui.neuron import NeuronParams
 class NeuronCreationParams(TypedDict):
     name: str
     params: NeuronParams
+    options: NeuronOptions

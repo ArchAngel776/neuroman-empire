@@ -1,5 +1,6 @@
 from PyQt5.QtCore import Qt
 
+from app.network.neuron.conv3d.dimension.options import Conv3dDimensionOptions
 from lib.gui import LS
 from lib.gui.element.font import Font
 from lib.gui.element.form import FormInput
@@ -12,6 +13,7 @@ from app.hooks import i18n
 from app.network.neuron.conv3d import Convolution3d
 from app.network.neuron.conv3d.dimension.params import Conv3dDimensionParams
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.params import NeuronStrategyParams
 
 
 # Main
@@ -45,11 +47,30 @@ class TripleDimensionStrategy(NeuronStrategy):
 
     @property
     def params(self):
-        return Conv3dDimensionParams(
-            kernel_size=(self._kernel_size_depth.value, self._kernel_size_height.value, self._kernel_size_width.value),
-            stride=(self._stride_depth.value, self._stride_height.value, self._stride_width.value),
-            padding=(self._padding_depth.value, self._padding_height.value, self._padding_width.value),
-            dilation=(self._dilation_depth.value, self._dilation_height.value, self._dilation_width.value)
+        return NeuronStrategyParams(
+            params=Conv3dDimensionParams(
+                kernel_size=(
+                    self._kernel_size_depth.value,
+                    self._kernel_size_height.value,
+                    self._kernel_size_width.value
+                ),
+                stride=(
+                    self._stride_depth.value,
+                    self._stride_height.value,
+                    self._stride_width.value
+                ),
+                padding=(
+                    self._padding_depth.value,
+                    self._padding_height.value,
+                    self._padding_width.value
+                ),
+                dilation=(
+                    self._dilation_depth.value,
+                    self._dilation_height.value,
+                    self._dilation_width.value
+                )
+            ),
+            options=Conv3dDimensionOptions()
         )
 
     @property
@@ -58,7 +79,15 @@ class TripleDimensionStrategy(NeuronStrategy):
 
     @property
     def default_options(self):
-        return {}
+        return Convolution3d.default_options()
+
+    @property
+    def init_param(self):
+        return self.dependencies["init_param"]
+
+    @property
+    def init_option(self):
+        return self.dependencies["init_option"]
 
     def render(self, root):
         return (

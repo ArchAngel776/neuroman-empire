@@ -8,7 +8,7 @@ NeuronOptions = TypeVar("NeuronOptions", dict, TypedDict)
 
 # Main
 
-class NeuronStrategyParams(Generic[NeuronParams, NeuronOptions]):
+class NeuronStrategyParams(dict, Generic[NeuronParams, NeuronOptions]):
     _params: NeuronParams
     _options: NeuronOptions
 

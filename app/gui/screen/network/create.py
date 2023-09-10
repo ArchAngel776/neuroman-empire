@@ -45,7 +45,7 @@ class CreateNetworkScreen(Screen):
 
     def create_neuron(self, neuron):
         params = self.switcher_program.params
-        self._network.add_neuron(neuron(params["name"], params["params"], {}))
+        self._network.add_neuron(neuron(params["name"], params["params"], params["options"]))
 
         self.update_canvas()
         self.canvas_program.update()

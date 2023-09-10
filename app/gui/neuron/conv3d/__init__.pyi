@@ -6,11 +6,13 @@ from lib.gui.layout import Layout
 from app.network.neuron.conv3d.params import Conv3dParams
 from app.network.neuron.conv3d.options import Conv3dOptions
 from app.network.neuron.conv3d.dimension.params import Conv3dDimensionParams
+from app.network.neuron.conv3d.dimension.options import Conv3dDimensionOptions
 from app.gui import MainWindow
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.params import NeuronStrategyParams
 
 from .view import Dimension3dView, Dimension3dSwitcher
-from .dependencies import Convolution3dStrategyDependencies
+from .dependencies import Convolution3dStrategyDependencies, InitParamCallback, InitOptionCallback
 from .dimension.dependencies import TripleDimensionStrategyDependencies
 
 
@@ -33,7 +35,7 @@ class NeuronBuilderConvolution3dStrategy(
     def __init__(self, dependencies: Convolution3dStrategyDependencies) -> None: ...
 
     @property
-    def params(self) -> Conv3dParams: ...
+    def params(self) -> NeuronStrategyParams[Conv3dParams, Conv3dOptions]: ...
 
     @property
     def default_params(self) -> Conv3dParams: ...
@@ -42,7 +44,13 @@ class NeuronBuilderConvolution3dStrategy(
     def default_options(self) -> Conv3dOptions: ...
 
     @property
-    def dimension_params(self) -> Conv3dDimensionParams: ...
+    def dimension_params(self) -> NeuronStrategyParams[Conv3dDimensionParams, Conv3dDimensionOptions]: ...
+
+    @property
+    def init_param(self) -> InitParamCallback: ...
+
+    @property
+    def init_option(self) -> InitOptionCallback: ...
 
     def change_dimension(self, event: CheckBoxChangedEvent) -> bool: ...
 

@@ -1,4 +1,8 @@
-from typing import TypedDict
+from typing import TypedDict, Literal
+
+# Types
+
+LinearOptionsKeyof = Literal[None]
 
 
 # Main
