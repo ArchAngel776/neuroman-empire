@@ -30,6 +30,14 @@ class NetworkBuilderCanvasProgram(CanvasProgram):
         self._color_conv1d = QColor(64, 255, 255)
         self._color_conv2d = QColor(128, 255, 255)
         self._color_conv3d = QColor(192, 255, 255)
+        self._color_convtranspose1d = QColor(255, 32, 128)
+        self._color_convtranspose2d = QColor(255, 64, 128)
+        self._color_convtranspose3d = QColor(255, 96, 128)
+        self._color_unfold = QColor(160, 160, 160)
+        self._color_fold = QColor(139, 139, 139)
+        self._color_maxpool1d = QColor(128, 32, 255)
+        self._color_maxpool2d = QColor(128, 64, 255)
+        self._color_maxpool3d = QColor(128, 96, 255)
         self._color_linear = QColor(128, 255, 128)
 
         self._cursor_active = QCursor(Qt.PointingHandCursor)
@@ -126,10 +134,26 @@ class NetworkBuilderCanvasProgram(CanvasProgram):
                 return self.color_conv2d
             case NeuronType.CONV3D:
                 return self.color_conv3d
+            case NeuronType.CONVTRANSPOSE1D:
+                return self.color_convtranspose1d
+            case NeuronType.CONVTRANSPOSE2D:
+                return self.color_convtranspose2d
+            case NeuronType.CONVTRANSPOSE3D:
+                return self.color_convtranspose3d
+            case NeuronType.UNFOLD:
+                return self.color_unfold
+            case NeuronType.FOLD:
+                return self.color_fold
+            case NeuronType.MAXPOOL1D:
+                return self.color_maxpool1d
+            case NeuronType.MAXPOOL2D:
+                return self.color_maxpool2d
+            case NeuronType.MAXPOOL3D:
+                return self.color_maxpool3d
             case NeuronType.LINEAR:
                 return self.color_linear
             case _:
-                raise ValueError("Object is a not valid neuron")
+                raise ValueError("Invalid neuron type.")
 
     def connection_color(self, coordinates, start, end):
         gradient = QLinearGradient(*coordinates)
@@ -217,6 +241,38 @@ class NetworkBuilderCanvasProgram(CanvasProgram):
     @property
     def color_conv3d(self):
         return self._color_conv3d
+
+    @property
+    def color_convtranspose1d(self):
+        return self._color_convtranspose1d
+
+    @property
+    def color_convtranspose2d(self):
+        return self._color_convtranspose2d
+
+    @property
+    def color_convtranspose3d(self):
+        return self._color_convtranspose3d
+
+    @property
+    def color_unfold(self):
+        return self._color_unfold
+
+    @property
+    def color_fold(self):
+        return self._color_fold
+
+    @property
+    def color_maxpool1d(self):
+        return self._color_maxpool1d
+
+    @property
+    def color_maxpool2d(self):
+        return self._color_maxpool2d
+
+    @property
+    def color_maxpool3d(self):
+        return self._color_maxpool3d
 
     @property
     def color_linear(self):

@@ -1,3 +1,4 @@
+from lib import void
 from lib.gui.element.font import Font
 from lib.gui.element.form import FormInput
 from lib.gui.layout import Layout
@@ -8,14 +9,10 @@ from app.gui import MainWindow
 from app.gui.neuron.strategy import NeuronStrategy
 from app.gui.neuron.params import NeuronStrategyParams
 
-from .dependencies import DoubleDimensionStrategyDependencies, InitParamCallback, InitOptionCallback
-
 
 # Main
 
-class DoubleDimensionStrategy(
-    NeuronStrategy[DoubleDimensionStrategyDependencies, Conv2dDimensionParams, Conv2dDimensionOptions]
-):
+class DoubleDimensionStrategy(NeuronStrategy[Conv2dDimensionParams, Conv2dDimensionOptions]):
     class Dimension(int):
         HEIGHT = ... #type: DoubleDimensionStrategy.Dimension
         WIDTH = ... #type: DoubleDimensionStrategy.Dimension
@@ -33,7 +30,7 @@ class DoubleDimensionStrategy(
     _input_height: int
     _font_caption_title: Font
 
-    def __init__(self, dependencies: DoubleDimensionStrategyDependencies) -> None: ...
+    def __init__(self) -> None: ...
 
     @property
     def params(self) -> NeuronStrategyParams[Conv2dDimensionParams, Conv2dDimensionOptions]: ...
@@ -44,10 +41,6 @@ class DoubleDimensionStrategy(
     @property
     def default_options(self) -> Conv2dDimensionOptions: ...
 
-    @property
-    def init_param(self) -> InitParamCallback: ...
-
-    @property
-    def init_option(self) -> InitOptionCallback: ...
+    def load(self, params: Conv2dDimensionParams, options: Conv2dDimensionOptions) -> void: ...
 
     def render(self, root: MainWindow) -> Layout: ...

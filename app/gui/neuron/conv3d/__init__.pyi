@@ -1,3 +1,4 @@
+from lib import void
 from lib.gui.element.form import FormInput
 from lib.gui.element.switcher import Switcher
 from lib.gui.event.check_box_changed import CheckBoxChangedEvent
@@ -12,15 +13,11 @@ from app.gui.neuron.strategy import NeuronStrategy
 from app.gui.neuron.params import NeuronStrategyParams
 
 from .view import Dimension3dView, Dimension3dSwitcher
-from .dependencies import Convolution3dStrategyDependencies, InitParamCallback, InitOptionCallback
-from .dimension.dependencies import TripleDimensionStrategyDependencies
 
 
 # Main
 
-class NeuronBuilderConvolution3dStrategy(
-    NeuronStrategy[Convolution3dStrategyDependencies, Conv3dParams, Conv3dOptions]
-):
+class NeuronBuilderConvolution3dStrategy(NeuronStrategy[Conv3dParams, Conv3dOptions]):
     DIMENSION_SWITCHER = ... #type: str
 
     _input_channels: FormInput[int]
@@ -32,7 +29,7 @@ class NeuronBuilderConvolution3dStrategy(
 
     _input_height: int
 
-    def __init__(self, dependencies: Convolution3dStrategyDependencies) -> None: ...
+    def __init__(self) -> None: ...
 
     @property
     def params(self) -> NeuronStrategyParams[Conv3dParams, Conv3dOptions]: ...
@@ -43,21 +40,15 @@ class NeuronBuilderConvolution3dStrategy(
     @property
     def default_options(self) -> Conv3dOptions: ...
 
+    def load(self, params: Conv3dParams, options: Conv3dOptions) -> void: ...
+
     @property
     def dimension_params(self) -> NeuronStrategyParams[Conv3dDimensionParams, Conv3dDimensionOptions]: ...
-
-    @property
-    def init_param(self) -> InitParamCallback: ...
-
-    @property
-    def init_option(self) -> InitOptionCallback: ...
 
     def change_dimension(self, event: CheckBoxChangedEvent) -> bool: ...
 
     @staticmethod
-    def adjust_dimension_params_area(
-            switcher: Switcher[Dimension3dView, TripleDimensionStrategyDependencies, Conv3dDimensionParams]
-    ) -> bool: ...
+    def adjust_dimension_params_area(switcher: Switcher[Dimension3dView, {}, Conv3dDimensionParams]) -> bool: ...
 
     @property
     def dimension_switcher_program(self) -> Dimension3dSwitcher: ...

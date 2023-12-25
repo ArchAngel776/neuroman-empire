@@ -1,14 +1,10 @@
-from typing import TypeVar
+from typing import Self
 
 from PyQt5.QtWidgets import QLineEdit
 
 from lib import void
 from lib.gui.element.form import FormControl
 from lib.gui.window import Window
-
-# Types
-
-TTextInput = TypeVar("TTextInput", bound=TextInput)
 
 
 # Main
@@ -18,4 +14,8 @@ class TextInput(QLineEdit, FormControl[str]):
 
     def config(self) -> void: ...
 
-    def Length(self: TTextInput, length: int) -> TTextInput: ...
+    def react(self, value: str) -> void: ...
+
+    def Length(self, length: int) -> Self: ...
+
+    def input_event(self, text: str) -> void: ...

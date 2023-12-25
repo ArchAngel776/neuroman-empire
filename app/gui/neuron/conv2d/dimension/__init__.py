@@ -1,6 +1,5 @@
 from PyQt5.QtCore import Qt
 
-from app.network.neuron.conv2d.dimension.options import Conv2dDimensionOptions
 from lib.gui import LS
 from lib.gui.element.font import Font
 from lib.gui.element.form import FormInput
@@ -12,6 +11,7 @@ from lib.gui.layout.type import LayoutType
 from app.hooks import i18n
 from app.network.neuron.conv2d import Convolution2d
 from app.network.neuron.conv2d.dimension.params import Conv2dDimensionParams
+from app.network.neuron.conv2d.dimension.options import Conv2dDimensionOptions
 from app.gui.neuron.strategy import NeuronStrategy
 from app.gui.neuron.params import NeuronStrategyParams
 
@@ -23,8 +23,8 @@ class DoubleDimensionStrategy(NeuronStrategy):
         HEIGHT = 0
         WIDTH = 1
 
-    def __init__(self, dependencies):
-        super().__init__(dependencies)
+    def __init__(self):
+        super().__init__()
 
         self._kernel_size_height = FormInput(self.default_params["kernel_size"][self.Dimension.HEIGHT])
         self._stride_height = FormInput(self.default_params["stride"][self.Dimension.HEIGHT])
@@ -71,13 +71,16 @@ class DoubleDimensionStrategy(NeuronStrategy):
     def default_options(self):
         return Convolution2d.default_options()
 
-    @property
-    def init_param(self):
-        return self.dependencies["init_param"]
+    def load(self, params, options):
+        self._kernel_size_height.update(params["kernel_size"][self.Dimension.HEIGHT])
+        self._stride_height.update(params["stride"][self.Dimension.HEIGHT])
+        self._padding_height.update(params["padding"][self.Dimension.HEIGHT])
+        self._dilation_height.update(params["dilation"][self.Dimension.HEIGHT])
 
-    @property
-    def init_option(self):
-        return self.dependencies["init_option"]
+        self._kernel_size_width.update(params["kernel_size"][self.Dimension.WIDTH])
+        self._stride_width.update(params["stride"][self.Dimension.WIDTH])
+        self._padding_width.update(params["padding"][self.Dimension.WIDTH])
+        self._dilation_width.update(params["dilation"][self.Dimension.WIDTH])
 
     def render(self, root):
         return (

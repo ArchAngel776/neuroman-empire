@@ -21,6 +21,9 @@ class CheckBox(QCheckBox, FormControl):
         super().showEvent(event)
         self.change_event()
 
+    def react(self, value):
+        self.setChecked(value)
+
     def change_event(self):
         QCoreApplication.sendEvent(self, CheckBoxChangedEvent(self.isChecked()))
 

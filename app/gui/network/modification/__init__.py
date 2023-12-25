@@ -47,17 +47,29 @@ class NeuronOperationModificationStrategy(SwitcherStrategy):
     def neuron_type(self):
         return self.neuron.type()
 
-    @staticmethod
-    def init_switcher(switcher):
-        switcher.implement_strategy()
-        return True
+    @property
+    def remove(self):
+        return self.dependencies["remove"]
+
+    @property
+    def action_entry(self):
+        return self.dependencies["action_entry"]
 
     def modify_neuron(self):
         return True
 
+    def remove_neuron(self):
+        self.remove(self.neuron)
+        self.action_entry()
+        return True
+
     def cancel(self):
-        action = self.dependencies["action_entry"]
-        return action() and True
+        self.action_entry()
+        return True
+
+    def init_switcher(self):
+        self.switcher_program.strategy[self.neuron_type].load(self.neuron.params, self.neuron.options)
+        return True
 
     @property
     def switcher_program(self):
@@ -113,17 +125,14 @@ class NeuronOperationModificationStrategy(SwitcherStrategy):
                     .Content(
                         self.watch(
                             NeuronOperationModificationStrategy.NEURON_SWITCHER_ELEMENT,
-                            Switcher(
-                                root,
-                                NeuronBuilderSwitcher(self.neuron_type, {}),
-                                LayoutType.VERTICAL
-                            )
+                            Switcher(root, NeuronBuilderSwitcher(self.neuron_type), LayoutType.VERTICAL)
                             .InnerSizing(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Fixed)
                             .On(
                                 Event.Type.Show, self.init_switcher,
-                                with_target=True,
+                                with_target=False,
                                 with_event=False
                             )
+                            .AutoInit()
                         )
                     )
                 )
@@ -151,6 +160,11 @@ class NeuronOperationModificationStrategy(SwitcherStrategy):
                             Button(root, i18n("window.screens.network.modification.buttons.remove"))
                             .Height(LS.rem(2))
                             .Cursor(self._button_cursor)
+                            .On(
+                                Event.Type.Click, self.remove_neuron,
+                                with_target=False,
+                                with_event=False
+                            )
                         )
                     )
                 )

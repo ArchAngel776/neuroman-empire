@@ -27,7 +27,8 @@ class Window(QWidget):
         self.setWindowIcon(self._icon)
 
         self.setMinimumSize(self._sizer.min)
-        self.setMaximumSize(self._sizer.max)
+        if self._sizer.max:
+            self.setMaximumSize(self._sizer.max)
 
     @method(ConfigScreen)
     def display(self, screen):

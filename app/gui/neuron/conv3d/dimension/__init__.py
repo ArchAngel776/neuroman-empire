@@ -1,6 +1,5 @@
 from PyQt5.QtCore import Qt
 
-from app.network.neuron.conv3d.dimension.options import Conv3dDimensionOptions
 from lib.gui import LS
 from lib.gui.element.font import Font
 from lib.gui.element.form import FormInput
@@ -12,6 +11,7 @@ from lib.gui.layout.type import LayoutType
 from app.hooks import i18n
 from app.network.neuron.conv3d import Convolution3d
 from app.network.neuron.conv3d.dimension.params import Conv3dDimensionParams
+from app.network.neuron.conv3d.dimension.options import Conv3dDimensionOptions
 from app.gui.neuron.strategy import NeuronStrategy
 from app.gui.neuron.params import NeuronStrategyParams
 
@@ -24,8 +24,8 @@ class TripleDimensionStrategy(NeuronStrategy):
         HEIGHT = 1
         WIDTH = 2
 
-    def __init__(self, dependencies):
-        super().__init__(dependencies)
+    def __init__(self):
+        super().__init__()
 
         self._kernel_size_depth = FormInput(self.default_params["kernel_size"][self.Dimension.DEPTH])
         self._stride_depth = FormInput(self.default_params["stride"][self.Dimension.DEPTH])
@@ -81,13 +81,21 @@ class TripleDimensionStrategy(NeuronStrategy):
     def default_options(self):
         return Convolution3d.default_options()
 
-    @property
-    def init_param(self):
-        return self.dependencies["init_param"]
+    def load(self, params, options):
+        self._kernel_size_depth.update(params["kernel_size"][self.Dimension.DEPTH])
+        self._stride_depth.update(params["stride"][self.Dimension.DEPTH])
+        self._padding_depth.update(params["padding"][self.Dimension.DEPTH])
+        self._dilation_depth.update(params["dilation"][self.Dimension.DEPTH])
 
-    @property
-    def init_option(self):
-        return self.dependencies["init_option"]
+        self._kernel_size_height.update(params["kernel_size"][self.Dimension.HEIGHT])
+        self._stride_height.update(params["stride"][self.Dimension.HEIGHT])
+        self._padding_height.update(params["padding"][self.Dimension.HEIGHT])
+        self._dilation_height.update(params["dilation"][self.Dimension.HEIGHT])
+
+        self._kernel_size_width.update(params["kernel_size"][self.Dimension.WIDTH])
+        self._stride_width.update(params["stride"][self.Dimension.WIDTH])
+        self._padding_width.update(params["padding"][self.Dimension.WIDTH])
+        self._dilation_width.update(params["dilation"][self.Dimension.WIDTH])
 
     def render(self, root):
         return (

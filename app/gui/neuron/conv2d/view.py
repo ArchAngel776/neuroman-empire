@@ -16,10 +16,10 @@ class Dimension2dView(Enum):
 # Main
 
 class Dimension2dSwitcher(SwitcherProgram):
-    def __init__(self, key, dependencies):
-        super().__init__(key, dependencies)
-        self._single_strategy = SingleDimensionStrategy(dependencies)
-        self._double_strategy = DoubleDimensionStrategy(dependencies)
+    def __init__(self, key):
+        super().__init__(key, {})
+        self._single_strategy = SingleDimensionStrategy()
+        self._double_strategy = DoubleDimensionStrategy()
 
     @property
     def strategy(self):

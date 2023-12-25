@@ -10,5 +10,6 @@ from app.network.neuron import Neuron
 class NeuronOperationDependencies(TypedDict):
     neuron: Optional[Neuron]
     create: Callable[[type[Neuron]], void]
+    remove: Callable[[Neuron], void]
     action_entry: Callable[[], void]
     action_creation: Callable[[], void]

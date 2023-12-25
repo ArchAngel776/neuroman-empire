@@ -8,6 +8,8 @@ class Event(QEvent):
     Select = QEvent.registerEventType(1202)
     Change = QEvent.registerEventType(1203)
     Switch = QEvent.registerEventType(1204)
+    Input = QEvent.registerEventType(1205)
+    ScrollContent = QEvent.registerEventType(1206)
 
     class Type(int):
         # Extended
@@ -15,6 +17,8 @@ class Event(QEvent):
         Select = 1202
         Change = 1203
         Switch = 1204
+        Input = 1205
+        ScrollContent = 1206
 
         # Base
         None_ = QEvent.Type.None_

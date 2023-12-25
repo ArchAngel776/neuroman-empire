@@ -1,4 +1,4 @@
-from typing import Callable, TypeVar
+from typing import Callable, TypeVar, Self
 
 from PyQt5.QtWidgets import QMenuBar, QMenu, QAction
 
@@ -7,7 +7,6 @@ from lib.decorators.decorator import Decorator
 
 # Types
 
-TMenu = TypeVar("TMenu", bound=Menu)
 TMenuConnect = TypeVar("TMenuConnect", bound=Menu)
 
 
@@ -25,9 +24,9 @@ class Menu:
 
     def __init__(self, menu: QMenuBar) -> None: ...
 
-    def create(self: TMenu, name: str, title: str) -> TMenu: ...
+    def create(self, name: str, title: str) -> Self: ...
 
     @method(ConnectAction)
-    def add(self: TMenu, name: str, action: QAction) -> TMenu: ...
+    def add(self, name: str, action: QAction) -> Self: ...
 
     def get(self, name: str) -> QMenu: ...

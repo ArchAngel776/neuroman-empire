@@ -5,9 +5,11 @@ from PyQt5.QtCore import QEvent
 
 class Event(QEvent):
     Click = ... #type: int
-    Select = ... # type: int
-    Change = ... # type: int
-    Switch = ... # type: int
+    Select = ... #type: int
+    Change = ... #type: int
+    Switch = ... #type: int
+    Input = ... #type: int
+    ScrollContent = ... #type: int
 
     class Type(int):
         # Extended
@@ -15,6 +17,8 @@ class Event(QEvent):
         Select = ... #type: Event.Type
         Change = ... #type: Event.Type
         Switch = ... #type: Event.Type
+        Input = ... #type: Event.Type
+        ScrollContent = ... #type: Event.Type
 
         # Base
         None_ = ... #type: Event.Type

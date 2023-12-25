@@ -1,11 +1,11 @@
-from typing import TypeVar
+from typing import Self
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMessageBox
 
 # Types
 
-TControlWindow = TypeVar("TControlWindow", bound=ControlWindow)
+ControlCode = int
 
 
 # Main
@@ -15,8 +15,8 @@ class ControlWindow:
 
     def __init__(self, text: str) -> None: ...
 
-    def title(self: TControlWindow, title: str) -> TControlWindow: ...
+    def title(self, title: str) -> Self: ...
 
-    def icon(self: TControlWindow, icon: QIcon) -> TControlWindow: ...
+    def icon(self, icon: QIcon) -> Self: ...
 
-    def show(self) -> int: ...
+    def show(self) -> ControlCode: ...

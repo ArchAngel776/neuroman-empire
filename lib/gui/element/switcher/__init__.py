@@ -53,6 +53,13 @@ class Switcher(Element):
         self._sizing.setVerticalPolicy(vertical)
         return self
 
+    def AutoInit(self):
+        self.add_event_listener(
+            Event.Type.Show, lambda switcher: switcher.implement_strategy(),
+            with_target=True, with_event=False
+        )
+        return self
+
     @method(UpdateStrategy)
     def change_strategy(self, key):
         self.program.change_key(key)

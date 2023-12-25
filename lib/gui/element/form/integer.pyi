@@ -1,14 +1,10 @@
-from typing import TypeVar
+from typing import Self
 
 from PyQt5.QtWidgets import QSpinBox
 
 from lib import void
 from lib.gui.element.form import FormControl
 from lib.gui.window import Window
-
-# Types
-
-TIntegerInput = TypeVar("TIntegerInput", bound=IntegerInput)
 
 
 # Main
@@ -18,6 +14,8 @@ class IntegerInput(QSpinBox, FormControl[int]):
 
     def config(self) -> void: ...
 
-    def Min(self: TIntegerInput, value: int) -> TIntegerInput: ...
+    def react(self, value: int) -> void: ...
 
-    def Max(self: TIntegerInput, value: int) -> TIntegerInput: ...
+    def Min(self, value: int) -> Self: ...
+
+    def Max(self, value: int) -> Self: ...

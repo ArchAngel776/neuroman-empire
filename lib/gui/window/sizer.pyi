@@ -1,3 +1,5 @@
+from typing import Optional
+
 from PyQt5.QtCore import QSize
 
 
@@ -5,9 +7,9 @@ from PyQt5.QtCore import QSize
 
 class Sizer:
     _min: QSize
-    _max: QSize
+    _max: Optional[QSize]
 
-    def __init__(self, min_width: int, min_height: int, max_width: int, max_height: int) -> None: ...
+    def __init__(self, min_width: int, min_height: int, max_width: int = None, max_height: int = None) -> None: ...
     @property
     def min(self) -> QSize: ...
 

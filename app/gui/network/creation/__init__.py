@@ -22,6 +22,14 @@ from app.network.neuron.type import NeuronType
 from app.network.neuron.conv1d import Convolution1d
 from app.network.neuron.conv2d import Convolution2d
 from app.network.neuron.conv3d import Convolution3d
+from app.network.neuron.convtranspose1d import TransposedConvolution1d
+from app.network.neuron.convtranspose2d import TransposedConvolution2d
+from app.network.neuron.convtranspose3d import TransposedConvolution3d
+from app.network.neuron.unfold import Unfold
+from app.network.neuron.fold import Fold
+from app.network.neuron.maxpool1d import MaxPooling1d
+from app.network.neuron.maxpool2d import MaxPooling2d
+from app.network.neuron.maxpool3d import MaxPooling3d
 from app.network.neuron.linear import Linear
 from app.gui.neuron import NeuronBuilderSwitcher
 from app.gui.network.creation.params import NeuronCreationParams
@@ -68,12 +76,6 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
         index, neuron = self._neuron_type.value
         return neuron
 
-    def init_param(self, strategy, setter):
-        pass
-
-    def init_option(self, strategy, setter):
-        pass
-
     @property
     def create(self):
         return self.dependencies["create"]
@@ -118,6 +120,7 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                         Text(root, i18n("window.screens.network.creation.labels.type"))
                         .Font(self._form_label_font)
                     )
+
                     .append(
                         LayoutFactory(LayoutType.VERTICAL).create()
                         .add(
@@ -128,28 +131,33 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                                 with_target=False,
                                 with_event=True
                             )
-                            .Option(Convolution1d.title(), Convolution1d)
-                            .Option(Convolution2d.title(), Convolution2d)
-                            .Option(Convolution3d.title(), Convolution3d)
-                            .Option(Linear.title(), Linear)
+                            .Group("Convolution")
+                            .Option("Convolution", Convolution1d.title(), Convolution1d)
+                            .Option("Convolution", Convolution2d.title(), Convolution2d)
+                            .Option("Convolution", Convolution3d.title(), Convolution3d)
+                            .Option("Convolution", TransposedConvolution1d.title(), TransposedConvolution1d)
+                            .Option("Convolution", TransposedConvolution2d.title(), TransposedConvolution2d)
+                            .Option("Convolution", TransposedConvolution3d.title(), TransposedConvolution3d)
+                            .Option("Convolution", Unfold.title(), Unfold)
+                            .Option("Convolution", Fold.title(), Fold)
+                            .Group("Pooling")
+                            .Option("Pooling", MaxPooling1d.title(), MaxPooling1d)
+                            .Option("Pooling", MaxPooling2d.title(), MaxPooling2d)
+                            .Option("Pooling", MaxPooling3d.title(), MaxPooling3d)
+                            .Group("Linear")
+                            .Option("Linear", Linear.title(), Linear)
                             .Active(self.neuron_index)
                         )
                     )
+
                 )
                 .add(
                     Scrollable(root)
-                    .ScrollX(False)
                     .ScrollY(True, size=SCROLLBAR_SIZE)
                     .Content(
                         self.watch(
                             NeuronOperationCreationStrategy.NEURON_SWITCHER_ELEMENT,
-                            Switcher(
-                                root,
-                                NeuronBuilderSwitcher(NeuronType.CONV1D, {
-
-                                }),
-                                LayoutType.VERTICAL
-                            )
+                            Switcher(root, NeuronBuilderSwitcher(NeuronType.CONV1D), LayoutType.VERTICAL)
                             .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
                         )
                     )

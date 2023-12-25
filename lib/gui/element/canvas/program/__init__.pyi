@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from enum import Enum
-from typing import TypeVar, Generic, Optional
+from typing import TypeVar, Generic, Optional, Self
 
 from PyQt5.QtGui import QPaintEvent, QPainter
 
@@ -13,7 +13,6 @@ from .variant import CanvasProgramVariant
 
 # Types
 
-TCanvasProgram = TypeVar("TCanvasProgram", bound=CanvasProgram)
 CanvasProgramVariantType = TypeVar("CanvasProgramVariantType", int, str, Enum)
 
 TCanvasProgramUpdateVariant = TypeVar("TCanvasProgramUpdateVariant", bound=CanvasProgram)
@@ -62,12 +61,12 @@ class CanvasCycle(
 # Main
 
 class CanvasProgram(ABC, Generic[CanvasProgramVariantType]):
-    _canvas: Optional[Canvas[TCanvasProgram]]
+    _canvas: Optional[Canvas[Self]]
     _variant: Optional[CanvasProgramVariantType]
 
     def __init__(self, variant: CanvasProgramVariantType = None) -> None: ...
 
-    def handle(self: TCanvasProgram, event: QPaintEvent, canvas: Canvas[TCanvasProgram]) -> void: ...
+    def handle(self, event: QPaintEvent, canvas: Canvas[Self]) -> void: ...
 
     @method(UpdateVariant[CanvasProgramVariantType])
     def change_variant(self, variant: CanvasProgramVariantType) -> void: ...
@@ -79,17 +78,17 @@ class CanvasProgram(ABC, Generic[CanvasProgramVariantType]):
 
     @property
     @method(HasCanvas[CanvasProgramVariantType])
-    def canvas(self: TCanvasProgram) -> Canvas[TCanvasProgram]: ...
+    def canvas(self) -> Canvas[Self]: ...
 
     @property
     @method(HasVariant[CanvasProgramVariantType])
     def variant_type(self) -> CanvasProgramVariantType: ...
 
     @property
-    def variants(self: TCanvasProgram) -> dict[CanvasProgramVariantType, CanvasProgramVariant[TCanvasProgram]]: ...
+    def variants(self) -> dict[CanvasProgramVariantType, CanvasProgramVariant[Self]]: ...
 
     @property
-    def variant(self: TCanvasProgram) -> CanvasProgramVariant[TCanvasProgram]: ...
+    def variant(self) -> CanvasProgramVariant[Self]: ...
 
     @property
     def width(self) -> int: ...

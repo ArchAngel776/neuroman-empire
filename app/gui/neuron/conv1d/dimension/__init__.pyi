@@ -1,3 +1,4 @@
+from lib import void
 from lib.gui.element.form import FormInput
 from lib.gui.layout import Layout
 
@@ -7,14 +8,10 @@ from app.gui import MainWindow
 from app.gui.neuron.params import NeuronStrategyParams
 from app.gui.neuron.strategy import NeuronStrategy
 
-from .dependencies import SingleDimensionStrategyDependencies, InitParamCallback, InitOptionCallback
-
 
 # Main
 
-class SingleDimensionStrategy(
-    NeuronStrategy[SingleDimensionStrategyDependencies, Conv1dDimensionParams, Conv1dDimensionOptions]
-):
+class SingleDimensionStrategy(NeuronStrategy[Conv1dDimensionParams, Conv1dDimensionOptions]):
     _kernel_size: FormInput[int]
     _stride: FormInput[int]
     _padding: FormInput[int]
@@ -22,7 +19,7 @@ class SingleDimensionStrategy(
 
     _input_height: int
 
-    def __init__(self, dependencies: SingleDimensionStrategyDependencies) -> None: ...
+    def __init__(self) -> None: ...
 
     @property
     def params(self) -> NeuronStrategyParams[Conv1dDimensionParams, Conv1dDimensionOptions]: ...
@@ -33,10 +30,6 @@ class SingleDimensionStrategy(
     @property
     def default_options(self) -> Conv1dDimensionOptions: ...
 
-    @property
-    def init_param(self) -> InitParamCallback: ...
-
-    @property
-    def init_option(self) -> InitOptionCallback: ...
+    def load(self, params: Conv1dDimensionParams, options: Conv1dDimensionOptions) -> void: ...
 
     def render(self, root: MainWindow) -> Layout: ...

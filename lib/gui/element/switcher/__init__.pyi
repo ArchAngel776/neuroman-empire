@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Generic, TypeVar, TypedDict, Callable
+from typing import Generic, TypeVar, TypedDict, Callable, Self
 
 from PyQt5.QtWidgets import QSizePolicy
 
@@ -14,7 +14,6 @@ from lib.gui.window import Window
 
 # Types
 
-TSwitcher = TypeVar("TSwitcher", bound=Switcher)
 SwitcherKey = TypeVar("SwitcherKey", int, str, Enum)
 SwitcherDependencies = TypeVar("SwitcherDependencies", dict, TypedDict)
 SwitcherParams = TypeVar("SwitcherParams", dict, TypedDict)
@@ -56,7 +55,7 @@ class RemoveOldStrategy(
 
     def __init__(self, original: Callable[[TSwitcherRemoveStrategy], void]) -> None: ...
 
-    def config(self, target: TSwitcherRemoveStrategy) -> RemoveOldStrategy: ...
+    def config(self, target: TSwitcherRemoveStrategy) -> Self: ...
 
 
 # Main
@@ -75,16 +74,14 @@ class Switcher(Element, Generic[SwitcherKey, SwitcherDependencies, SwitcherParam
 
     def config(self) -> void: ...
 
-    def InnerSizing(self: TSwitcher, horizontal: QSizePolicy.Policy, vertical: QSizePolicy.Policy) -> TSwitcher: ...
+    def InnerSizing(self, horizontal: QSizePolicy.Policy, vertical: QSizePolicy.Policy) -> Self: ...
+
+    def AutoInit(self) -> Self: ...
 
     @method(UpdateStrategy[SwitcherKey, SwitcherDependencies, SwitcherParams])
     def change_strategy(self, key: SwitcherKey) -> void: ...
 
-    def update_dependencies(
-            self: TSwitcher,
-            dependencies: SwitcherDependencies,
-            update_strategies: bool = False
-    ) -> TSwitcher: ...
+    def update_dependencies(self, dependencies: SwitcherDependencies, update_strategies: bool = False) -> Self: ...
 
     @method(RemoveOldStrategy[SwitcherKey, SwitcherDependencies, SwitcherParams])
     def implement_strategy(self) -> void: ...

@@ -1,13 +1,13 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar, TypedDict, Generic
 
+from lib import void
 from lib.gui.element.switcher.strategy import SwitcherStrategy
 
-from .params import NeuronStrategyParams as StrategyParams
+from app.gui.neuron.params import NeuronStrategyParams as StrategyParams
 
 # Types
 
-NeuronStrategyDependencies = TypeVar("NeuronStrategyDependencies", dict, TypedDict)
 NeuronStrategyParams = TypeVar("NeuronStrategyParams", dict, TypedDict)
 NeuronStrategyOptions = TypeVar("NeuronStrategyOptions", dict, TypedDict)
 
@@ -15,10 +15,12 @@ NeuronStrategyOptions = TypeVar("NeuronStrategyOptions", dict, TypedDict)
 # Main
 
 class NeuronStrategy(
-    SwitcherStrategy[NeuronStrategyDependencies, StrategyParams[NeuronStrategyParams, NeuronStrategyOptions]],
+    SwitcherStrategy[{}, StrategyParams[NeuronStrategyParams, NeuronStrategyOptions]],
     ABC,
-    Generic[NeuronStrategyDependencies, NeuronStrategyParams, NeuronStrategyOptions]
+    Generic[NeuronStrategyParams, NeuronStrategyOptions]
 ):
+    def __init__(self) -> None: ...
+
     @property
     @abstractmethod
     def default_params(self) -> NeuronStrategyParams: ...
@@ -26,3 +28,6 @@ class NeuronStrategy(
     @property
     @abstractmethod
     def default_options(self) -> NeuronStrategyOptions: ...
+
+    @abstractmethod
+    def load(self, params: NeuronStrategyParams, options: NeuronStrategyOptions) -> void: ...

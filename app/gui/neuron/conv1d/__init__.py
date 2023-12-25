@@ -7,7 +7,6 @@ from lib.gui.element.form.check import CheckBox
 from lib.gui.element.form.integer import IntegerInput
 from lib.gui.element.switcher import Switcher
 from lib.gui.element.text import Text
-from lib.gui.event import Event
 from lib.gui.layout.factory import LayoutFactory
 from lib.gui.layout.type import LayoutType
 
@@ -19,7 +18,6 @@ from app.gui.neuron.strategy import NeuronStrategy
 from app.gui.neuron.params import NeuronStrategyParams
 from app.gui.neuron.conv1d.view import Dimension1dSwitcher, Dimension1dView
 from app.gui.neuron.conv1d.dimension import SingleDimensionStrategy
-from app.gui.neuron.conv1d.dimension.dependencies import SingleDimensionStrategyDependencies
 
 
 # Main
@@ -27,8 +25,8 @@ from app.gui.neuron.conv1d.dimension.dependencies import SingleDimensionStrategy
 class NeuronBuilderConvolution1dStrategy(NeuronStrategy):
     DIMENSION_SWITCHER = "dimension_1d_switcher"
 
-    def __init__(self, dependencies):
-        super().__init__(dependencies)
+    def __init__(self):
+        super().__init__()
 
         self._input_channels = FormInput(self.default_params["in_channels"])
         self._output_channels = FormInput(self.default_params["out_channels"])
@@ -58,26 +56,22 @@ class NeuronBuilderConvolution1dStrategy(NeuronStrategy):
     def default_options(self):
         return Convolution1d.default_options()
 
+    def load(self, params, options):
+        self._input_channels.update(params["in_channels"])
+        self._output_channels.update(params["out_channels"])
+
+        self.dimension_switcher_program.current_strategy.load(params, options)
+
+        self._groups.update(params["groups"])
+        self._bias.update(params["bias"])
+
     @property
     def dimension_params(self):
         return self.dimension_switcher_program.params
 
     @property
-    def init_param(self):
-        return self.dependencies["init_param"]
-
-    @property
-    def init_option(self):
-        return self.dependencies["init_option"]
-
-    @property
     def dimension_switcher_program(self):
         return self.get(NeuronBuilderConvolution1dStrategy.DIMENSION_SWITCHER).program
-
-    @staticmethod
-    def init_switcher(switcher):
-        switcher.implement_strategy()
-        return True
 
     def render(self, root):
         return (
@@ -116,17 +110,9 @@ class NeuronBuilderConvolution1dStrategy(NeuronStrategy):
             .add(
                 self.watch(
                     NeuronBuilderConvolution1dStrategy.DIMENSION_SWITCHER,
-                    Switcher(
-                        root,
-                        Dimension1dSwitcher(Dimension1dView.SINGLE, self.dependencies),
-                        LayoutType.VERTICAL
-                    )
+                    Switcher(root, Dimension1dSwitcher(Dimension1dView.SINGLE), LayoutType.VERTICAL)
                     .InnerSizing(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Fixed)
-                    .On(
-                        Event.Type.Show, self.init_switcher,
-                        with_target=True,
-                        with_event=False
-                    )
+                    .AutoInit()
                 )
             )
             .append(

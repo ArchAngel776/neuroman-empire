@@ -14,6 +14,9 @@ class IntegerInput(QSpinBox, FormControl):
         super().config()
         self.valueChanged.connect(self.input)
 
+    def react(self, value):
+        self.setValue(value)
+
     def Min(self, value):
         self.setMinimum(value)
         return self

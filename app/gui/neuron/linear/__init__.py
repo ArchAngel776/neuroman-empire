@@ -19,8 +19,8 @@ from app.gui.neuron.params import NeuronStrategyParams
 # Main
 
 class NeuronBuilderLinearStrategy(NeuronStrategy):
-    def __init__(self, dependencies):
-        super().__init__(dependencies)
+    def __init__(self):
+        super().__init__()
 
         self._input_features = FormInput(self.default_params["in_features"])
         self._output_features = FormInput(self.default_params["out_features"])
@@ -47,13 +47,10 @@ class NeuronBuilderLinearStrategy(NeuronStrategy):
     def default_options(self):
         return Linear.default_options()
 
-    @property
-    def init_param(self):
-        return self.dependencies["init_param"]
-
-    @property
-    def init_option(self):
-        return self.dependencies["init_option"]
+    def load(self, params, options):
+        self._input_features.update(params["in_features"])
+        self._output_features.update(params["out_features"])
+        self._bias.update(params["bias"])
 
     def render(self, root):
         return (

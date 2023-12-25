@@ -1,8 +1,6 @@
-from typing import Generic, TypeVar, ParamSpec, Callable
+from typing import Generic, TypeVar, ParamSpec, Callable, Self
 
 # Types
-
-TDecorator = TypeVar("TDecorator", bound="Decorator")
 
 DecoratorResult = TypeVar("DecoratorResult")
 DecoratorArguments = ParamSpec("DecoratorArguments")
@@ -15,6 +13,6 @@ class Decorator(Generic[DecoratorResult, DecoratorArguments]):
 
     def __init__(self, original: Callable[DecoratorArguments, DecoratorResult]) -> None: ...
 
-    def config(self: TDecorator, *args: DecoratorArguments.args, **kwargs: DecoratorArguments.kwargs) -> TDecorator: ...
+    def config(self, *args: DecoratorArguments.args, **kwargs: DecoratorArguments.kwargs) -> Self: ...
 
     def method(self, *args: DecoratorArguments.args, **kwargs: DecoratorArguments.kwargs) -> DecoratorResult: ...

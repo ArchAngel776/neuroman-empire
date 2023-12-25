@@ -1,3 +1,4 @@
+from lib import void
 from lib.gui.element.form import FormInput
 from lib.gui.event.check_box_changed import CheckBoxChangedEvent
 from lib.gui.layout import Layout
@@ -11,14 +12,11 @@ from app.gui.neuron.strategy import NeuronStrategy
 from app.gui.neuron.params import NeuronStrategyParams
 
 from .view import Dimension2dSwitcher
-from .dependencies import Convolution2dStrategyDependencies, InitParamCallback, InitOptionCallback
 
 
 # Main
 
-class NeuronBuilderConvolution2dStrategy(
-    NeuronStrategy[Convolution2dStrategyDependencies, Conv2dParams, Conv2dOptions]
-):
+class NeuronBuilderConvolution2dStrategy(NeuronStrategy[Conv2dParams, Conv2dOptions]):
     DIMENSION_SWITCHER = ... #type: str
 
     _input_channels: FormInput[int]
@@ -30,7 +28,7 @@ class NeuronBuilderConvolution2dStrategy(
 
     _input_height: int
 
-    def __init__(self, dependencies: Convolution2dStrategyDependencies) -> None: ...
+    def __init__(self) -> None: ...
 
     @property
     def params(self) -> NeuronStrategyParams[Conv2dParams, Conv2dOptions]: ...
@@ -41,14 +39,10 @@ class NeuronBuilderConvolution2dStrategy(
     @property
     def default_options(self) -> Conv2dOptions: ...
 
+    def load(self, params: Conv2dParams, options: Conv2dOptions) -> void: ...
+
     @property
     def dimension_params(self) -> NeuronStrategyParams[Conv2dDimensionParams, Conv2dDimensionOptions]: ...
-
-    @property
-    def init_param(self) -> InitParamCallback: ...
-
-    @property
-    def init_option(self) -> InitOptionCallback: ...
 
     def change_dimension(self, event: CheckBoxChangedEvent) -> bool: ...
 

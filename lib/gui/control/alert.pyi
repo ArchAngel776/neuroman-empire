@@ -1,12 +1,8 @@
-from typing import TypeVar
+from typing import Self
 
 from PyQt5.QtWidgets import QMessageBox
 
 from lib.gui.control import ControlWindow
-
-# Types
-
-TAlert = TypeVar("TAlert", bound=Alert)
 
 
 # Main
@@ -14,4 +10,4 @@ TAlert = TypeVar("TAlert", bound=Alert)
 class Alert(ControlWindow):
     def __init__(self, text: str) -> None: ...
 
-    def type(self: TAlert, icon: QMessageBox.Icon) -> TAlert: ...
+    def type(self, icon: QMessageBox.Icon) -> Self: ...

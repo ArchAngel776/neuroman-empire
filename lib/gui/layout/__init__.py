@@ -1,5 +1,6 @@
 from lib.decorators import method
 from lib.decorators.decorator import Decorator
+from lib.helpers.gui_remover import GUIRemover
 
 
 # Decorators
@@ -8,6 +9,34 @@ class ConfigElement(Decorator):
     def config(self, target, element):
         element.config()
         return self
+
+
+class ConditionalAdd(Decorator):
+    def __init__(self, original):
+        super().__init__(original)
+        self._gui_remover = GUIRemover()
+
+    def method(self, target, element, allow=True):
+        if allow:
+            return super().method(target, element)
+        else:
+            self._gui_remover.remove_widget(element)
+            element.deleteLater()
+            return target
+
+
+class ConditionalAppend(Decorator):
+    def __init__(self, original):
+        super().__init__(original)
+        self._gui_remover = GUIRemover()
+
+    def method(self, target, layout, allow=True):
+        if allow:
+            return super().method(target, layout)
+        else:
+            self._gui_remover.remove_layout(layout.element)
+            layout.element.deleteLater()
+            return target
 
 
 # Main
@@ -21,11 +50,13 @@ class Layout:
         self._weight = weight
         return self
 
+    @method(ConditionalAdd)
     @method(ConfigElement)
     def add(self, element):
         self._layout.addWidget(element)
         return self
 
+    @method(ConditionalAppend)
     def append(self, layout):
         self._layout.addLayout(layout.element, layout.get_weight())
         return self

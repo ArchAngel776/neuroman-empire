@@ -1,4 +1,4 @@
-from typing import TypeVar
+from typing import TypeVar, Self
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget
@@ -12,14 +12,13 @@ from .sizer import Sizer
 
 # Types
 
-TWindow = TypeVar("TWindow", bound=Window)
 TWindowConfig = TypeVar("TWindowConfig", bound=Window)
 
 
 # Decorators
 
 class ConfigScreen(Decorator[void, [Window, Screen[Window]]]):
-    def config(self, target: TWindowConfig, screen: Screen[TWindowConfig]) -> ConfigScreen: ...
+    def config(self, target: TWindowConfig, screen: Screen[TWindowConfig]) -> Self: ...
 
 
 # Main
@@ -34,4 +33,4 @@ class Window(QWidget):
     def config(self) -> void: ...
 
     @method(ConfigScreen)
-    def display(self: TWindow, screen: Screen[TWindow]) -> void: ...
+    def display(self, screen: Screen[Self]) -> void: ...

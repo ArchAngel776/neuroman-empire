@@ -24,3 +24,22 @@ def palette_color(role, color):
     palette = QPalette()
     palette.setColor(role, color)
     return palette
+
+
+def foreach(target, callback):
+    for index, item in entities(target):
+        callback(item, index)
+
+
+def mapping(target, callback):
+    return [callback(item, index) for index, item in entities(target)]
+
+
+def merge(**sources):
+    result = []
+    for name in sources:
+        for index, item in entities(sources[name]):
+            if not index < len(result):
+                result.append({})
+            result[index][name] = item
+    return result

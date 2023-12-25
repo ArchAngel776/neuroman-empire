@@ -1,7 +1,4 @@
-from typing import TypedDict
-
-
 # Main
 
-class LinearParams(TypedDict):
+class LinearParams(dict):
     pass

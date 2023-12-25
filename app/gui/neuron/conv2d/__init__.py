@@ -1,10 +1,12 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QSizePolicy
 
+from app import SCROLLBAR_SIZE
 from lib.gui import LS
 from lib.gui.element.form import FormInput
 from lib.gui.element.form.check import CheckBox
 from lib.gui.element.form.integer import IntegerInput
+from lib.gui.element.scrollable import Scrollable
 from lib.gui.element.switcher import Switcher
 from lib.gui.element.text import Text
 from lib.gui.event import Event
@@ -25,8 +27,8 @@ from app.gui.neuron.conv2d.view import Dimension2dView, Dimension2dSwitcher
 class NeuronBuilderConvolution2dStrategy(NeuronStrategy):
     DIMENSION_SWITCHER = "dimension_2d_switcher"
 
-    def __init__(self, dependencies):
-        super().__init__(dependencies)
+    def __init__(self):
+        super().__init__()
 
         self._input_channels = FormInput(self.default_params["in_channels"])
         self._output_channels = FormInput(self.default_params["out_channels"])
@@ -59,17 +61,19 @@ class NeuronBuilderConvolution2dStrategy(NeuronStrategy):
     def default_options(self):
         return Convolution2d.default_options()
 
+    def load(self, params, options):
+        self._input_channels.update(params["in_channels"])
+        self._output_channels.update(params["out_channels"])
+
+        self._reflection.update(options["square"])
+        self.dimension_switcher_program.current_strategy.load(params, options)
+
+        self._groups.update(params["groups"])
+        self._bias.update(params["bias"])
+
     @property
     def dimension_params(self):
         return self.dimension_switcher_program.params
-
-    @property
-    def init_param(self):
-        return self.dependencies["init_param"]
-
-    @property
-    def init_option(self):
-        return self.dependencies["init_option"]
 
     def change_dimension(self, event):
         key = Dimension2dView.SINGLE if event.checked else Dimension2dView.DOUBLE
@@ -139,14 +143,16 @@ class NeuronBuilderConvolution2dStrategy(NeuronStrategy):
                 )
             )
             .add(
-                self.watch(
-                    NeuronBuilderConvolution2dStrategy.DIMENSION_SWITCHER,
-                    Switcher(
-                        root,
-                        Dimension2dSwitcher(Dimension2dView.DOUBLE, self.dependencies),
-                        LayoutType.VERTICAL
+                Scrollable(root)
+                .ScrollX(True, size=SCROLLBAR_SIZE)
+                .ScrollY(False)
+                .Adjust(Scrollable.SizeAdjustPolicy.AdjustToContents)
+                .Content(
+                    self.watch(
+                        NeuronBuilderConvolution2dStrategy.DIMENSION_SWITCHER,
+                        Switcher(root, Dimension2dSwitcher(Dimension2dView.DOUBLE), LayoutType.VERTICAL)
+                        .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
                     )
-                    .InnerSizing(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Fixed)
                 )
             )
             .append(

@@ -47,13 +47,19 @@ class CreateNetworkScreen(Screen):
         params = self.switcher_program.params
         self._network.add_neuron(neuron(params["name"], params["params"], params["options"]))
 
-        self.update_canvas()
-        self.canvas_program.update()
-
         self.update(
             CreateNetworkScreen.NEURON_OPERATION_SWITCHER,
             lambda switcher: switcher.change_strategy(NeuronOperation.ENTRY)
         )
+
+        self.update_canvas()
+        self.canvas_program.update()
+
+    def remove_neuron(self, neuron):
+        self._network.neurons.remove(neuron)
+
+        self.update_canvas()
+        self.canvas_program.update()
 
     @staticmethod
     def mouse_move_canvas(canvas, event):
@@ -71,11 +77,6 @@ class CreateNetworkScreen(Screen):
                 .change_strategy(NeuronOperation.MODIFY)
             )
             self.update_canvas()
-        return True
-
-    @staticmethod
-    def init_switcher_operation(switcher):
-        switcher.implement_strategy()
         return True
 
     def action_entry(self):
@@ -110,6 +111,7 @@ class CreateNetworkScreen(Screen):
         return NeuronOperationDependencies(
             neuron=neuron,
             create=self.create_neuron,
+            remove=self.remove_neuron,
             action_entry=self.action_entry,
             action_creation=self.action_creation
         )
@@ -124,7 +126,6 @@ class CreateNetworkScreen(Screen):
                     .weight(1)
                     .add(
                         Scrollable(self.root)
-                        .ScrollX(False)
                         .ScrollY(True, size=SCROLLBAR_SIZE)
                         .Align(Qt.AlignVCenter)
                         .On(Event.Type.Resize, self.canvas_setup)
@@ -155,11 +156,7 @@ class CreateNetworkScreen(Screen):
                                 LayoutType.VERTICAL
                             )
                             .InnerSizing(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.MinimumExpanding)
-                            .On(
-                                Event.Type.Show, self.init_switcher_operation,
-                                with_target=True,
-                                with_event=False
-                            )
+                            .AutoInit()
                         )
                     )
                 )

@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Self
 
 from lib import void
 from lib.decorators import method
@@ -41,7 +41,7 @@ class AppendFirst(
             callback: EventListenerCallback,
             with_target: bool = True,
             with_event: bool = True
-    ) -> AppendFirst[EventTypeAppendFirst, EventAppendFirst]: ...
+    ) -> Self: ...
 
 
 class OnlyExist(

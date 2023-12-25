@@ -4,7 +4,7 @@ from typing import TypedDict, Literal
 
 Conv1dDimensionParam = int
 
-Conv1dDimensionParamsKeyof = Literal["in_channels", "out_channels", "groups", "bias"]
+Conv1dDimensionParamsKeyof = Literal["kernel_size", "stride", "padding", "dilation"]
 
 
 # Main

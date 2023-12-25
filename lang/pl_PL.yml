@@ -9,16 +9,16 @@ window:
   screens:
     home:
       title: "NeuRoman Empire"
-      description: "Program do kreacji i modyfikacji sieci neuronowych mających umożliwić rozpoznawanie klas na obrazku wejściowym, wytrenowana na zbiorze danych CIFAR-10"
+      description: "Program do kreacji i modyfikacji sieci neuronowych mających umożliwić rozpoznawanie klas na obrazku wejściowym, wytrenowana na zbiorze danych CIFAR-10."
       menu:
         create: "Stwórz nową sieć"
     network:
       entry:
         title: "Budowa sieci neuronowej"
         description:
-          - "Ta sekcja pozwala na graficzną budowę oraz przegląd sieci neuronowej"
-          - "Aby rozpocząć proces kreacji nowego neuronu wciśnij przycisk \"{window.screens.network.entry.buttons.add}\""
-          - "Aby modyfikować lub usunąć neuron wciśnij jego graficzną interpretację na matrycy obok"
+          - "Ta sekcja pozwala na graficzną budowę oraz przegląd sieci neuronowej."
+          - "Aby rozpocząć proces kreacji nowego neuronu wciśnij przycisk \"{window.screens.network.entry.buttons.add}\"."
+          - "Aby modyfikować lub usunąć neuron wciśnij jego graficzną interpretację na matrycy obok."
         buttons:
           add: "Rozpocznij dodawanie neuronu"
       creation:
@@ -79,6 +79,106 @@ window:
             dilation: "Odstęp: "
             groups: "Ilość grup: "
             bias: "Bias: "
+        convtranspose1d:
+          dimensions:
+            length: "Długość"
+          labels:
+            input: "Wejście: "
+            output: "Wyjście: "
+            kernel: "Rozmiar jądra: "
+            stride: "Przeskok: "
+            padding: "Margines: "
+            dilation: "Odstęp: "
+            output_padding: "Margines dodatkowy: "
+            groups: "Ilość grup: "
+            bias: "Bias: "
+        convtranspose2d:
+          dimensions:
+            width: "Szerokość"
+            height: "Wysokość"
+          labels:
+            input: "Wejście: "
+            output: "Wyjście: "
+            square: "Wymiary kwadratowe: "
+            kernel: "Rozmiar jądra: "
+            stride: "Przeskok: "
+            padding: "Margines: "
+            dilation: "Odstęp: "
+            output_padding: "Margines dodatkowy: "
+            groups: "Ilość grup: "
+            bias: "Bias: "
+        convtranspose3d:
+          dimensions:
+            depth: "Głębia"
+            width: "Szerokość"
+            height: "Wysokość"
+          labels:
+            input: "Wejście: "
+            output: "Wyjście: "
+            cube: "Wymiary sześcienne: "
+            kernel: "Rozmiar jądra: "
+            stride: "Przeskok: "
+            padding: "Margines: "
+            dilation: "Odstęp: "
+            output_padding: "Margines dodatkowy: "
+            groups: "Ilość grup: "
+            bias: "Bias: "
+        unfold:
+          dimension: "Wymiar {}: "
+          labels:
+            kernel: "Rozmiar jądra: "
+            stride: "Przeskok: "
+            padding: "Margines: "
+            dilation: "Odstęp: "
+          buttons:
+            add: "Dodaj wymiar"
+            remove: "Usuń wymiar"
+        fold:
+          dimension: "Wymiar {}: "
+          labels:
+            output: "Wyjście: "
+            kernel: "Rozmiar jądra: "
+            stride: "Przeskok: "
+            padding: "Margines: "
+            dilation: "Odstęp: "
+          buttons:
+            add: "Dodaj wymiar"
+            remove: "Usuń wymiar"
+        maxpool1d:
+          dimensions:
+            length: "Długość"
+          labels:
+            kernel: "Rozmiar jądra: "
+            stride: "Przeskok: "
+            padding: "Margines: "
+            dilation: "Odstęp: "
+            return_indices: "Indeksy zwrotne: "
+            ceil_mode: "Zaokrąglanie w górę: "
+        maxpool2d:
+          dimensions:
+            width: "Szerokość"
+            height: "Wysokość"
+          labels:
+            square: "Wymiary kwadratowe: "
+            kernel: "Rozmiar jądra: "
+            stride: "Przeskok: "
+            padding: "Margines: "
+            dilation: "Odstęp: "
+            return_indices: "Indeksy zwrotne: "
+            ceil_mode: "Zaokrąglanie w górę: "
+        maxpool3d:
+          dimensions:
+            depth: "Głębia"
+            width: "Szerokość"
+            height: "Wysokość"
+          labels:
+            cube: "Wymiary sześcienne: "
+            kernel: "Rozmiar jądra: "
+            stride: "Przeskok: "
+            padding: "Margines: "
+            dilation: "Odstęp: "
+            return_indices: "Indeksy zwrotne: "
+            ceil_mode: "Zaokrąglanie w górę: "
         linear:
           labels:
             input: "Wejście: "

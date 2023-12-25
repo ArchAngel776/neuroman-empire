@@ -1,3 +1,4 @@
+from lib import void
 from lib.gui.element.font import Font
 from lib.gui.element.form import FormInput
 from lib.gui.layout import Layout
@@ -8,14 +9,10 @@ from app.gui import MainWindow
 from app.gui.neuron.strategy import NeuronStrategy
 from app.gui.neuron.params import NeuronStrategyParams
 
-from .dependencies import TripleDimensionStrategyDependencies, InitParamCallback, InitOptionCallback
-
 
 # Main
 
-class TripleDimensionStrategy(
-    NeuronStrategy[TripleDimensionStrategyDependencies, Conv3dDimensionParams, Conv3dDimensionOptions]
-):
+class TripleDimensionStrategy(NeuronStrategy[Conv3dDimensionParams, Conv3dDimensionOptions]):
     class Dimension(int):
         DEPTH = ... #type: TripleDimensionStrategy.Dimension
         HEIGHT = ... #type: TripleDimensionStrategy.Dimension
@@ -39,7 +36,7 @@ class TripleDimensionStrategy(
     _input_height: int
     _font_caption_title: Font
 
-    def __init__(self, dependencies: TripleDimensionStrategyDependencies) -> None: ...
+    def __init__(self) -> None: ...
 
     @property
     def params(self) -> NeuronStrategyParams[Conv3dDimensionParams, Conv3dDimensionOptions]: ...
@@ -50,10 +47,6 @@ class TripleDimensionStrategy(
     @property
     def default_options(self) -> Conv3dDimensionOptions: ...
 
-    @property
-    def init_param(self) -> InitParamCallback: ...
-
-    @property
-    def init_option(self) -> InitOptionCallback: ...
+    def load(self, params: Conv3dDimensionParams, options: Conv3dDimensionOptions) -> void: ...
 
     def render(self, root: MainWindow) -> Layout: ...

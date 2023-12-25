@@ -31,6 +31,14 @@ class NetworkBuilderCanvasProgram(CanvasProgram[NetworkBuilderVariantType]):
     _color_conv1d: QColor
     _color_conv2d: QColor
     _color_conv3d: QColor
+    _color_convtranspose1d: QColor
+    _color_convtranspose2d: QColor
+    _color_convtranspose3d: QColor
+    _color_unfold: QColor
+    _color_fold: QColor
+    _color_maxpool1d: QColor
+    _color_maxpool2d: QColor
+    _color_maxpool3d: QColor
     _color_linear: QColor
 
     _cursor_active: QCursor
@@ -124,6 +132,30 @@ class NetworkBuilderCanvasProgram(CanvasProgram[NetworkBuilderVariantType]):
 
     @property
     def color_conv3d(self) -> QColor: ...
+
+    @property
+    def color_convtranspose1d(self) -> QColor: ...
+
+    @property
+    def color_convtranspose2d(self) -> QColor: ...
+
+    @property
+    def color_unfold(self) -> QColor: ...
+
+    @property
+    def color_fold(self) -> QColor: ...
+
+    @property
+    def color_convtranspose3d(self) -> QColor: ...
+
+    @property
+    def color_maxpool1d(self) -> QColor: ...
+
+    @property
+    def color_maxpool2d(self) -> QColor: ...
+
+    @property
+    def color_maxpool3d(self) -> QColor: ...
 
     @property
     def color_linear(self) -> QColor: ...

@@ -14,9 +14,9 @@ class Dimension1dView(Enum):
 # Main
 
 class Dimension1dSwitcher(SwitcherProgram):
-    def __init__(self, key, dependencies):
-        super().__init__(key, dependencies)
-        self._single_strategy = SingleDimensionStrategy(dependencies)
+    def __init__(self, key):
+        super().__init__(key, {})
+        self._single_strategy = SingleDimensionStrategy()
 
     @property
     def strategy(self):

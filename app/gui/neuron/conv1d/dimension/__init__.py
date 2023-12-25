@@ -18,8 +18,8 @@ from app.gui.neuron.strategy import NeuronStrategy
 # Main
 
 class SingleDimensionStrategy(NeuronStrategy):
-    def __init__(self, dependencies):
-        super().__init__(dependencies)
+    def __init__(self):
+        super().__init__()
 
         self._kernel_size = FormInput(self.default_params["kernel_size"])
         self._stride = FormInput(self.default_params["stride"])
@@ -48,13 +48,11 @@ class SingleDimensionStrategy(NeuronStrategy):
     def default_options(self):
         return Convolution1d.default_options()
 
-    @property
-    def init_param(self):
-        return self.dependencies["init_param"]
-
-    @property
-    def init_option(self):
-        return self.dependencies["init_option"]
+    def load(self, params, options):
+        self._kernel_size.update(params["kernel_size"])
+        self._stride.update(params["stride"])
+        self._padding.update(params["padding"])
+        self._dilation.update(params["dilation"])
 
     def render(self, root):
         return (

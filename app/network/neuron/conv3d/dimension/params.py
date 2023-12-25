@@ -1,7 +1,4 @@
-from typing import TypedDict
-
-
 # Main
 
-class Conv3dDimensionParams(TypedDict):
+class Conv3dDimensionParams(dict):
     pass

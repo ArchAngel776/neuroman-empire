@@ -27,8 +27,8 @@ from app.gui.neuron.conv3d.view import Dimension3dView, Dimension3dSwitcher
 class NeuronBuilderConvolution3dStrategy(NeuronStrategy):
     DIMENSION_SWITCHER = "dimension_3d_switcher"
 
-    def __init__(self, dependencies):
-        super().__init__(dependencies)
+    def __init__(self):
+        super().__init__()
 
         self._input_channels = FormInput(self.default_params["in_channels"])
         self._output_channels = FormInput(self.default_params["out_channels"])
@@ -61,17 +61,19 @@ class NeuronBuilderConvolution3dStrategy(NeuronStrategy):
     def default_options(self):
         return Convolution3d.default_options()
 
+    def load(self, params, options):
+        self._input_channels.update(params["in_channels"])
+        self._output_channels.update(params["out_channels"])
+
+        self._reflection.update(options["cube"])
+        self.dimension_switcher_program.current_strategy.load(params, options)
+
+        self._groups.update(params["groups"])
+        self._bias.update(params["bias"])
+
     @property
     def dimension_params(self):
         return self.dimension_switcher_program.params
-
-    @property
-    def init_param(self):
-        return self.dependencies["init_param"]
-
-    @property
-    def init_option(self):
-        return self.dependencies["init_option"]
 
     def change_dimension(self, event):
         key = Dimension3dView.SINGLE if event.checked else Dimension3dView.TRIPLE
@@ -79,13 +81,6 @@ class NeuronBuilderConvolution3dStrategy(NeuronStrategy):
             NeuronBuilderConvolution3dStrategy.DIMENSION_SWITCHER,
             lambda switcher: switcher.change_strategy(key)
         )
-        return True
-
-    @staticmethod
-    def adjust_dimension_params_area(switcher):
-        scrollable = switcher.parent().parent()
-        scrollable.setFixedHeight(switcher.height() + SCROLLBAR_SIZE)
-
         return True
 
     @property
@@ -155,17 +150,8 @@ class NeuronBuilderConvolution3dStrategy(NeuronStrategy):
                 .Content(
                     self.watch(
                         NeuronBuilderConvolution3dStrategy.DIMENSION_SWITCHER,
-                        Switcher(
-                            root,
-                            Dimension3dSwitcher(Dimension3dView.TRIPLE, self.dependencies),
-                            LayoutType.VERTICAL
-                        )
+                        Switcher(root, Dimension3dSwitcher(Dimension3dView.TRIPLE), LayoutType.VERTICAL)
                         .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-                        .On(
-                            Event.Type.Resize, self.adjust_dimension_params_area,
-                            with_target=True,
-                            with_event=False
-                        )
                     )
                 )
             )
