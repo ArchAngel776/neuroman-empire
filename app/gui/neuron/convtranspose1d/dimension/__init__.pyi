@@ -5,8 +5,9 @@ from lib.gui.layout import Layout
 from app.network.neuron.convtranspose1d.dimension.params import ConvTranspose1dDimensionParams
 from app.network.neuron.convtranspose1d.dimension.options import ConvTranspose1dDimensionOptions
 from app.gui import MainWindow
-from app.gui.neuron.params import NeuronStrategyParams
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.dependencies import NeuronBuilderDependencies
+from app.gui.neuron.params import NeuronStrategyParams
 
 
 # Main
@@ -20,7 +21,7 @@ class SingleDimensionStrategy(NeuronStrategy[ConvTranspose1dDimensionParams, Con
 
     _input_height: int
 
-    def __init__(self) -> None: ...
+    def __init__(self, dependencies: NeuronBuilderDependencies) -> None: ...
 
     @property
     def params(self) -> NeuronStrategyParams[ConvTranspose1dDimensionParams, ConvTranspose1dDimensionOptions]: ...

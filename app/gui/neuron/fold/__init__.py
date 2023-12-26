@@ -38,8 +38,8 @@ class UpdateOperation(Decorator):
 class NeuronBuilderFoldStrategy(NeuronStrategy):
     LIST_ELEMENT = "list_element"
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, dependencies):
+        super().__init__(dependencies)
 
         self._output_size = mapping(self.default_params["output_size"], value_to_form)
         self._kernel_size = mapping(self.default_params["kernel_size"], value_to_form)

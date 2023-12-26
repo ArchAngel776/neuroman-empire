@@ -7,6 +7,7 @@ from app.network.neuron.maxpool2d.dimension.params import MaxPool2dDimensionPara
 from app.network.neuron.maxpool2d.dimension.options import MaxPool2dDimensionOptions
 from app.gui import MainWindow
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.neuron.params import NeuronStrategyParams
 
 
@@ -30,7 +31,7 @@ class DoubleDimensionStrategy(NeuronStrategy[MaxPool2dDimensionParams, MaxPool2d
     _input_height: int
     _font_caption_title: Font
 
-    def __init__(self) -> None: ...
+    def __init__(self, dependencies: NeuronBuilderDependencies) -> None: ...
 
     @property
     def params(self) -> NeuronStrategyParams[MaxPool2dDimensionParams, MaxPool2dDimensionOptions]: ...

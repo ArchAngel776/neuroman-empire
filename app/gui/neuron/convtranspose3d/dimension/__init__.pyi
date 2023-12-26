@@ -7,6 +7,7 @@ from app.network.neuron.convtranspose3d.dimension.params import ConvTranspose3dD
 from app.network.neuron.convtranspose3d.dimension.options import ConvTranspose3dDimensionOptions
 from app.gui import MainWindow
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.neuron.params import NeuronStrategyParams
 
 
@@ -39,7 +40,7 @@ class TripleDimensionStrategy(NeuronStrategy[ConvTranspose3dDimensionParams, Con
     _input_height: int
     _font_caption_title: Font
 
-    def __init__(self) -> None: ...
+    def __init__(self, dependencies: NeuronBuilderDependencies) -> None: ...
 
     @property
     def params(self) -> NeuronStrategyParams[ConvTranspose3dDimensionParams, ConvTranspose3dDimensionOptions]: ...

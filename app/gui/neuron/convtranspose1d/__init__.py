@@ -25,8 +25,8 @@ from app.gui.neuron.convtranspose1d.dimension import SingleDimensionStrategy
 class NeuronBuilderTransposedConvolution1dStrategy(NeuronStrategy):
     DIMENSION_SWITCHER = "dimension_1d_switcher"
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, dependencies):
+        super().__init__(dependencies)
 
         self._input_channels = FormInput(self.default_params["in_channels"])
         self._output_channels = FormInput(self.default_params["out_channels"])
@@ -110,7 +110,11 @@ class NeuronBuilderTransposedConvolution1dStrategy(NeuronStrategy):
             .add(
                 self.watch(
                     NeuronBuilderTransposedConvolution1dStrategy.DIMENSION_SWITCHER,
-                    Switcher(root, Dimension1dSwitcher(Dimension1dView.SINGLE), LayoutType.VERTICAL)
+                    Switcher(
+                        root,
+                        Dimension1dSwitcher(Dimension1dView.SINGLE, self.dependencies),
+                        LayoutType.VERTICAL
+                    )
                     .InnerSizing(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Fixed)
                     .AutoInit()
                 )

@@ -6,6 +6,7 @@ from app.network.neuron.linear.params import LinearParams
 from app.network.neuron.linear.options import LinearOptions
 from app.gui import MainWindow
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.neuron.params import NeuronStrategyParams
 
 
@@ -18,7 +19,7 @@ class NeuronBuilderLinearStrategy(NeuronStrategy[LinearParams, LinearOptions]):
 
     _input_height: int
 
-    def __init__(self) -> None: ...
+    def __init__(self, dependencies: NeuronBuilderDependencies) -> None: ...
 
     @property
     def params(self) -> NeuronStrategyParams[LinearParams, LinearOptions]: ...

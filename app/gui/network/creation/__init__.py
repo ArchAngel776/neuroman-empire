@@ -32,6 +32,7 @@ from app.network.neuron.maxpool2d import MaxPooling2d
 from app.network.neuron.maxpool3d import MaxPooling3d
 from app.network.neuron.linear import Linear
 from app.gui.neuron import NeuronBuilderSwitcher
+from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.network.creation.params import NeuronCreationParams
 
 
@@ -87,6 +88,12 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
     @property
     def switcher_program(self):
         return self.get(NeuronOperationCreationStrategy.NEURON_SWITCHER_ELEMENT).program
+
+    @property
+    def neuron_dependencies(self):
+        return NeuronBuilderDependencies(
+            network=self.dependencies["network"]
+        )
 
     def render(self, root):
         return (
@@ -157,7 +164,11 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                     .Content(
                         self.watch(
                             NeuronOperationCreationStrategy.NEURON_SWITCHER_ELEMENT,
-                            Switcher(root, NeuronBuilderSwitcher(NeuronType.CONV1D), LayoutType.VERTICAL)
+                            Switcher(
+                                root,
+                                NeuronBuilderSwitcher(NeuronType.CONV1D, self.neuron_dependencies),
+                                LayoutType.VERTICAL
+                            )
                             .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
                         )
                     )

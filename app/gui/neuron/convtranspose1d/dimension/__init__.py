@@ -18,8 +18,8 @@ from app.gui.neuron.strategy import NeuronStrategy
 # Main
 
 class SingleDimensionStrategy(NeuronStrategy):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, dependencies):
+        super().__init__(dependencies)
 
         self._kernel_size = FormInput(self.default_params["kernel_size"])
         self._stride = FormInput(self.default_params["stride"])

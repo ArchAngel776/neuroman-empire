@@ -9,6 +9,7 @@ from app.network.neuron.convtranspose2d.dimension.params import ConvTranspose2dD
 from app.network.neuron.convtranspose2d.dimension.options import ConvTranspose2dDimensionOptions
 from app.gui import MainWindow
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.neuron.params import NeuronStrategyParams
 
 from .view import Dimension2dSwitcher
@@ -28,7 +29,7 @@ class NeuronBuilderTransposedConvolution2dStrategy(NeuronStrategy[ConvTranspose2
 
     _input_height: int
 
-    def __init__(self) -> None: ...
+    def __init__(self, dependencies: NeuronBuilderDependencies) -> None: ...
 
     @property
     def params(self) -> NeuronStrategyParams[ConvTranspose2dParams, ConvTranspose2dOptions]: ...

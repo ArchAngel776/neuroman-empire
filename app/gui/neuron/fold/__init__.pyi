@@ -11,6 +11,7 @@ from app.network.neuron.fold.params import FoldParams
 from app.network.neuron.fold.options import FoldOptions
 from app.gui import MainWindow
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.neuron.params import NeuronStrategyParams
 
 # Types
@@ -53,7 +54,7 @@ class NeuronBuilderFoldStrategy(NeuronStrategy[FoldParams, FoldOptions]):
     _input_height: int
     _title_font: Font
 
-    def __init__(self) -> None: ...
+    def __init__(self, dependencies: NeuronBuilderDependencies) -> None: ...
 
     @property
     def params(self) -> NeuronStrategyParams[FoldParams, FoldOptions]: ...

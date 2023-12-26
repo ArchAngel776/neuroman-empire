@@ -6,8 +6,8 @@ from lib.gui.element.switcher.strategy import SwitcherStrategy
 # Main
 
 class NeuronStrategy(SwitcherStrategy, ABC):
-    def __init__(self):
-        super().__init__({})
+    def __init__(self, dependencies):
+        super().__init__(dependencies)
 
     @property
     @abstractmethod

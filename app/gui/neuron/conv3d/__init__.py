@@ -27,8 +27,8 @@ from app.gui.neuron.conv3d.view import Dimension3dView, Dimension3dSwitcher
 class NeuronBuilderConvolution3dStrategy(NeuronStrategy):
     DIMENSION_SWITCHER = "dimension_3d_switcher"
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, dependencies):
+        super().__init__(dependencies)
 
         self._input_channels = FormInput(self.default_params["in_channels"])
         self._output_channels = FormInput(self.default_params["out_channels"])
@@ -150,7 +150,11 @@ class NeuronBuilderConvolution3dStrategy(NeuronStrategy):
                 .Content(
                     self.watch(
                         NeuronBuilderConvolution3dStrategy.DIMENSION_SWITCHER,
-                        Switcher(root, Dimension3dSwitcher(Dimension3dView.TRIPLE), LayoutType.VERTICAL)
+                        Switcher(
+                            root,
+                            Dimension3dSwitcher(Dimension3dView.TRIPLE, self.dependencies),
+                            LayoutType.VERTICAL
+                        )
                         .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
                     )
                 )

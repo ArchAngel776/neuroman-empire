@@ -11,6 +11,7 @@ from app.network.neuron.unfold.params import UnfoldParams
 from app.network.neuron.unfold.options import UnfoldOptions
 from app.gui import MainWindow
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.neuron.params import NeuronStrategyParams
 
 # Types
@@ -51,7 +52,7 @@ class NeuronBuilderUnfoldStrategy(NeuronStrategy[UnfoldParams, UnfoldOptions]):
     _input_height: int
     _title_font: Font
 
-    def __init__(self) -> None: ...
+    def __init__(self, dependencies: NeuronBuilderDependencies) -> None: ...
 
     @property
     def params(self) -> NeuronStrategyParams[UnfoldParams, UnfoldOptions]: ...

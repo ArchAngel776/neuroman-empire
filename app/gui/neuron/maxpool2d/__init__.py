@@ -26,8 +26,8 @@ from app.gui.neuron.maxpool2d.view import Dimension2dView, Dimension2dSwitcher
 class NeuronBuilderMaxPooling2dStrategy(NeuronStrategy):
     DIMENSION_SWITCHER = "dimension_2d_switcher"
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, dependencies):
+        super().__init__(dependencies)
 
         self._return_indices = FormInput(self.default_params["return_indices"])
         self._ceil_mode = FormInput(self.default_params["ceil_mode"])
@@ -111,7 +111,11 @@ class NeuronBuilderMaxPooling2dStrategy(NeuronStrategy):
                 .Content(
                     self.watch(
                         NeuronBuilderMaxPooling2dStrategy.DIMENSION_SWITCHER,
-                        Switcher(root, Dimension2dSwitcher(Dimension2dView.DOUBLE), LayoutType.VERTICAL)
+                        Switcher(
+                            root,
+                            Dimension2dSwitcher(Dimension2dView.DOUBLE, self.dependencies),
+                            LayoutType.VERTICAL
+                        )
                         .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
                     )
                 )

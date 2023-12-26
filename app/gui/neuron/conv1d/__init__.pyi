@@ -8,6 +8,7 @@ from app.network.neuron.conv1d.dimension.params import Conv1dDimensionParams
 from app.network.neuron.conv1d.dimension.options import Conv1dDimensionOptions
 from app.gui import MainWindow
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.neuron.params import NeuronStrategyParams
 
 from .view import Dimension1dSwitcher, Dimension1dView
@@ -25,7 +26,7 @@ class NeuronBuilderConvolution1dStrategy(NeuronStrategy[Conv1dParams, Conv1dOpti
 
     _input_height: int
 
-    def __init__(self) -> None: ...
+    def __init__(self, dependencies: NeuronBuilderDependencies) -> None: ...
 
     @property
     def params(self) -> NeuronStrategyParams[Conv1dParams, Conv1dOptions]: ...

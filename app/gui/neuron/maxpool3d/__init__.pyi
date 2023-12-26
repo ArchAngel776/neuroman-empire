@@ -10,6 +10,7 @@ from app.network.neuron.maxpool3d.dimension.params import MaxPool3dDimensionPara
 from app.network.neuron.maxpool3d.dimension.options import MaxPool3dDimensionOptions
 from app.gui import MainWindow
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.neuron.params import NeuronStrategyParams
 
 from .view import Dimension3dView, Dimension3dSwitcher
@@ -27,7 +28,7 @@ class NeuronBuilderMaxPooling3dStrategy(NeuronStrategy[MaxPool3dParams, MaxPool3
 
     _input_height: int
 
-    def __init__(self) -> None: ...
+    def __init__(self, dependencies: NeuronBuilderDependencies) -> None: ...
 
     @property
     def params(self) -> NeuronStrategyParams[MaxPool3dParams, MaxPool3dOptions]: ...

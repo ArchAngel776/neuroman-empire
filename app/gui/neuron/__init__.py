@@ -1,6 +1,7 @@
 from lib.gui.element.switcher.program import SwitcherProgram
 
 from app.network.neuron.type import NeuronType
+
 from app.gui.neuron.conv1d import NeuronBuilderConvolution1dStrategy
 from app.gui.neuron.conv2d import NeuronBuilderConvolution2dStrategy
 from app.gui.neuron.conv3d import NeuronBuilderConvolution3dStrategy
@@ -18,25 +19,25 @@ from app.gui.neuron.linear import NeuronBuilderLinearStrategy
 # Switcher
 
 class NeuronBuilderSwitcher(SwitcherProgram):
-    def __init__(self, key):
-        super().__init__(key, {})
+    def __init__(self, key, dependencies):
+        super().__init__(key, dependencies)
 
-        self._convolution1d_strategy = NeuronBuilderConvolution1dStrategy()
-        self._convolution2d_strategy = NeuronBuilderConvolution2dStrategy()
-        self._convolution3d_strategy = NeuronBuilderConvolution3dStrategy()
+        self._convolution1d_strategy = NeuronBuilderConvolution1dStrategy(dependencies)
+        self._convolution2d_strategy = NeuronBuilderConvolution2dStrategy(dependencies)
+        self._convolution3d_strategy = NeuronBuilderConvolution3dStrategy(dependencies)
 
-        self._transposed_convolution1d_strategy = NeuronBuilderTransposedConvolution1dStrategy()
-        self._transposed_convolution2d_strategy = NeuronBuilderTransposedConvolution2dStrategy()
-        self._transposed_convolution3d_strategy = NeuronBuilderTransposedConvolution3dStrategy()
+        self._transposed_convolution1d_strategy = NeuronBuilderTransposedConvolution1dStrategy(dependencies)
+        self._transposed_convolution2d_strategy = NeuronBuilderTransposedConvolution2dStrategy(dependencies)
+        self._transposed_convolution3d_strategy = NeuronBuilderTransposedConvolution3dStrategy(dependencies)
 
-        self._unfold_strategy = NeuronBuilderUnfoldStrategy()
-        self._fold_strategy = NeuronBuilderFoldStrategy()
+        self._unfold_strategy = NeuronBuilderUnfoldStrategy(dependencies)
+        self._fold_strategy = NeuronBuilderFoldStrategy(dependencies)
 
-        self._max_pooling1d_strategy = NeuronBuilderMaxPooling1dStrategy()
-        self._max_pooling2d_strategy = NeuronBuilderMaxPooling2dStrategy()
-        self._max_pooling3d_strategy = NeuronBuilderMaxPooling3dStrategy()
+        self._max_pooling1d_strategy = NeuronBuilderMaxPooling1dStrategy(dependencies)
+        self._max_pooling2d_strategy = NeuronBuilderMaxPooling2dStrategy(dependencies)
+        self._max_pooling3d_strategy = NeuronBuilderMaxPooling3dStrategy(dependencies)
 
-        self._linear_strategy = NeuronBuilderLinearStrategy()
+        self._linear_strategy = NeuronBuilderLinearStrategy(dependencies)
 
     @property
     def strategy(self):

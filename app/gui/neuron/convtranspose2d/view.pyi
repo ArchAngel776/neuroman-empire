@@ -5,6 +5,7 @@ from lib.gui.element.switcher.program import SwitcherProgram
 from app.network.neuron.convtranspose2d.dimension.params import ConvTranspose2dDimensionParams
 from app.network.neuron.convtranspose2d.dimension.options import ConvTranspose2dDimensionOptions
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.neuron.params import NeuronStrategyParams
 from app.gui.neuron.convtranspose1d.dimension import SingleDimensionStrategy
 from app.gui.neuron.convtranspose2d.dimension import DoubleDimensionStrategy
@@ -22,14 +23,14 @@ class Dimension2dView(Enum):
 class Dimension2dSwitcher(
     SwitcherProgram[
         Dimension2dView,
-        {},
+        NeuronBuilderDependencies,
         NeuronStrategyParams[ConvTranspose2dDimensionParams, ConvTranspose2dDimensionOptions]
     ]
 ):
     _single_strategy: SingleDimensionStrategy
     _double_strategy: DoubleDimensionStrategy
 
-    def __init__(self, key: Dimension2dView) -> None: ...
+    def __init__(self, key: Dimension2dView, dependencies: NeuronBuilderDependencies) -> None: ...
 
     @property
     def strategy(self) -> dict[

@@ -7,6 +7,7 @@ from app.network.neuron.convtranspose2d.dimension.params import ConvTranspose2dD
 from app.network.neuron.convtranspose2d.dimension.options import ConvTranspose2dDimensionOptions
 from app.gui import MainWindow
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.neuron.params import NeuronStrategyParams
 
 
@@ -32,7 +33,7 @@ class DoubleDimensionStrategy(NeuronStrategy[ConvTranspose2dDimensionParams, Con
     _input_height: int
     _font_caption_title: Font
 
-    def __init__(self) -> None: ...
+    def __init__(self, dependencies: NeuronBuilderDependencies) -> None: ...
 
     @property
     def params(self) -> NeuronStrategyParams[ConvTranspose2dDimensionParams, ConvTranspose2dDimensionOptions]: ...

@@ -3,7 +3,6 @@ from PyQt5.QtGui import QResizeEvent, QMouseEvent
 from lib import void
 from lib.gui.element.canvas import Canvas
 from lib.gui.element.scrollable import Scrollable
-from lib.gui.element.switcher import Switcher
 from lib.gui.layout import Layout
 from lib.gui.screen import Screen
 
@@ -11,8 +10,7 @@ from app.network import Network
 from app.network.neuron import Neuron
 from app.gui import MainWindow
 from app.gui.graphics import NetworkBuilderCanvasProgram
-from app.gui.network import NeuronOperationSwitcher, NeuronOperationParams
-from app.gui.network.operation import NeuronOperation
+from app.gui.network import NeuronOperationSwitcher
 from app.gui.network.dependencies import NeuronOperationDependencies
 
 
@@ -47,8 +45,11 @@ class CreateNetworkScreen(Screen[MainWindow]):
     def canvas_program(self) -> NetworkBuilderCanvasProgram: ...
 
     @property
-    def switcher_program(self) -> NeuronOperationSwitcher:...
+    def switcher_program(self) -> NeuronOperationSwitcher: ...
 
     def neuron_operation_dependencies(self, neuron: Neuron = None) -> NeuronOperationDependencies: ...
+
+    @property
+    def network(self) -> Network: ...
 
     def render(self) -> Layout: ...

@@ -109,12 +109,17 @@ class CreateNetworkScreen(Screen):
 
     def neuron_operation_dependencies(self, neuron=None):
         return NeuronOperationDependencies(
+            network=self.network,
             neuron=neuron,
             create=self.create_neuron,
             remove=self.remove_neuron,
             action_entry=self.action_entry,
             action_creation=self.action_creation
         )
+
+    @property
+    def network(self):
+        return self._network
 
     def render(self):
         return (

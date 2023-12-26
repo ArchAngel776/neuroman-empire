@@ -38,8 +38,8 @@ class UpdateOperation(Decorator):
 class NeuronBuilderUnfoldStrategy(NeuronStrategy):
     LIST_ELEMENT = "list_element"
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, dependencies):
+        super().__init__(dependencies)
 
         self._kernel_size = mapping(self.default_params["kernel_size"], value_to_form)
         self._stride = mapping(self.default_params["stride"], value_to_form)

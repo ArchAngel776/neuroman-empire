@@ -5,6 +5,7 @@ from lib.gui.element.switcher.program import SwitcherProgram
 from app.network.neuron.convtranspose1d.dimension.params import ConvTranspose1dDimensionParams
 from app.network.neuron.convtranspose1d.dimension.options import ConvTranspose1dDimensionOptions
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.neuron.params import NeuronStrategyParams
 from app.gui.neuron.convtranspose1d.dimension import SingleDimensionStrategy
 
@@ -20,13 +21,13 @@ class Dimension1dView(Enum):
 class Dimension1dSwitcher(
     SwitcherProgram[
         Dimension1dView,
-        {},
+        NeuronBuilderDependencies,
         NeuronStrategyParams[ConvTranspose1dDimensionParams, ConvTranspose1dDimensionOptions]
     ]
 ):
     _single_strategy: SingleDimensionStrategy
 
-    def __init__(self, key: Dimension1dView) -> None: ...
+    def __init__(self, key: Dimension1dView, dependencies: NeuronBuilderDependencies) -> None: ...
 
     @property
     def strategy(self) -> dict[

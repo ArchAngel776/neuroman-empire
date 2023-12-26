@@ -3,6 +3,7 @@ from typing import Union
 from lib.gui.element.switcher.program import SwitcherProgram
 
 from app.network.neuron.type import NeuronType
+from .dependencies import NeuronBuilderDependencies
 
 from app.network.neuron.conv1d.params import Conv1dParams
 from app.network.neuron.conv2d.params import Conv2dParams
@@ -80,7 +81,9 @@ NeuronOptions = Union[
 
 # Switcher
 
-class NeuronBuilderSwitcher(SwitcherProgram[NeuronType, {}, NeuronStrategyParams[NeuronParams, NeuronOptions]]):
+class NeuronBuilderSwitcher(
+    SwitcherProgram[NeuronType, NeuronBuilderDependencies, NeuronStrategyParams[NeuronParams, NeuronOptions]]
+):
     _convolution1d_strategy: NeuronBuilderConvolution1dStrategy
     _convolution2d_strategy: NeuronBuilderConvolution2dStrategy
     _convolution3d_strategy: NeuronBuilderConvolution3dStrategy
@@ -98,7 +101,7 @@ class NeuronBuilderSwitcher(SwitcherProgram[NeuronType, {}, NeuronStrategyParams
 
     _linear_strategy: NeuronBuilderLinearStrategy
 
-    def __init__(self, key: NeuronType) -> None: ...
+    def __init__(self, key: NeuronType, dependencies: NeuronBuilderDependencies) -> None: ...
 
     @property
     def strategy(self) -> dict[NeuronType, NeuronStrategy[NeuronParams, NeuronOptions]]: ...

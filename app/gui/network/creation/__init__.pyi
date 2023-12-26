@@ -12,6 +12,7 @@ from app.network.neuron import Neuron
 from app.gui import MainWindow
 from app.gui.event.select_network import SelectNeuronEvent
 from app.gui.neuron import NeuronBuilderSwitcher
+from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.network import NeuronOperationParams
 from app.gui.network.dependencies import NeuronOperationDependencies
 
@@ -51,5 +52,8 @@ class NeuronOperationCreationStrategy(SwitcherStrategy[NeuronOperationDependenci
 
     @property
     def switcher_program(self) -> NeuronBuilderSwitcher: ...
+
+    @property
+    def neuron_dependencies(self) -> NeuronBuilderDependencies: ...
 
     def render(self, root: MainWindow) -> Layout: ...

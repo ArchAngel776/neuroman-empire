@@ -24,8 +24,8 @@ class TripleDimensionStrategy(NeuronStrategy):
         HEIGHT = 1
         WIDTH = 2
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, dependencies):
+        super().__init__(dependencies)
 
         self._kernel_size_depth = FormInput(self.default_params["kernel_size"][self.Dimension.DEPTH])
         self._stride_depth = FormInput(self.default_params["stride"][self.Dimension.DEPTH])

@@ -4,6 +4,7 @@ from typing import TypeVar, TypedDict, Generic
 from lib import void
 from lib.gui.element.switcher.strategy import SwitcherStrategy
 
+from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.neuron.params import NeuronStrategyParams as StrategyParams
 
 # Types
@@ -15,11 +16,11 @@ NeuronStrategyOptions = TypeVar("NeuronStrategyOptions", dict, TypedDict)
 # Main
 
 class NeuronStrategy(
-    SwitcherStrategy[{}, StrategyParams[NeuronStrategyParams, NeuronStrategyOptions]],
+    SwitcherStrategy[NeuronBuilderDependencies, StrategyParams[NeuronStrategyParams, NeuronStrategyOptions]],
     ABC,
     Generic[NeuronStrategyParams, NeuronStrategyOptions]
 ):
-    def __init__(self) -> None: ...
+    def __init__(self, dependencies: NeuronBuilderDependencies) -> None: ...
 
     @property
     @abstractmethod

@@ -10,6 +10,7 @@ from app.network.neuron.convtranspose3d.dimension.params import ConvTranspose3dD
 from app.network.neuron.convtranspose3d.dimension.options import ConvTranspose3dDimensionOptions
 from app.gui import MainWindow
 from app.gui.neuron.strategy import NeuronStrategy
+from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.neuron.params import NeuronStrategyParams
 
 from .view import Dimension3dView, Dimension3dSwitcher
@@ -29,7 +30,7 @@ class NeuronBuilderTransposedConvolution3dStrategy(NeuronStrategy[ConvTranspose3
 
     _input_height: int
 
-    def __init__(self) -> None: ...
+    def __init__(self, dependencies: NeuronBuilderDependencies) -> None: ...
 
     @property
     def params(self) -> NeuronStrategyParams[ConvTranspose3dParams, ConvTranspose3dOptions]: ...
