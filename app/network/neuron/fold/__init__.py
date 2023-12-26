@@ -18,11 +18,11 @@ class Fold(Neuron):
     @staticmethod
     def default_params():
         return FoldParams(
-            output_size=[1, 1, 1],
-            kernel_size=[1, 1, 1],
-            dilation=[1, 1, 1],
-            padding=[0, 0, 0],
-            stride=[1, 1, 1]
+            output_size=[1],
+            kernel_size=[1],
+            dilation=[1],
+            padding=[0],
+            stride=[1]
         )
 
     @staticmethod
