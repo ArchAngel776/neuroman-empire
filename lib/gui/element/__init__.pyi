@@ -1,5 +1,6 @@
 from typing import Self, TypeVar, Union, Callable
 
+from PyQt5.QtCore import QEvent
 from PyQt5.QtGui import QCursor, QFont
 from PyQt5.QtWidgets import QWidget, QSizePolicy
 
@@ -13,8 +14,8 @@ from lib.gui.window import Window
 TElement = TypeVar("TElement", bound=Element)
 
 ElementEventListener = Union[
-    Callable[[Element, Event], bool],
-    Callable[[Event], bool],
+    Callable[[Element, QEvent], bool],
+    Callable[[QEvent], bool],
     Callable[[Element], bool],
     Callable[[], bool]
 ]
