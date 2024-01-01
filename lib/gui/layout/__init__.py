@@ -30,12 +30,13 @@ class ConditionalAppend(Decorator):
         super().__init__(original)
         self._gui_remover = GUIRemover()
 
-    def method(self, target, layout, allow=True):
+    def method(self, target, *layouts, allow=True):
         if allow:
-            return super().method(target, layout)
+            return super().method(target, *layouts)
         else:
-            self._gui_remover.remove_layout(layout.element)
-            layout.element.deleteLater()
+            for layout in layouts:
+                self._gui_remover.remove_layout(layout.element)
+                layout.element.deleteLater()
             return target
 
 
@@ -57,8 +58,9 @@ class Layout:
         return self
 
     @method(ConditionalAppend)
-    def append(self, layout):
-        self._layout.addLayout(layout.element, layout.get_weight())
+    def append(self, *layouts):
+        for layout in layouts:
+            self._layout.addLayout(layout.element, layout.get_weight())
         return self
 
     def stretch(self):
