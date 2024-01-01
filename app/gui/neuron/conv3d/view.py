@@ -1,6 +1,6 @@
 from enum import Enum
 
-from lib.gui.element.switcher.program import SwitcherProgram
+from lib.gui.element.component.switcher.program import SwitcherProgram
 
 from app.gui.neuron.conv1d.dimension import SingleDimensionStrategy
 from app.gui.neuron.conv3d.dimension import TripleDimensionStrategy

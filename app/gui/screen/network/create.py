@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QSizePolicy
 
 from lib.gui.element.canvas import Canvas
 from lib.gui.element.scrollable import Scrollable
-from lib.gui.element.switcher import Switcher
+from lib.gui.element.component.switcher import Switcher
 from lib.gui.event import Event
 from lib.gui.layout.factory import LayoutFactory
 from lib.gui.layout.type import LayoutType

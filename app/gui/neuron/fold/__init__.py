@@ -1,18 +1,18 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QSizePolicy
 
+from lib.hooks import mapping, merge
 from lib.decorators import method
 from lib.decorators.decorator import Decorator
 from lib.gui import LS
 from lib.gui.element.button import Button
 from lib.gui.element.font import Font
 from lib.gui.element.form.integer import IntegerInput
-from lib.gui.element.list import List
+from lib.gui.element.component.list import List
 from lib.gui.element.text import Text
 from lib.gui.event import Event
 from lib.gui.layout.factory import LayoutFactory
 from lib.gui.layout.type import LayoutType
-from lib.hooks import mapping, merge
 from lib.gui.element.form import FormInput
 
 from app.hooks import i18n, value_to_form, form_to_value
@@ -29,7 +29,7 @@ from app.gui.neuron.fold.dimension_remover import DimensionRemover
 class UpdateOperation(Decorator):
     def method(self, target, *args, **kwargs):
         result = super().method(target, *args, **kwargs)
-        target.update(NeuronBuilderFoldStrategy.LIST_ELEMENT, lambda element: element.update_list())
+        target.update(NeuronBuilderFoldStrategy.LIST_ELEMENT, lambda element: element.update_view())
         return result
 
 

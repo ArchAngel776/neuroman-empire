@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from lib.gui.element.switcher.strategy import SwitcherStrategy
+from lib.gui.element.component.switcher.strategy import SwitcherStrategy
 
 
 # Main

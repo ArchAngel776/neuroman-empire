@@ -1,4 +1,4 @@
-from lib.gui.element.switcher.program import SwitcherProgram
+from lib.gui.element.component.switcher.program import SwitcherProgram
 
 from app.gui.network.creation.params import NeuronCreationParams
 from app.gui.network.modification.params import NeuronModificationParams

@@ -1,6 +1,6 @@
 from enum import Enum
 
-from lib.gui.element.switcher.program import SwitcherProgram
+from lib.gui.element.component.switcher.program import SwitcherProgram
 
 from app.network.neuron.convtranspose1d.dimension.params import ConvTranspose1dDimensionParams
 from app.network.neuron.convtranspose1d.dimension.options import ConvTranspose1dDimensionOptions

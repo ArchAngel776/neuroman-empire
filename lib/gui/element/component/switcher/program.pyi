@@ -2,12 +2,12 @@ from abc import ABC, abstractmethod
 from enum import Enum
 from typing import Generic, TypeVar, TypedDict
 
-from PyQt5.QtWidgets import QWidget, QBoxLayout
-
 from lib import void
 from lib.decorators import method
 from lib.decorators.decorator import Decorator
-from lib.gui.element.switcher.strategy import SwitcherStrategy
+from lib.gui.element.component.switcher.strategy import SwitcherStrategy
+from lib.gui.layout import Layout
+from lib.gui.window import Window
 
 # Types
 
@@ -70,4 +70,4 @@ class SwitcherProgram(ABC, Generic[SwitcherProgramKey, SwitcherProgramDependenci
     @method(DeepUpdate[SwitcherProgramKey, SwitcherProgramDependencies, SwitcherProgramParams])
     def update(self, dependencies: SwitcherProgramDependencies) -> void: ...
 
-    def render_element(self, root: QWidget) -> QBoxLayout: ...
+    def render_element(self, root: Window) -> Layout: ...

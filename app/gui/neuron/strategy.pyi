@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import TypeVar, TypedDict, Generic
 
 from lib import void
-from lib.gui.element.switcher.strategy import SwitcherStrategy
+from lib.gui.element.component.switcher.strategy import SwitcherStrategy
 
 from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.neuron.params import NeuronStrategyParams as StrategyParams

@@ -6,8 +6,8 @@ from lib.gui import LS
 from lib.gui.element.button import Button
 from lib.gui.element.font import Font
 from lib.gui.element.scrollable import Scrollable
-from lib.gui.element.switcher import Switcher
-from lib.gui.element.switcher.strategy import SwitcherStrategy
+from lib.gui.element.component.switcher import Switcher
+from lib.gui.element.component.switcher.strategy import SwitcherStrategy
 from lib.gui.element.text import Text
 from lib.gui.event import Event
 from lib.gui.layout.factory import LayoutFactory

@@ -1,6 +1,6 @@
 from lib import void
 from lib.gui.element.form import FormInput
-from lib.gui.element.switcher import Switcher
+from lib.gui.element.component.switcher import Switcher
 from lib.gui.event.check_box_changed import CheckBoxChangedEvent
 from lib.gui.layout import Layout
 

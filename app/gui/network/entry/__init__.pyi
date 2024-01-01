@@ -1,7 +1,7 @@
 from PyQt5.QtGui import QCursor
 
 from lib.gui.element.font import Font
-from lib.gui.element.switcher.strategy import SwitcherStrategy
+from lib.gui.element.component.switcher.strategy import SwitcherStrategy
 from lib.gui.layout import Layout
 
 from app.gui import MainWindow

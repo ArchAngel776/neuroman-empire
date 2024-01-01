@@ -1,6 +1,6 @@
 from enum import Enum
 
-from lib.gui.element.switcher.program import SwitcherProgram
+from lib.gui.element.component.switcher.program import SwitcherProgram
 
 from app.network.neuron.maxpool2d.dimension.params import MaxPool2dDimensionParams
 from app.network.neuron.maxpool2d.dimension.options import MaxPool2dDimensionOptions

@@ -1,16 +1,14 @@
 from enum import Enum
-from typing import Generic, TypeVar, TypedDict, Callable, Self
-
-from PyQt5.QtWidgets import QSizePolicy
+from typing import Generic, TypeVar, TypedDict, Self
 
 from lib import void
 from lib.decorators import method
 from lib.decorators.decorator import Decorator
-from lib.helpers.gui_remover import GUIRemover
-from lib.gui.element import Element
-from .program import SwitcherProgram
+from lib.gui.element.component import Component
+from lib.gui.layout import Layout
 from lib.gui.layout.type import LayoutType
 from lib.gui.window import Window
+from .program import SwitcherProgram
 
 # Types
 
@@ -22,11 +20,6 @@ TSwitcherUpdateStrategy = TypeVar("TSwitcherUpdateStrategy", bound=Switcher)
 SwitcherUpdateStrategyKey = TypeVar("SwitcherUpdateStrategyKey", int, str, Enum)
 SwitcherUpdateStrategyDependencies = TypeVar("SwitcherUpdateStrategyDependencies", dict, TypedDict)
 SwitcherUpdateStrategyParams = TypeVar("SwitcherUpdateStrategyParams", dict, TypedDict)
-
-TSwitcherRemoveStrategy = TypeVar("TSwitcherRemoveStrategy", bound=Switcher)
-SwitcherRemoveStrategyKey = TypeVar("SwitcherRemoveStrategyKey", int, str, Enum)
-SwitcherRemoveStrategyDependencies = TypeVar("SwitcherRemoveStrategyDependencies", dict, TypedDict)
-SwitcherRemoveStrategyParams = TypeVar("SwitcherRemoveStrategyParams", dict, TypedDict)
 
 
 # Decorators
@@ -43,27 +36,10 @@ class UpdateStrategy(
     def method(self, target: TSwitcherUpdateStrategy, key: SwitcherUpdateStrategyKey) -> void: ...
 
 
-class RemoveOldStrategy(
-    Decorator[
-        void, [
-            Switcher[SwitcherRemoveStrategyKey, SwitcherRemoveStrategyDependencies, SwitcherRemoveStrategyParams]
-        ]
-    ],
-    Generic[SwitcherRemoveStrategyKey, SwitcherRemoveStrategyDependencies, SwitcherRemoveStrategyParams]
-):
-    _gui_remover: GUIRemover
-
-    def __init__(self, original: Callable[[TSwitcherRemoveStrategy], void]) -> None: ...
-
-    def config(self, target: TSwitcherRemoveStrategy) -> Self: ...
-
-
 # Main
 
-class Switcher(Element, Generic[SwitcherKey, SwitcherDependencies, SwitcherParams]):
+class Switcher(Component, Generic[SwitcherKey, SwitcherDependencies, SwitcherParams]):
     _program: SwitcherProgram[SwitcherKey, SwitcherDependencies, SwitcherParams]
-    _orientation: LayoutType
-    _sizing: QSizePolicy
 
     def __init__(
             self,
@@ -74,8 +50,6 @@ class Switcher(Element, Generic[SwitcherKey, SwitcherDependencies, SwitcherParam
 
     def config(self) -> void: ...
 
-    def InnerSizing(self, horizontal: QSizePolicy.Policy, vertical: QSizePolicy.Policy) -> Self: ...
-
     def AutoInit(self) -> Self: ...
 
     @method(UpdateStrategy[SwitcherKey, SwitcherDependencies, SwitcherParams])
@@ -83,8 +57,9 @@ class Switcher(Element, Generic[SwitcherKey, SwitcherDependencies, SwitcherParam
 
     def update_dependencies(self, dependencies: SwitcherDependencies, update_strategies: bool = False) -> Self: ...
 
-    @method(RemoveOldStrategy[SwitcherKey, SwitcherDependencies, SwitcherParams])
-    def implement_strategy(self) -> void: ...
+    def update_view(self) -> void: ...
+
+    def render_view(self) -> Layout: ...
 
     @property
     def program(self) -> SwitcherProgram[SwitcherKey, SwitcherDependencies, SwitcherParams]: ...

@@ -46,4 +46,4 @@ class SwitcherProgram(ABC):
         self._dependencies = dependencies
 
     def render_element(self, root):
-        return self.current_strategy.render(root).element
+        return self.current_strategy.render(root)

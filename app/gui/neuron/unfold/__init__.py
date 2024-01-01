@@ -7,7 +7,7 @@ from lib.gui import LS
 from lib.gui.element.button import Button
 from lib.gui.element.font import Font
 from lib.gui.element.form.integer import IntegerInput
-from lib.gui.element.list import List
+from lib.gui.element.component.list import List
 from lib.gui.element.text import Text
 from lib.gui.event import Event
 from lib.gui.layout.factory import LayoutFactory
@@ -29,7 +29,7 @@ from app.gui.neuron.unfold.dimension_remover import DimensionRemover
 class UpdateOperation(Decorator):
     def method(self, target, *args, **kwargs):
         result = super().method(target, *args, **kwargs)
-        target.update(NeuronBuilderUnfoldStrategy.LIST_ELEMENT, lambda element: element.update_list())
+        target.update(NeuronBuilderUnfoldStrategy.LIST_ELEMENT, lambda element: element.update_view())
         return result
 
 

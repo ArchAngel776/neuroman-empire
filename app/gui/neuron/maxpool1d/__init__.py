@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QSizePolicy
 from lib.gui import LS
 from lib.gui.element.form import FormInput
 from lib.gui.element.form.check import CheckBox
-from lib.gui.element.switcher import Switcher
+from lib.gui.element.component.switcher import Switcher
 from lib.gui.element.text import Text
 from lib.gui.layout.factory import LayoutFactory
 from lib.gui.layout.type import LayoutType
