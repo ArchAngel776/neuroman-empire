@@ -55,6 +55,10 @@ class Element(QWidget, EventEmitter):
         self.setMaximumHeight(height)
         return self
 
+    def Hidden(self, hidden=True):
+        self.setHidden(hidden)
+        return self
+
     def Font(self, font):
         self.setFont(font)
         return self
