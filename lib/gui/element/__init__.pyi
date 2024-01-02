@@ -1,4 +1,4 @@
-from typing import Self, TypeVar, Union, Callable
+from typing import Self, TypeVar, Union, Callable, Any
 
 from PyQt5.QtCore import QEvent
 from PyQt5.QtGui import QCursor, QFont
@@ -31,6 +31,8 @@ class Element(QWidget, EventEmitter[Event.Type, Event]):
     def event(self, event: Event) -> bool: ...
 
     def Name(self, name: str) -> Self: ...
+
+    def Property(self, name: str, value: Any) -> Self: ...
 
     def Class(self, class_name: str) -> Self: ...
 
