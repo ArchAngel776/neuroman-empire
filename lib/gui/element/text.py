@@ -8,7 +8,7 @@ from lib.gui.element import Element
 # Main
 
 class Text(QLabel, Element):
-    def __init__(self, root, text):
+    def __init__(self, root, text=None):
         super().__init__(root)
         self.setText(text)
 
