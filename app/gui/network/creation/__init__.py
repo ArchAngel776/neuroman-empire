@@ -8,11 +8,6 @@ from lib.gui.element.font import Font
 from lib.gui.element.form import FormInput
 from lib.gui.element.form.select import SelectBox
 from lib.gui.element.form.text import TextInput
-from lib.gui.element.form.validator.string import StringValidator
-from lib.gui.element.form.validator.string.length import Length
-from lib.gui.element.form.validator.string.length.data import LengthValidationData
-from lib.gui.element.form.validator.string.regex import Regex
-from lib.gui.element.form.validator.string.regex.data import RegexValidationData
 from lib.gui.element.scrollable import Scrollable
 from lib.gui.element.component.switcher import Switcher
 from lib.gui.element.component.switcher.strategy import SwitcherStrategy
@@ -121,34 +116,8 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                     .append(
                         LayoutFactory(LayoutType.VERTICAL).create()
                         .add(
-                            StringValidator(
-                                Length(
-                                    LengthValidationData(
-                                        min=4,
-                                        message="Nazwa musi zawierać conajmniej 4 znaki"
-                                    )
-                                ),
-                                Length(
-                                    LengthValidationData(
-                                        max=255,
-                                        message="Dozwolony limit nazwy to 255 znaków"
-                                    )
-                                ),
-                                Regex(
-                                    RegexValidationData(
-                                        pattern="^([A-Za-z0-9][A-Za-z0-9_\\-\\s]+[A-Za-z0-9])$",
-                                        message="Nazwa może składać się tylko z cyfr, małych i dużych liter"
-                                    )
-                                )
-                            )
-                            .Widget(
-                                root,
-                                TextInput(root, self._neuron_name.value)
-                                .Bind(self._neuron_name),
-                                LayoutType.VERTICAL
-                            )
-                            .Sizing(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Maximum)
-                            .InnerSizing(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Maximum)
+                            TextInput(root, self._neuron_name.value)
+                            .Bind(self._neuron_name)
                         )
                     )
                 )
