@@ -43,7 +43,8 @@ class UpdateOperation(Decorator[bool, [NeuronBuilderFoldStrategy, ...]]):
 # Main
 
 class NeuronBuilderFoldStrategy(NeuronStrategy[FoldParams, FoldOptions]):
-    LIST_ELEMENT = ... #type: str
+    class Watch(str):
+        LIST_ELEMENT = ... #type: NeuronBuilderFoldStrategy.Watch
 
     _output_size: list[FormInput[int]]
     _kernel_size: list[FormInput[int]]

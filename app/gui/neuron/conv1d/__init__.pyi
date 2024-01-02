@@ -17,7 +17,8 @@ from .view import Dimension1dSwitcher, Dimension1dView
 # Main
 
 class NeuronBuilderConvolution1dStrategy(NeuronStrategy[Conv1dParams, Conv1dOptions]):
-    DIMENSION_SWITCHER = ... #type: str
+    class Watch(str):
+        DIMENSION_SWITCHER = ... #type: NeuronBuilderConvolution1dStrategy.Watch
 
     _input_channels: FormInput[int]
     _output_channels: FormInput[int]

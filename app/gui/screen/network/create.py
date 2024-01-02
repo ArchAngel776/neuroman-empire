@@ -20,8 +20,9 @@ from app.gui.network.dependencies import NeuronOperationDependencies
 # Main
 
 class CreateNetworkScreen(Screen):
-    CANVAS_ELEMENT = "canvas_element"
-    NEURON_OPERATION_SWITCHER = "neuron_operation_switcher"
+    class Watch(str):
+        CANVAS_ELEMENT = "canvas_element"
+        NEURON_OPERATION_SWITCHER = "neuron_operation_switcher"
 
     def __init__(self, root, network):
         super().__init__(root)
@@ -35,20 +36,26 @@ class CreateNetworkScreen(Screen):
 
         canvas_width = area.width() - CANVAS_PADDING - SCROLLBAR_SIZE
 
-        self.update(CreateNetworkScreen.CANVAS_ELEMENT, lambda canvas: canvas.Width(canvas_width))
+        self.update(
+            CreateNetworkScreen.Watch.CANVAS_ELEMENT,
+            lambda canvas: canvas.Width(canvas_width)
+        )
         self.update_canvas()
 
         return True
 
     def update_canvas(self):
-        self.update(CreateNetworkScreen.CANVAS_ELEMENT, lambda canvas: canvas.Height(canvas.program.height))
+        self.update(
+            CreateNetworkScreen.Watch.CANVAS_ELEMENT,
+            lambda canvas: canvas.Height(canvas.program.height)
+        )
 
     def create_neuron(self, neuron):
         params = self.switcher_program.params
         self._network.add_neuron(neuron(params["name"], params["params"], params["options"]))
 
         self.update(
-            CreateNetworkScreen.NEURON_OPERATION_SWITCHER,
+            CreateNetworkScreen.Watch.NEURON_OPERATION_SWITCHER,
             lambda switcher: switcher.change_strategy(NeuronOperation.ENTRY)
         )
 
@@ -71,7 +78,7 @@ class CreateNetworkScreen(Screen):
         if neuron:
             self.canvas_program.change_variant(NetworkBuilderVariantType.NEURON)
             self.update(
-                CreateNetworkScreen.NEURON_OPERATION_SWITCHER,
+                CreateNetworkScreen.Watch.NEURON_OPERATION_SWITCHER,
                 lambda switcher: switcher
                 .update_dependencies(self.neuron_operation_dependencies(neuron), True)
                 .change_strategy(NeuronOperation.MODIFY)
@@ -82,7 +89,7 @@ class CreateNetworkScreen(Screen):
     def action_entry(self):
         self.canvas_program.change_variant(NetworkBuilderVariantType.NETWORK)
         self.update(
-            CreateNetworkScreen.NEURON_OPERATION_SWITCHER,
+            CreateNetworkScreen.Watch.NEURON_OPERATION_SWITCHER,
             lambda switcher: switcher
             .update_dependencies(self.neuron_operation_dependencies(), True)
             .change_strategy(NeuronOperation.ENTRY)
@@ -92,7 +99,7 @@ class CreateNetworkScreen(Screen):
     def action_creation(self):
         self.canvas_program.change_variant(NetworkBuilderVariantType.NETWORK)
         self.update(
-            CreateNetworkScreen.NEURON_OPERATION_SWITCHER,
+            CreateNetworkScreen.Watch.NEURON_OPERATION_SWITCHER,
             lambda switcher: switcher
             .update_dependencies(self.neuron_operation_dependencies(), True)
             .change_strategy(NeuronOperation.CREATE)
@@ -101,11 +108,11 @@ class CreateNetworkScreen(Screen):
 
     @property
     def canvas_program(self):
-        return self.get(CreateNetworkScreen.CANVAS_ELEMENT).program
+        return self.get(CreateNetworkScreen.Watch.CANVAS_ELEMENT).program
 
     @property
     def switcher_program(self):
-        return self.get(CreateNetworkScreen.NEURON_OPERATION_SWITCHER).program
+        return self.get(CreateNetworkScreen.Watch.NEURON_OPERATION_SWITCHER).program
 
     def neuron_operation_dependencies(self, neuron=None):
         return NeuronOperationDependencies(
@@ -136,7 +143,7 @@ class CreateNetworkScreen(Screen):
                         .On(Event.Type.Resize, self.canvas_setup)
                         .Content(
                             self.watch(
-                                CreateNetworkScreen.CANVAS_ELEMENT,
+                                CreateNetworkScreen.Watch.CANVAS_ELEMENT,
                                 Canvas(self.root, NetworkBuilderCanvasProgram(self._network))
                                 .On(
                                     Event.Type.Show, lambda canvas: canvas.setMouseTracking(True),
@@ -154,7 +161,7 @@ class CreateNetworkScreen(Screen):
                     .weight(1)
                     .add(
                         self.watch(
-                            CreateNetworkScreen.NEURON_OPERATION_SWITCHER,
+                            CreateNetworkScreen.Watch.NEURON_OPERATION_SWITCHER,
                             Switcher(
                                 self.root,
                                 NeuronOperationSwitcher(NeuronOperation.ENTRY, self.neuron_operation_dependencies()),

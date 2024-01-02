@@ -29,14 +29,18 @@ from app.gui.neuron.fold.dimension_remover import DimensionRemover
 class UpdateOperation(Decorator):
     def method(self, target, *args, **kwargs):
         result = super().method(target, *args, **kwargs)
-        target.update(NeuronBuilderFoldStrategy.LIST_ELEMENT, lambda element: element.update_view())
+        target.update(
+            NeuronBuilderFoldStrategy.Watch.LIST_ELEMENT,
+            lambda element: element.update_view()
+        )
         return result
 
 
 # Main
 
 class NeuronBuilderFoldStrategy(NeuronStrategy):
-    LIST_ELEMENT = "list_element"
+    class Watch(str):
+        LIST_ELEMENT = "list_element"
 
     def __init__(self, dependencies):
         super().__init__(dependencies)
@@ -113,7 +117,7 @@ class NeuronBuilderFoldStrategy(NeuronStrategy):
                 LayoutFactory(LayoutType.VERTICAL).create()
                 .add(
                     self.watch(
-                        NeuronBuilderFoldStrategy.LIST_ELEMENT,
+                        NeuronBuilderFoldStrategy.Watch.LIST_ELEMENT,
                         List(root, self.data, LayoutType.VERTICAL)
                         .Sizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum)
                         .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum)

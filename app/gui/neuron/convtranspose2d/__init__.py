@@ -25,7 +25,8 @@ from app.gui.neuron.convtranspose2d.view import Dimension2dView, Dimension2dSwit
 # Main
 
 class NeuronBuilderTransposedConvolution2dStrategy(NeuronStrategy):
-    DIMENSION_SWITCHER = "dimension_2d_switcher"
+    class Watch(str):
+        DIMENSION_SWITCHER = "dimension_2d_switcher"
 
     def __init__(self, dependencies):
         super().__init__(dependencies)
@@ -78,14 +79,14 @@ class NeuronBuilderTransposedConvolution2dStrategy(NeuronStrategy):
     def change_dimension(self, event):
         key = Dimension2dView.SINGLE if event.checked else Dimension2dView.DOUBLE
         self.update(
-            NeuronBuilderTransposedConvolution2dStrategy.DIMENSION_SWITCHER,
+            NeuronBuilderTransposedConvolution2dStrategy.Watch.DIMENSION_SWITCHER,
             lambda switcher: switcher.change_strategy(key)
         )
         return True
 
     @property
     def dimension_switcher_program(self):
-        return self.get(NeuronBuilderTransposedConvolution2dStrategy.DIMENSION_SWITCHER).program
+        return self.get(NeuronBuilderTransposedConvolution2dStrategy.Watch.DIMENSION_SWITCHER).program
 
     def render(self, root):
         return (
@@ -149,7 +150,7 @@ class NeuronBuilderTransposedConvolution2dStrategy(NeuronStrategy):
                 .Adjust(Scrollable.SizeAdjustPolicy.AdjustToContents)
                 .Content(
                     self.watch(
-                        NeuronBuilderTransposedConvolution2dStrategy.DIMENSION_SWITCHER,
+                        NeuronBuilderTransposedConvolution2dStrategy.Watch.DIMENSION_SWITCHER,
                         Switcher(
                             root,
                             Dimension2dSwitcher(Dimension2dView.DOUBLE, self.dependencies),

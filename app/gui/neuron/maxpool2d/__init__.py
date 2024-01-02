@@ -24,7 +24,8 @@ from app.gui.neuron.maxpool2d.view import Dimension2dView, Dimension2dSwitcher
 # Main
 
 class NeuronBuilderMaxPooling2dStrategy(NeuronStrategy):
-    DIMENSION_SWITCHER = "dimension_2d_switcher"
+    class Watch(str):
+        DIMENSION_SWITCHER = "dimension_2d_switcher"
 
     def __init__(self, dependencies):
         super().__init__(dependencies)
@@ -70,14 +71,14 @@ class NeuronBuilderMaxPooling2dStrategy(NeuronStrategy):
     def change_dimension(self, event):
         key = Dimension2dView.SINGLE if event.checked else Dimension2dView.DOUBLE
         self.update(
-            NeuronBuilderMaxPooling2dStrategy.DIMENSION_SWITCHER,
+            NeuronBuilderMaxPooling2dStrategy.Watch.DIMENSION_SWITCHER,
             lambda switcher: switcher.change_strategy(key)
         )
         return True
 
     @property
     def dimension_switcher_program(self):
-        return self.get(NeuronBuilderMaxPooling2dStrategy.DIMENSION_SWITCHER).program
+        return self.get(NeuronBuilderMaxPooling2dStrategy.Watch.DIMENSION_SWITCHER).program
 
     def render(self, root):
         return (
@@ -110,7 +111,7 @@ class NeuronBuilderMaxPooling2dStrategy(NeuronStrategy):
                 .Adjust(Scrollable.SizeAdjustPolicy.AdjustToContents)
                 .Content(
                     self.watch(
-                        NeuronBuilderMaxPooling2dStrategy.DIMENSION_SWITCHER,
+                        NeuronBuilderMaxPooling2dStrategy.Watch.DIMENSION_SWITCHER,
                         Switcher(
                             root,
                             Dimension2dSwitcher(Dimension2dView.DOUBLE, self.dependencies),

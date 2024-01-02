@@ -29,14 +29,18 @@ from app.gui.neuron.unfold.dimension_remover import DimensionRemover
 class UpdateOperation(Decorator):
     def method(self, target, *args, **kwargs):
         result = super().method(target, *args, **kwargs)
-        target.update(NeuronBuilderUnfoldStrategy.LIST_ELEMENT, lambda element: element.update_view())
+        target.update(
+            NeuronBuilderUnfoldStrategy.Watch.LIST_ELEMENT,
+            lambda element: element.update_view()
+        )
         return result
 
 
 # Main
 
 class NeuronBuilderUnfoldStrategy(NeuronStrategy):
-    LIST_ELEMENT = "list_element"
+    class Watch(str):
+        LIST_ELEMENT = "list_element"
 
     def __init__(self, dependencies):
         super().__init__(dependencies)
@@ -107,7 +111,7 @@ class NeuronBuilderUnfoldStrategy(NeuronStrategy):
                 LayoutFactory(LayoutType.VERTICAL).create()
                 .add(
                     self.watch(
-                        NeuronBuilderUnfoldStrategy.LIST_ELEMENT,
+                        NeuronBuilderUnfoldStrategy.Watch.LIST_ELEMENT,
                         List(root, self.data, LayoutType.VERTICAL)
                         .Sizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum)
                         .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum)

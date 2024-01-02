@@ -19,7 +19,7 @@ class List(Component):
         self._callback_builder = callback_builder
         return self
 
-    def render_view(self):
+    def render_view(self, root):
         return (
             LayoutFactory(self._orientation).create()
             .append(

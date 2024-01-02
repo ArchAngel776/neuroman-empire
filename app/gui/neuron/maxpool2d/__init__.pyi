@@ -18,7 +18,8 @@ from .view import Dimension2dSwitcher
 # Main
 
 class NeuronBuilderMaxPooling2dStrategy(NeuronStrategy[MaxPool2dParams, MaxPool2dOptions]):
-    DIMENSION_SWITCHER = ... #type: str
+    class Watch(str):
+        DIMENSION_SWITCHER = ... #type: NeuronBuilderMaxPooling2dStrategy.Watch
 
     _return_indices: FormInput[bool]
     _ceil_mode: FormInput[bool]

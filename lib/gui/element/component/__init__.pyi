@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QSizePolicy
 from lib import void
 from lib.decorators import method
 from lib.decorators.decorator import Decorator
+from lib.gui import Watcher
 from lib.gui.element import Element
 from lib.gui.layout import Layout
 from lib.gui.layout.type import LayoutType
@@ -34,7 +35,7 @@ class ComponentMeta(type(Element), type(ABC)): ...
 
 # Main
 
-class Component(Element, ABC, metaclass=ComponentMeta):
+class Component(Element, Watcher, ABC, metaclass=ComponentMeta):
     _orientation: LayoutType
     _sizing: QSizePolicy
 
@@ -48,4 +49,4 @@ class Component(Element, ABC, metaclass=ComponentMeta):
     def update_view(self) -> void: ...
 
     @abstractmethod
-    def render_view(self) -> Layout: ...
+    def render_view(self, root: Window) -> Layout: ...

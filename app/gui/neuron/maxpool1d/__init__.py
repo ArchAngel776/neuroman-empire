@@ -22,7 +22,8 @@ from app.gui.neuron.maxpool1d.dimension import SingleDimensionStrategy
 # Main
 
 class NeuronBuilderMaxPooling1dStrategy(NeuronStrategy):
-    DIMENSION_SWITCHER = "dimension_1d_switcher"
+    class Watch(str):
+        DIMENSION_SWITCHER = "dimension_1d_switcher"
 
     def __init__(self, dependencies):
         super().__init__(dependencies)
@@ -63,14 +64,14 @@ class NeuronBuilderMaxPooling1dStrategy(NeuronStrategy):
 
     @property
     def dimension_switcher_program(self):
-        return self.get(NeuronBuilderMaxPooling1dStrategy.DIMENSION_SWITCHER).program
+        return self.get(NeuronBuilderMaxPooling1dStrategy.Watch.DIMENSION_SWITCHER).program
 
     def render(self, root):
         return (
             LayoutFactory(LayoutType.VERTICAL).create()
             .add(
                 self.watch(
-                    NeuronBuilderMaxPooling1dStrategy.DIMENSION_SWITCHER,
+                    NeuronBuilderMaxPooling1dStrategy.Watch.DIMENSION_SWITCHER,
                     Switcher(
                         root,
                         Dimension1dSwitcher(Dimension1dView.SINGLE, self.dependencies),

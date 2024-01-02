@@ -22,7 +22,8 @@ from .params import NeuronCreationParams
 # Main
 
 class NeuronOperationCreationStrategy(SwitcherStrategy[NeuronOperationDependencies, NeuronOperationParams]):
-    NEURON_SWITCHER_ELEMENT = ... #type: str
+    class Watch(str):
+        NEURON_SWITCHER_ELEMENT = ... #type: NeuronOperationCreationStrategy.Watch
 
     _neuron_name: FormInput[str]
     _neuron_type: FormInput[tuple[int, type[Neuron]]]

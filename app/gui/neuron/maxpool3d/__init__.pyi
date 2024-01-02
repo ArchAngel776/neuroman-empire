@@ -19,7 +19,8 @@ from .view import Dimension3dView, Dimension3dSwitcher
 # Main
 
 class NeuronBuilderMaxPooling3dStrategy(NeuronStrategy[MaxPool3dParams, MaxPool3dOptions]):
-    DIMENSION_SWITCHER = ... #type: str
+    class Watch(str):
+        DIMENSION_SWITCHER = ... #type: NeuronBuilderMaxPooling3dStrategy.Watch
 
     _return_indices: FormInput[bool]
     _ceil_mode: FormInput[bool]

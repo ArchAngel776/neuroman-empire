@@ -23,7 +23,8 @@ from app.gui.neuron.conv1d.dimension import SingleDimensionStrategy
 # Main
 
 class NeuronBuilderConvolution1dStrategy(NeuronStrategy):
-    DIMENSION_SWITCHER = "dimension_1d_switcher"
+    class Watch(str):
+        DIMENSION_SWITCHER = "dimension_1d_switcher"
 
     def __init__(self, dependencies):
         super().__init__(dependencies)
@@ -71,7 +72,7 @@ class NeuronBuilderConvolution1dStrategy(NeuronStrategy):
 
     @property
     def dimension_switcher_program(self):
-        return self.get(NeuronBuilderConvolution1dStrategy.DIMENSION_SWITCHER).program
+        return self.get(NeuronBuilderConvolution1dStrategy.Watch.DIMENSION_SWITCHER).program
 
     def render(self, root):
         return (
@@ -109,7 +110,7 @@ class NeuronBuilderConvolution1dStrategy(NeuronStrategy):
             )
             .add(
                 self.watch(
-                    NeuronBuilderConvolution1dStrategy.DIMENSION_SWITCHER,
+                    NeuronBuilderConvolution1dStrategy.Watch.DIMENSION_SWITCHER,
                     Switcher(
                         root,
                         Dimension1dSwitcher(Dimension1dView.SINGLE, self.dependencies),

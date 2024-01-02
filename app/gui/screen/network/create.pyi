@@ -17,8 +17,9 @@ from app.gui.network.dependencies import NeuronOperationDependencies
 # Main
 
 class CreateNetworkScreen(Screen[MainWindow]):
-    CANVAS_ELEMENT = ... #type: str
-    NEURON_OPERATION_SWITCHER = ... #type: str
+    class Watch(str):
+        CANVAS_ELEMENT = ... #type: CreateNetworkScreen.Watch
+        NEURON_OPERATION_SWITCHER = ... #type: CreateNetworkScreen.Watch
 
     _network: Network
 

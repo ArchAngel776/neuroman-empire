@@ -15,6 +15,11 @@ class UpdateStrategy(Decorator):
         target.update_view()
 
 
+class ConstraintLayout(Decorator):
+    def method(self, target, root):
+        return super().method(target, root).constraint(QLayout.SizeConstraint.SetMinAndMaxSize)
+
+
 # Main
 
 class Switcher(Component):
@@ -45,8 +50,9 @@ class Switcher(Component):
         super().update_view()
         self.emit(Event.Type.Switch, SwitcherSwitchEvent())
 
-    def render_view(self):
-        return self.program.render_element(self.root).constraint(QLayout.SizeConstraint.SetMinAndMaxSize)
+    @method(ConstraintLayout)
+    def render_view(self, root):
+        return self.program.render_element(root)
 
     @property
     def program(self):

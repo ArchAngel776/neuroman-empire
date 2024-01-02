@@ -3,7 +3,7 @@ from typing import Generic, TypeVar, TypedDict, Self
 
 from lib import void
 from lib.decorators import method
-from lib.decorators.decorator import Decorator
+from lib.decorators.decorator import Decorator, DecoratorArguments, DecoratorResult
 from lib.gui.element.component import Component
 from lib.gui.layout import Layout
 from lib.gui.layout.type import LayoutType
@@ -21,6 +21,11 @@ SwitcherUpdateStrategyKey = TypeVar("SwitcherUpdateStrategyKey", int, str, Enum)
 SwitcherUpdateStrategyDependencies = TypeVar("SwitcherUpdateStrategyDependencies", dict, TypedDict)
 SwitcherUpdateStrategyParams = TypeVar("SwitcherUpdateStrategyParams", dict, TypedDict)
 
+TSwitcherConstraintLayout = TypeVar("TSwitcherConstraintLayout", bound=Switcher)
+SwitcherConstraintLayoutKey = TypeVar("SwitcherConstraintLayoutKey", int, str, Enum)
+SwitcherConstraintLayoutDependencies = TypeVar("SwitcherConstraintLayoutDependencies", dict, TypedDict)
+SwitcherConstraintLayoutParams = TypeVar("SwitcherConstraintLayoutParams", dict, TypedDict)
+
 
 # Decorators
 
@@ -34,6 +39,18 @@ class UpdateStrategy(
     Generic[SwitcherUpdateStrategyKey, SwitcherUpdateStrategyDependencies, SwitcherUpdateStrategyParams]
 ):
     def method(self, target: TSwitcherUpdateStrategy, key: SwitcherUpdateStrategyKey) -> void: ...
+
+
+class ConstraintLayout(
+    Decorator[
+        Layout, [
+            Switcher[SwitcherConstraintLayoutKey, SwitcherConstraintLayoutDependencies, SwitcherConstraintLayoutParams],
+            Window
+        ]
+    ],
+    Generic[SwitcherConstraintLayoutKey, SwitcherConstraintLayoutDependencies, SwitcherConstraintLayoutParams]
+):
+    def method(self, target: TSwitcherConstraintLayout, root: Window) -> Layout: ...
 
 
 # Main
@@ -59,7 +76,8 @@ class Switcher(Component, Generic[SwitcherKey, SwitcherDependencies, SwitcherPar
 
     def update_view(self) -> void: ...
 
-    def render_view(self) -> Layout: ...
+    @method(ConstraintLayout[SwitcherKey, SwitcherDependencies, SwitcherParams])
+    def render_view(self, root: Window) -> Layout: ...
 
     @property
     def program(self) -> SwitcherProgram[SwitcherKey, SwitcherDependencies, SwitcherParams]: ...

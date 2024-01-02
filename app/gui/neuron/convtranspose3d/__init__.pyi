@@ -19,7 +19,8 @@ from .view import Dimension3dView, Dimension3dSwitcher
 # Main
 
 class NeuronBuilderTransposedConvolution3dStrategy(NeuronStrategy[ConvTranspose3dParams, ConvTranspose3dOptions]):
-    DIMENSION_SWITCHER = ... #type: str
+    class Watch(str):
+        DIMENSION_SWITCHER = ... #type: NeuronBuilderTransposedConvolution3dStrategy.Watch
 
     _input_channels: FormInput[int]
     _output_channels: FormInput[int]

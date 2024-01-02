@@ -20,7 +20,8 @@ from app.gui.network import NeuronOperationParams
 # Main
 
 class NeuronOperationModificationStrategy(SwitcherStrategy[NeuronOperationDependencies, NeuronOperationParams]):
-    NEURON_SWITCHER_ELEMENT = ... #type: str
+    class Watch(str):
+        NEURON_SWITCHER_ELEMENT = ... #type: NeuronOperationModificationStrategy.Watch
 
     _form_title_font: Font
     _form_label_font: Font

@@ -42,7 +42,8 @@ class UpdateOperation(Decorator[bool, [NeuronBuilderUnfoldStrategy, ...]]):
 # Main
 
 class NeuronBuilderUnfoldStrategy(NeuronStrategy[UnfoldParams, UnfoldOptions]):
-    LIST_ELEMENT = ... #type: str
+    class Watch(str):
+        LIST_ELEMENT = ... #type: NeuronBuilderUnfoldStrategy.Watch
 
     _kernel_size: list[FormInput[int]]
     _stride: list[FormInput[int]]

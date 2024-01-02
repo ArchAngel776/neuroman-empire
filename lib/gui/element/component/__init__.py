@@ -2,10 +2,11 @@ from abc import ABC, abstractmethod
 
 from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QSizePolicy
 
+from lib.hooks import layout_widget
 from lib.decorators import method
 from lib.decorators.decorator import Decorator
 from lib.helpers.gui_remover import GUIRemover
-from lib.hooks import layout_widget
+from lib.gui import Watcher
 from lib.gui.element import Element
 from lib.gui.layout.type import LayoutType
 
@@ -30,7 +31,7 @@ class ComponentMeta(type(Element), type(ABC)):
 
 # Main
 
-class Component(Element, ABC, metaclass=ComponentMeta):
+class Component(Element, Watcher, ABC, metaclass=ComponentMeta):
     def __init__(self, root, orientation):
         super().__init__(root)
         self._orientation = orientation
@@ -53,11 +54,11 @@ class Component(Element, ABC, metaclass=ComponentMeta):
 
     @method(ClearRender)
     def update_view(self):
-        widget = layout_widget(self.render_view().element)
+        widget = layout_widget(self.render_view(self.root).element)
         widget.setSizePolicy(self._sizing)
 
         self.layout().addWidget(widget)
 
     @abstractmethod
-    def render_view(self):
+    def render_view(self, root):
         pass

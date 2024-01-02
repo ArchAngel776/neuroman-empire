@@ -39,7 +39,8 @@ from app.gui.network.creation.params import NeuronCreationParams
 # Main
 
 class NeuronOperationCreationStrategy(SwitcherStrategy):
-    NEURON_SWITCHER_ELEMENT = "neuron_switcher_element"
+    class Watch(str):
+        NEURON_SWITCHER_ELEMENT = "neuron_switcher_element"
 
     def __init__(self, dependencies):
         super().__init__(dependencies)
@@ -62,7 +63,7 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
 
     def select_neuron(self, event):
         self.update(
-            NeuronOperationCreationStrategy.NEURON_SWITCHER_ELEMENT,
+            NeuronOperationCreationStrategy.Watch.NEURON_SWITCHER_ELEMENT,
             lambda switcher: switcher.change_strategy(event.data.type())
         )
         return True
@@ -87,7 +88,7 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
 
     @property
     def switcher_program(self):
-        return self.get(NeuronOperationCreationStrategy.NEURON_SWITCHER_ELEMENT).program
+        return self.get(NeuronOperationCreationStrategy.Watch.NEURON_SWITCHER_ELEMENT).program
 
     @property
     def neuron_dependencies(self):
@@ -163,7 +164,7 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                     .ScrollY(True, size=SCROLLBAR_SIZE)
                     .Content(
                         self.watch(
-                            NeuronOperationCreationStrategy.NEURON_SWITCHER_ELEMENT,
+                            NeuronOperationCreationStrategy.Watch.NEURON_SWITCHER_ELEMENT,
                             Switcher(
                                 root,
                                 NeuronBuilderSwitcher(NeuronType.CONV1D, self.neuron_dependencies),

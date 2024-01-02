@@ -23,7 +23,8 @@ from app.gui.network.modification.params import NeuronModificationParams
 # Main
 
 class NeuronOperationModificationStrategy(SwitcherStrategy):
-    NEURON_SWITCHER_ELEMENT = "neuron_switcher_element"
+    class Watch(str):
+        NEURON_SWITCHER_ELEMENT = "neuron_switcher_element"
 
     def __init__(self, dependencies):
         super().__init__(dependencies)
@@ -74,7 +75,7 @@ class NeuronOperationModificationStrategy(SwitcherStrategy):
 
     @property
     def switcher_program(self):
-        return self.get(NeuronOperationModificationStrategy.NEURON_SWITCHER_ELEMENT).program
+        return self.get(NeuronOperationModificationStrategy.Watch.NEURON_SWITCHER_ELEMENT).program
 
     @property
     def neuron_dependencies(self):
@@ -131,7 +132,7 @@ class NeuronOperationModificationStrategy(SwitcherStrategy):
                     .ScrollY(True, size=SCROLLBAR_SIZE)
                     .Content(
                         self.watch(
-                            NeuronOperationModificationStrategy.NEURON_SWITCHER_ELEMENT,
+                            NeuronOperationModificationStrategy.Watch.NEURON_SWITCHER_ELEMENT,
                             Switcher(
                                 root,
                                 NeuronBuilderSwitcher(self.neuron_type, self.neuron_dependencies),
