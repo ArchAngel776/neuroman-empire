@@ -78,7 +78,7 @@ class NeuronBuilderConvolution3dStrategy(NeuronStrategy):
 
     def change_dimension(self, event):
         key = Dimension3dView.SINGLE if event.checked else Dimension3dView.TRIPLE
-        self.update(
+        self.make(
             NeuronBuilderConvolution3dStrategy.Watch.DIMENSION_SWITCHER,
             lambda switcher: switcher.change_strategy(key)
         )

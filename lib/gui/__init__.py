@@ -42,5 +42,5 @@ class Watcher:
         return self._watched[key]
 
     @method(ExistsWatcher)
-    def update(self, key, updater):
+    def make(self, key, updater):
         updater(self._watched[key])

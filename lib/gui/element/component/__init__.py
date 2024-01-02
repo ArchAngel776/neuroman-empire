@@ -33,7 +33,8 @@ class ComponentMeta(type(Element), type(ABC)):
 
 class Component(Element, Watcher, ABC, metaclass=ComponentMeta):
     def __init__(self, root, orientation):
-        super().__init__(root)
+        Element.__init__(self, root)
+        Watcher.__init__(self)
         self._orientation = orientation
         self._sizing = QSizePolicy()
 

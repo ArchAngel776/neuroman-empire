@@ -36,7 +36,7 @@ class CreateNetworkScreen(Screen):
 
         canvas_width = area.width() - CANVAS_PADDING - SCROLLBAR_SIZE
 
-        self.update(
+        self.make(
             CreateNetworkScreen.Watch.CANVAS_ELEMENT,
             lambda canvas: canvas.Width(canvas_width)
         )
@@ -45,7 +45,7 @@ class CreateNetworkScreen(Screen):
         return True
 
     def update_canvas(self):
-        self.update(
+        self.make(
             CreateNetworkScreen.Watch.CANVAS_ELEMENT,
             lambda canvas: canvas.Height(canvas.program.height)
         )
@@ -54,7 +54,7 @@ class CreateNetworkScreen(Screen):
         params = self.switcher_program.params
         self._network.add_neuron(neuron(params["name"], params["params"], params["options"]))
 
-        self.update(
+        self.make(
             CreateNetworkScreen.Watch.NEURON_OPERATION_SWITCHER,
             lambda switcher: switcher.change_strategy(NeuronOperation.ENTRY)
         )
@@ -77,7 +77,7 @@ class CreateNetworkScreen(Screen):
         neuron = canvas.program.click_neuron(event.pos())
         if neuron:
             self.canvas_program.change_variant(NetworkBuilderVariantType.NEURON)
-            self.update(
+            self.make(
                 CreateNetworkScreen.Watch.NEURON_OPERATION_SWITCHER,
                 lambda switcher: switcher
                 .update_dependencies(self.neuron_operation_dependencies(neuron), True)
@@ -88,7 +88,7 @@ class CreateNetworkScreen(Screen):
 
     def action_entry(self):
         self.canvas_program.change_variant(NetworkBuilderVariantType.NETWORK)
-        self.update(
+        self.make(
             CreateNetworkScreen.Watch.NEURON_OPERATION_SWITCHER,
             lambda switcher: switcher
             .update_dependencies(self.neuron_operation_dependencies(), True)
@@ -98,7 +98,7 @@ class CreateNetworkScreen(Screen):
 
     def action_creation(self):
         self.canvas_program.change_variant(NetworkBuilderVariantType.NETWORK)
-        self.update(
+        self.make(
             CreateNetworkScreen.Watch.NEURON_OPERATION_SWITCHER,
             lambda switcher: switcher
             .update_dependencies(self.neuron_operation_dependencies(), True)
