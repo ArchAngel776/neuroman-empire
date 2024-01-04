@@ -1,9 +1,8 @@
-from pathlib import Path
-
-from PyQt5.QtCore import QFile, QByteArray
+from PyQt5.QtCore import QFile
 from PyQt5.QtWidgets import QApplication, QMainWindow, QAction
 
 from lib.decorators import method
+from lib.decorators.decorator import Decorator
 from lib.gui.window import Window, ConfigScreen
 from lib.gui.window.menu import Menu
 from lib.gui.window.sizer import Sizer
@@ -13,6 +12,13 @@ from app import GUI_TITLE, GUI_SIZE_WIDTH, GUI_SIZE_HEIGHT
 from app.hooks import main_icon, i18n
 from app.gui.screen.home import HomeScreen
 from app.gui.screen.network.create import CreateNetworkScreen
+
+
+# Decorators
+
+class SingletonGUI(Decorator):
+    def method(self, target, args):
+        return super().method(target, args)
 
 
 # Main
@@ -65,7 +71,7 @@ class GUI:
         if not stylesheet.open(QFile.ReadOnly | QFile.Text):
             raise RuntimeError("Cannot load stylesheet for app.")
 
-        self.app.setStyleSheet(str(stylesheet.readAll(), "utf-8"))
+        self._app.setStyleSheet(str(stylesheet.readAll(), "utf-8"))
 
     def start_gui_cycle(self):
         self._main_window.config()
@@ -73,8 +79,4 @@ class GUI:
 
         self._main_window.home()
 
-        return self.app.exec_()
-
-    @property
-    def app(self):
-        return self._app
+        return self._app.exec_()
