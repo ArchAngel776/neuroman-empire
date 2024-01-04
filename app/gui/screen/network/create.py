@@ -167,7 +167,7 @@ class CreateNetworkScreen(Screen):
                                 NeuronOperationSwitcher(NeuronOperation.ENTRY, self.neuron_operation_dependencies()),
                                 LayoutType.VERTICAL
                             )
-                            .InnerSizing(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.MinimumExpanding)
+                            .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
                             .AutoInit()
                         )
                     )
