@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from PyQt5.QtCore import QFile, QByteArray
 from PyQt5.QtWidgets import QApplication, QMainWindow, QAction
 
 from lib.decorators import method
@@ -59,7 +60,12 @@ class GUI:
         )
 
     def config(self):
-        self._app.setStyleSheet(Path("assets/style.qss").read_text())
+        stylesheet = QFile("assets/style.qss")
+
+        if not stylesheet.open(QFile.ReadOnly | QFile.Text):
+            raise RuntimeError("Cannot load stylesheet for app.")
+
+        self.app.setStyleSheet(str(stylesheet.readAll(), "utf-8"))
 
     def start_gui_cycle(self):
         self._main_window.config()
@@ -67,4 +73,8 @@ class GUI:
 
         self._main_window.home()
 
-        return self._app.exec_()
+        return self.app.exec_()
+
+    @property
+    def app(self):
+        return self._app
