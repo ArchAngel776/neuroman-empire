@@ -2,7 +2,7 @@ from typing import TypeVar, Union, Iterable, Callable, Optional
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPalette, QColor, QGradient
-from PyQt5.QtWidgets import QLayout, QWidget
+from PyQt5.QtWidgets import QLayout, QWidget, QApplication
 
 from lib import void
 
@@ -40,3 +40,6 @@ def mapping(target: Iterable[MapFrom], callback: Callable[[MapFrom, Optional[int
 
 
 def merge(**sources: list[MergeType]) -> list[dict[str, MergeType]]: ...
+
+
+def app() -> QApplication: ...

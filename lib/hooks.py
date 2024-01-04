@@ -1,5 +1,5 @@
 from PyQt5.QtGui import QPalette
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QApplication
 
 
 # Modules
@@ -43,3 +43,10 @@ def merge(**sources):
                 result.append({})
             result[index][name] = item
     return result
+
+
+def app():
+    app = QApplication.instance()
+    if not isinstance(app, QApplication):
+        raise TypeError("Application core hasn't been initialized or isn't proper core component.")
+    return app

@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QWidget
 
 from lib.events.emitter import EventEmitter
+from lib.hooks import app
 
 
 # Main
@@ -78,6 +79,9 @@ class Element(QWidget, EventEmitter):
     def On(self, event, callback, with_target=True, with_event=True):
         self.add_event_listener(event, callback, with_target, with_event)
         return self
+
+    def update_style(self):
+        app().style().polish(self)
 
     @property
     def root(self):
