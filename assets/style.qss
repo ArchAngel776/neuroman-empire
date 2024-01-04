@@ -1,3 +1,13 @@
+CheckBox[valid="false"],
+IntegerInput[valid="false"],
+NumberInput[valid="false"],
+TextInput[valid="false"],
+SelectBox[valid="false"] {
+    padding: 2px 0px;
+    border: 1px solid #C00000;
+    border-radius: 2px;
+}
+
 QScrollBar:horizontal {
     margin: 0px 3px;
     background-color: transparent;
