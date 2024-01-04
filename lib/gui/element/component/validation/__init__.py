@@ -58,6 +58,7 @@ class ValidationField(Component):
 
     @method(UpdateStyle)
     def set_exception(self, control):
+        control.setFocus()
         control.setProperty("valid", False)
         self._exception.set_text(self._validator.error_message)
         self._exception.setup()
@@ -69,6 +70,7 @@ class ValidationField(Component):
 
     @method(UpdateStyle)
     def clear_exception(self, control):
+        control.setFocus()
         control.setProperty("valid", True)
         self._exception.set_text(self._validator.error_message)
         self._exception.hide()
