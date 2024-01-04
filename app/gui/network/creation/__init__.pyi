@@ -6,6 +6,7 @@ from lib import void
 from lib.gui.element.font import Font
 from lib.gui.element.form import FormInput
 from lib.gui.element.component.switcher.strategy import SwitcherStrategy
+from lib.gui.element.component.validation.container import ValidationContainer
 from lib.gui.layout import Layout
 
 from app.network.neuron import Neuron
@@ -33,6 +34,8 @@ class NeuronOperationCreationStrategy(SwitcherStrategy[NeuronOperationDependenci
 
     _button_cursor: QCursor
 
+    _validation_container: ValidationContainer
+
     def __init__(self, dependencies: NeuronOperationDependencies) -> None: ...
 
     @property
@@ -48,6 +51,8 @@ class NeuronOperationCreationStrategy(SwitcherStrategy[NeuronOperationDependenci
 
     @property
     def create(self) -> Callable[[type[Neuron]], void]: ...
+
+    def validate_form(self) -> bool: ...
 
     def create_neuron(self) -> bool: ...
 

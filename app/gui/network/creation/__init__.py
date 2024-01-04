@@ -1,13 +1,19 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QCursor
-from PyQt5.QtWidgets import QSizePolicy
+from PyQt5.QtWidgets import QSizePolicy, QLayout
 
 from lib.gui import LS
 from lib.gui.element.button import Button
+from lib.gui.element.component.validation.container import ValidationContainer
 from lib.gui.element.font import Font
 from lib.gui.element.form import FormInput
 from lib.gui.element.form.select import SelectBox
 from lib.gui.element.form.text import TextInput
+from lib.gui.element.form.validator.string import StringValidator
+from lib.gui.element.form.validator.string.length import Length
+from lib.gui.element.form.validator.string.length.data import LengthValidationData
+from lib.gui.element.form.validator.string.regex import Regex
+from lib.gui.element.form.validator.string.regex.data import RegexValidationData
 from lib.gui.element.scrollable import Scrollable
 from lib.gui.element.component.switcher import Switcher
 from lib.gui.element.component.switcher.strategy import SwitcherStrategy
@@ -53,6 +59,8 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
 
         self._button_cursor = QCursor(Qt.PointingHandCursor)
 
+        self._validation_container = ValidationContainer()
+
     @property
     def params(self):
         return NeuronCreationParams(
@@ -82,6 +90,9 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
     def create(self):
         return self.dependencies["create"]
 
+    def validate_form(self):
+        return self._validation_container.validate()
+
     def create_neuron(self):
         self.create(self.neuron_type)
         return True
@@ -108,6 +119,7 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                 )
                 .append(
                     LayoutFactory(LayoutType.HORIZONTAL).create()
+                    .constraint(QLayout.SizeConstraint.SetMinimumSize)
                     .margin_vertical(LS.rem(.2))
                     .add(
                         Text(root, i18n("window.screens.network.creation.labels.name"))
@@ -116,8 +128,41 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                     .append(
                         LayoutFactory(LayoutType.VERTICAL).create()
                         .add(
-                            TextInput(root, self._neuron_name.value)
-                            .Bind(self._neuron_name)
+                            StringValidator(
+                                Length(
+                                    LengthValidationData(
+                                        min=4,
+                                        message="Nazwa musi zawierać conajmniej 4 znaki"
+                                    )
+                                ),
+                                Length(
+                                    LengthValidationData(
+                                        max=255,
+                                        message="Dozwolony limit nazwy to 255 znaków"
+                                    )
+                                ),
+                                Regex(
+                                    RegexValidationData(
+                                        pattern="^([A-Za-z0-9_\\-\\s]+)$",
+                                        message="Nazwa może składać się tylko z cyfr, małych i dużych liter"
+                                    )
+                                ),
+                                Regex(
+                                    RegexValidationData(
+                                        pattern="^([A-Za-z0-9][A-Za-z0-9_\\-\\s]+[A-Za-z0-9])$",
+                                        message="Nazwa nie może zaczynać się ani kończyć spacją lub pauzą"
+                                    )
+                                )
+                            )
+                            .Widget(
+                                root,
+                                TextInput(root, self._neuron_name.value)
+                                .Bind(self._neuron_name),
+                                LayoutType.VERTICAL
+                            )
+                            .Bind(self._validation_container)
+                            .Sizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum)
+                            .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum)
                         )
                     )
                 )
@@ -128,7 +173,6 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                         Text(root, i18n("window.screens.network.creation.labels.type"))
                         .Font(self._form_label_font)
                     )
-
                     .append(
                         LayoutFactory(LayoutType.VERTICAL).create()
                         .add(
@@ -178,6 +222,11 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                     Button(root, i18n("window.screens.network.creation.buttons.add"))
                     .Height(LS.rem(2))
                     .Cursor(self._button_cursor)
+                    .On(
+                        Event.Type.Click, self.validate_form,
+                        with_target=False,
+                        with_event=False
+                    )
                     .On(
                         Event.Type.Click, self.create_neuron,
                         with_target=False,
