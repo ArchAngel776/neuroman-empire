@@ -1,5 +1,5 @@
 from re import Match
-from typing import TypeVar, Callable
+from typing import TypeVar, Callable, ClassVar
 
 from lib import void
 from lib.decorators import method
@@ -32,7 +32,7 @@ class SubstitutionMessage(Decorator[str, [I18N, str]]):
 # Main
 
 class I18N:
-    _LANG = ... #type: str
+    _LANG: ClassVar[str] = ...
 
     _lang: str
     _yaml: YAML

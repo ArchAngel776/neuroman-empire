@@ -1,10 +1,10 @@
-from typing import Any
+from typing import Any, ClassVar
 
 
 # Main
 
 class YAML:
-    XPATH_SPLITER = ... #type: str
+    XPATH_SPLITER: ClassVar[str] = ...
 
     _path: str
 
