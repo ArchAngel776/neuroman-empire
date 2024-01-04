@@ -9,6 +9,7 @@ from lib.hooks import app
 class Element(QWidget, EventEmitter):
     def __init__(self, root):
         super().__init__(parent=root)
+        self._root = root
 
     def config(self):
         pass
@@ -85,4 +86,4 @@ class Element(QWidget, EventEmitter):
 
     @property
     def root(self):
-        return self.parent()
+        return self._root

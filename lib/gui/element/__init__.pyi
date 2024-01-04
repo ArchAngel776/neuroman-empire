@@ -24,6 +24,8 @@ ElementEventListener = Union[
 # Main
 
 class Element(QWidget, EventEmitter[Event.Type, Event]):
+    _root: Window
+
     def __init__(self, root: Window) -> None: ...
 
     def config(self) -> void: ...
