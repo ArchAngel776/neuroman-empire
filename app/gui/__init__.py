@@ -2,7 +2,6 @@ from PyQt5.QtCore import QFile
 from PyQt5.QtWidgets import QApplication, QMainWindow, QAction
 
 from lib.decorators import method
-from lib.decorators.decorator import Decorator
 from lib.gui.window import Window, ConfigScreen
 from lib.gui.window.menu import Menu
 from lib.gui.window.sizer import Sizer
@@ -12,13 +11,6 @@ from app import GUI_TITLE, GUI_SIZE_WIDTH, GUI_SIZE_HEIGHT
 from app.hooks import main_icon, i18n
 from app.gui.screen.home import HomeScreen
 from app.gui.screen.network.create import CreateNetworkScreen
-
-
-# Decorators
-
-class SingletonGUI(Decorator):
-    def method(self, target, args):
-        return super().method(target, args)
 
 
 # Main
