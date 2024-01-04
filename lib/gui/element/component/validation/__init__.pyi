@@ -4,7 +4,7 @@ from PyQt5.QtCore import QPoint, QSize
 
 from lib import void
 from lib.decorators import method
-from lib.decorators.decorator import Decorator
+from lib.decorators.decorator import Decorator, DecoratorArguments, DecoratorResult
 from lib.gui.element.component import Component
 from lib.gui.element.form import FormControl
 from lib.gui.element.form.validator import FormValidator
@@ -25,19 +25,36 @@ TValidationFieldUpdateStyle = TypeVar("TValidationFieldUpdateStyle", bound=Valid
 ValidationFieldUpdateStyleType = TypeVar("ValidationFieldUpdateStyleType")
 ValidationFieldUpdateStyleValidationType = TypeVar("ValidationFieldUpdateStyleValidationType", bound=Validation)
 
+TValidationFieldFocusOn = TypeVar("TValidationFieldFocusOn", bound=ValidationField)
+ValidationFieldFocusOnType = TypeVar("ValidationFieldFocusOnType")
+ValidationFieldFocusOnValidationType = TypeVar("ValidationFieldFocusOnValidationType", bound=Validation)
+
 
 # Decorators
+
+
+class FocusOn(
+    Decorator[
+        void, [
+            ValidationField[ValidationFieldFocusOnType, ValidationFieldFocusOnValidationType],
+            FormControl[ValidationFieldFocusOnType]
+        ]
+    ],
+    Generic[ValidationFieldFocusOnType, ValidationFieldFocusOnValidationType]
+):
+    def config(self, target: TValidationFieldFocusOn, control: FormControl[ValidationFieldFocusOnType]) -> Self: ...
+
 
 class UpdateStyle(
     Decorator[
         void, [
             ValidationField[ValidationFieldUpdateStyleType, ValidationFieldUpdateStyleValidationType],
-            FormControl[ValidationFieldType]
+            FormControl[ValidationFieldUpdateStyleType]
         ]
     ],
     Generic[ValidationFieldUpdateStyleType, ValidationFieldUpdateStyleValidationType]
 ):
-    def method(self, target: TValidationFieldUpdateStyle, control: FormControl[ValidationFieldType]) -> void: ...
+    def method(self, target: TValidationFieldUpdateStyle, control: FormControl[ValidationFieldUpdateStyleType]) -> void: ...
 
 
 # Main
@@ -70,9 +87,11 @@ class ValidationField(Component, Generic[ValidationFieldType, ValidationFieldVal
 
     def Bind(self, container: ValidationContainer) -> Self: ...
 
+    @method(FocusOn[ValidationFieldType, ValidationFieldValidationType])
     @method(UpdateStyle[ValidationFieldType, ValidationFieldValidationType])
     def set_exception(self, control: FormControl[ValidationFieldType]) -> void: ...
 
+    @method(FocusOn[ValidationFieldType, ValidationFieldValidationType])
     @method(UpdateStyle[ValidationFieldType, ValidationFieldValidationType])
     def clear_exception(self, control: FormControl[ValidationFieldType]) -> void: ...
 

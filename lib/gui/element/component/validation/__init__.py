@@ -10,6 +10,12 @@ from lib.gui.layout.factory import LayoutFactory
 
 # Decorators
 
+class FocusOn(Decorator):
+    def config(self, target, control):
+        control.setFocus()
+        return self
+
+
 class UpdateStyle(Decorator):
     def method(self, target, control):
         super().method(target, control)
@@ -56,9 +62,9 @@ class ValidationField(Component):
         container.register_field(self)
         return self
 
+    @method(FocusOn)
     @method(UpdateStyle)
     def set_exception(self, control):
-        control.setFocus()
         control.setProperty("valid", False)
         self._exception.set_text(self._validator.error_message)
         self._exception.setup()
@@ -68,9 +74,9 @@ class ValidationField(Component):
         else:
             self._exception.show()
 
+    @method(FocusOn)
     @method(UpdateStyle)
     def clear_exception(self, control):
-        control.setFocus()
         control.setProperty("valid", True)
         self._exception.set_text(self._validator.error_message)
         self._exception.hide()
