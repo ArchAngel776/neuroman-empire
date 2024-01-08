@@ -1,4 +1,4 @@
-from typing import Self, TypeVar, Union, Callable, Any
+from typing import Self, Union, Callable
 
 from PyQt5.QtCore import QEvent
 from PyQt5.QtGui import QCursor, QFont
@@ -6,12 +6,11 @@ from PyQt5.QtWidgets import QWidget, QSizePolicy
 
 from lib import void
 from lib.events.emitter import EventEmitter
+from lib.foundations import Foundation
 from lib.gui.event import Event
 from lib.gui.window import Window
 
 # Types
-
-TElement = TypeVar("TElement", bound=Element)
 
 ElementEventListener = Union[
     Callable[[Element, QEvent], bool],
@@ -23,7 +22,7 @@ ElementEventListener = Union[
 
 # Main
 
-class Element(QWidget, EventEmitter[Event.Type, Event]):
+class Element(QWidget, Foundation, EventEmitter[Event.Type, Event]):
     _root: Window
 
     def __init__(self, root: Window) -> None: ...
@@ -31,12 +30,6 @@ class Element(QWidget, EventEmitter[Event.Type, Event]):
     def config(self) -> void: ...
 
     def event(self, event: Event) -> bool: ...
-
-    def Name(self, name: str) -> Self: ...
-
-    def Property(self, name: str, value: Any) -> Self: ...
-
-    def Class(self, class_name: str | None) -> Self: ...
 
     def Sizing(self, horizontal: QSizePolicy.Policy, vertical: QSizePolicy.Policy) -> Self: ...
 

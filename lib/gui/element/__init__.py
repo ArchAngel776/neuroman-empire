@@ -1,12 +1,13 @@
 from PyQt5.QtWidgets import QWidget
 
-from lib.events.emitter import EventEmitter
 from lib.hooks import app
+from lib.events.emitter import EventEmitter
+from lib.foundations import Foundation
 
 
 # Main
 
-class Element(QWidget, EventEmitter):
+class Element(QWidget, Foundation, EventEmitter):
     def __init__(self, root):
         super().__init__(parent=root)
         self._root = root
@@ -16,18 +17,6 @@ class Element(QWidget, EventEmitter):
 
     def event(self, event):
         return super().event(event) if self.emit(event.type(), event) else False
-
-    def Name(self, name):
-        self.setObjectName(name)
-        return self
-
-    def Property(self, name, value):
-        self.setProperty(name, value)
-        return self
-
-    def Class(self, class_name):
-        self.setProperty("class", class_name)
-        return self
 
     def Sizing(self, horizontal, vertical):
         self.setSizePolicy(horizontal, vertical)
