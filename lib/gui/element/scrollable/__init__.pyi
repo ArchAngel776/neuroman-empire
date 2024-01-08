@@ -4,14 +4,16 @@ from typing import Self, TypeVar, Optional
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QScrollArea
 
-from lib import void
 from lib.decorators import method
 from lib.decorators.decorator import Decorator
 from lib.gui.event.scroll_area_content import ScrollAreaContent
 from lib.gui.element import Element
+from lib.gui.window import Window
 from .fitter import ScrollableFitter
 
 # Types
+
+TScrollable = TypeVar("TScrollable", bound=Scrollable)
 
 TScrollableFit = TypeVar("TScrollableFit", bound=Scrollable)
 TScrollableXSize = TypeVar("TScrollableXSize", bound=Scrollable)
@@ -25,7 +27,7 @@ TScrollableEmitScrollContentEvent = TypeVar("TScrollableEmitScrollContentEvent",
 class ScrollFit(Decorator[Scrollable, [Scrollable, bool]], ABC):
     def method(self, target: TScrollableFit, enabled: bool = True) -> TScrollableFit: ...
 
-    def scroll_content_fitting(self, area: Scrollable, event: ScrollAreaContent): ...
+    def scroll_content_fitting(self, area: Scrollable, event: ScrollAreaContent) -> bool: ...
 
     @abstractmethod
     def createFitter(self, area: Scrollable) -> ScrollableFitter: ...
@@ -60,7 +62,12 @@ class EmitScrollContentEvent(Decorator[Scrollable, [Scrollable, Element]]):
 # Main
 
 class Scrollable(QScrollArea, Element):
-    def config(self) -> void: ...
+    def __init__(self, root: Window) -> None: ...
+
+    @classmethod
+    def create_copy(cls, source: TScrollable) -> TScrollable: ...
+
+    def clone(self: TScrollable, source: TScrollable) -> TScrollable: ...
 
     @method(ScrollXFit)
     @method(ScrollXSize)

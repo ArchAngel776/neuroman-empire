@@ -77,8 +77,8 @@ class EmitScrollContentEvent(Decorator):
 # Main
 
 class Scrollable(QScrollArea, Element):
-    def config(self):
-        super().config()
+    def __init__(self, root):
+        super().__init__(root)
         self.setWidgetResizable(True)
 
     @method(ScrollXSize)
