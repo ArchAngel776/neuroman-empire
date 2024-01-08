@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
@@ -17,12 +19,12 @@ from .screen.network.create import CreateNetworkScreen
 # Main
 
 class MainWindow(QMainWindow, Window):
-    MENU_HOME = ... #type: str
+    MENU_HOME: ClassVar[str] = ...
 
-    TAB_PROGRAM = ... #type: str
+    TAB_PROGRAM: ClassVar[str] = ...
 
-    ACTION_HOME = ... #type: str
-    ACTION_CLOSE = ... #type: str
+    ACTION_HOME: ClassVar[str] = ...
+    ACTION_CLOSE: ClassVar[str] = ...
 
     _menu: Menu
 
