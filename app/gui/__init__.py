@@ -2,10 +2,10 @@ from PyQt5.QtCore import QFile
 from PyQt5.QtWidgets import QApplication, QMainWindow, QAction
 
 from lib.decorators import method
+from lib.hooks import layout_widget, bytes_to_string
 from lib.gui.window import Window, ConfigScreen
 from lib.gui.window.menu import Menu
 from lib.gui.window.sizer import Sizer
-from lib.hooks import layout_widget
 
 from app import GUI_TITLE, GUI_SIZE_WIDTH, GUI_SIZE_HEIGHT
 from app.hooks import main_icon, i18n
@@ -63,7 +63,7 @@ class GUI:
         if not stylesheet.open(QFile.ReadOnly | QFile.Text):
             raise RuntimeError("Cannot load stylesheet for app.")
 
-        self._app.setStyleSheet(str(stylesheet.readAll(), "utf-8"))
+        self._app.setStyleSheet(bytes_to_string(stylesheet.readAll()))
 
     def start_gui_cycle(self):
         self._main_window.config()
