@@ -1,13 +1,15 @@
-from typing import Union, Callable, Any
+from typing import Union, Callable, Any, TypeVar
 
 from lib.events.emitter import EventEmitter
 
 # Types
 
+TEventEmitter = TypeVar("TEventEmitter", bound=EventEmitter)
+
 EventListenerCallback = Union[
-    Callable[[EventEmitter, Any], bool],
+    Callable[[TEventEmitter, Any], bool],
     Callable[[Any], bool],
-    Callable[[EventEmitter], bool],
+    Callable[[TEventEmitter], bool],
     Callable[[], bool]
 ]
 
