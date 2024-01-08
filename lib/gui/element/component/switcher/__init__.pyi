@@ -3,7 +3,7 @@ from typing import Generic, TypeVar, TypedDict, Self
 
 from lib import void
 from lib.decorators import method
-from lib.decorators.decorator import Decorator, DecoratorArguments, DecoratorResult
+from lib.decorators.decorator import Decorator
 from lib.gui.element.component import Component
 from lib.gui.layout import Layout
 from lib.gui.layout.type import LayoutType
