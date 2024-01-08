@@ -23,5 +23,5 @@ class TextInput(QLineEdit, FormControl):
         self.setMaxLength(length)
         return self
 
-    def input_event(self, text: str):
+    def input_event(self, text):
         QApplication.sendEvent(self, TextBoxInputEvent(text))
