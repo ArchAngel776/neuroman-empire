@@ -50,3 +50,7 @@ def app():
     if not isinstance(app, QApplication):
         raise TypeError("Application core hasn't been initialized or isn't proper core component.")
     return app
+
+
+def bytes_to_string(target):
+    return str(target, "utf-8")
