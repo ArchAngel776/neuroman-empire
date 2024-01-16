@@ -4,9 +4,10 @@ from PyQt5.QtWidgets import QSizePolicy, QLayout
 
 from lib.gui import LS
 from lib.gui.element.button import Button
-from lib.gui.element.component.validation.container import ValidationContainer
 from lib.gui.element.font import Font
 from lib.gui.element.form import FormInput
+from lib.gui.element.form.container import FormContainer
+from lib.gui.element.form.container.element import FormElement
 from lib.gui.element.form.select import SelectBox
 from lib.gui.element.form.text import TextInput
 from lib.gui.element.form.validator.string import StringValidator
@@ -54,12 +55,12 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
         self._neuron_name = FormInput("")
         self._neuron_type = FormInput((0, Convolution1d))
 
+        self._form_container = FormContainer()
+
         self._form_title_font = Font().Size(LS.rem(1.2)).Bold().Underline()
         self._form_label_font = Font().Size(LS.rem(.8))
 
         self._button_cursor = QCursor(Qt.PointingHandCursor)
-
-        self._validation_container = ValidationContainer()
 
     @property
     def params(self):
@@ -91,7 +92,8 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
         return self.dependencies["create"]
 
     def validate_form(self):
-        return self._validation_container.validate()
+        self._form_container.validate()
+        return self._form_container.is_valid
 
     def create_neuron(self):
         self.create(self.neuron_type)
@@ -127,42 +129,41 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                     )
                     .append(
                         LayoutFactory(LayoutType.VERTICAL).create()
+                        .margin_vertical(LS.rem(.5))
                         .add(
-                            StringValidator(
-                                Length(
-                                    LengthValidationData(
-                                        min=4,
-                                        message="Nazwa musi zawierać conajmniej 4 znaki"
-                                    )
-                                ),
-                                Length(
-                                    LengthValidationData(
-                                        max=255,
-                                        message="Dozwolony limit nazwy to 255 znaków"
-                                    )
-                                ),
-                                Regex(
-                                    RegexValidationData(
-                                        pattern="^([A-Za-z0-9_\\-\\s]+)$",
-                                        message="Nazwa może składać się tylko z cyfr, małych i dużych liter"
-                                    )
-                                ),
-                                Regex(
-                                    RegexValidationData(
-                                        pattern="^([A-Za-z0-9][A-Za-z0-9_\\-\\s]+[A-Za-z0-9])$",
-                                        message="Nazwa nie może zaczynać się ani kończyć spacją lub pauzą"
+                            FormElement(self._form_container)
+                            .Control(
+                                TextInput(root, self._neuron_name.value)
+                                .Bind(self._neuron_name)
+                            )
+                            .Validator(
+                                StringValidator(
+                                    Length(
+                                        LengthValidationData(
+                                            min=4,
+                                            message="Nazwa musi zawierać conajmniej 4 znaki"
+                                        )
+                                    ),
+                                    Length(
+                                        LengthValidationData(
+                                            max=255,
+                                            message="Dozwolony limit nazwy to 255 znaków"
+                                        )
+                                    ),
+                                    Regex(
+                                        RegexValidationData(
+                                            pattern="^([A-Za-z0-9_\\-\\s]+)$",
+                                            message="Nazwa może składać się tylko z cyfr, małych i dużych liter"
+                                        )
+                                    ),
+                                    Regex(
+                                        RegexValidationData(
+                                            pattern="^([A-Za-z0-9][A-Za-z0-9_\\-\\s]+[A-Za-z0-9])$",
+                                            message="Nazwa nie może zaczynać się ani kończyć spacją lub pauzą"
+                                        )
                                     )
                                 )
                             )
-                            .Widget(
-                                root,
-                                TextInput(root, self._neuron_name.value)
-                                .Bind(self._neuron_name),
-                                LayoutType.VERTICAL
-                            )
-                            .Bind(self._validation_container)
-                            .Sizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum)
-                            .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum)
                         )
                     )
                 )

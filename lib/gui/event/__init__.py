@@ -10,6 +10,7 @@ class Event(QEvent):
     Switch = QEvent.registerEventType(1204)
     Input = QEvent.registerEventType(1205)
     ScrollContent = QEvent.registerEventType(1206)
+    Validated = QEvent.registerEventType(1207)
 
     class Type(int):
         # Extended
@@ -19,6 +20,7 @@ class Event(QEvent):
         Switch = 1204
         Input = 1205
         ScrollContent = 1206
+        Validated = 1207
 
         # Base
         None_ = QEvent.Type.None_

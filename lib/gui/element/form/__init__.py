@@ -71,3 +71,9 @@ class FormControl(Element, ABC, metaclass=FormControlMeta):
 
     def has_form_input(self):
         return self._form_input is not None
+
+    @property
+    def value(self):
+        if not self.has_form_input():
+            raise KeyError("Control hasn't been bound to any input.")
+        return self._form_input.value

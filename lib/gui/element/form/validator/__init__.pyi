@@ -1,10 +1,12 @@
 from abc import ABC, abstractmethod
 from typing import Generic, TypeVar, Optional
 
-from lib.gui.window import Window
-from lib.gui.layout.type import LayoutType
+from lib.decorators import method
+from lib.decorators.decorator import Decorator
+from lib.events.emitter import EventEmitter
+from lib.gui.event import Event
+from lib.gui.event.form_control_validated import FormControlValidated
 from lib.gui.element.form import FormControl
-from lib.gui.element.component.validation import ValidationField
 from .validation import Validation
 
 # Types
@@ -12,25 +14,44 @@ from .validation import Validation
 FormValidatorType = TypeVar("FormValidatorType")
 FormValidatorValidationType = TypeVar("FormValidatorValidationType", bound=Validation)
 
+TFormValidatorEmitValidationEvent = TypeVar("TFormValidatorEmitValidationEvent", bound=FormValidator)
+FormValidatorEmitValidationEventType = TypeVar("FormValidatorEmitValidationEventType")
+FormValidatorEmitValidationEventValidationType = TypeVar("FormValidatorEmitValidationEventValidationType", bound=Validation)
+
+
+# Decorators
+
+class EmitValidationEvent(
+    Decorator[
+        bool,
+        [
+            FormValidator[FormValidatorEmitValidationEventType, FormValidatorEmitValidationEventValidationType],
+            FormValidatorEmitValidationEventType
+        ]
+    ],
+    Generic[FormValidatorEmitValidationEventType, FormValidatorEmitValidationEventValidationType]
+):
+    def method(self, target: TFormValidatorEmitValidationEvent, value: FormValidatorEmitValidationEventType) -> bool: ...
+
 
 # Main
 
-class FormValidator(ABC, Generic[FormValidatorType, FormValidatorValidationType]):
+class FormValidator(
+    EventEmitter[Event.Type.Validated, FormControlValidated],
+    ABC,
+    Generic[FormValidatorType, FormValidatorValidationType]
+):
     _validations: list[FormValidatorValidationType]
 
     _error_message: Optional[str]
 
     def __init__(self, *validations: FormValidatorValidationType) -> None: ...
 
-    def validate(self, target: FormValidatorType) -> bool: ...
+    @method(EmitValidationEvent[FormValidatorType, FormValidatorValidationType])
+    def validate(self, value: FormValidatorType) -> bool: ...
 
     @abstractmethod
-    def Widget(
-            self,
-            root: Window,
-            form_control: FormControl[FormValidatorType],
-            orientation: LayoutType
-    ) -> ValidationField[FormValidatorType, FormValidatorValidationType]: ...
+    def bind(self, form_control: FormControl[FormValidatorType]) -> FormControl[FormValidatorType]: ...
 
     @property
     def error_message(self) -> Optional[str]: ...

@@ -1,9 +1,16 @@
+from lib.gui.event import Event
 from lib.gui.element.form.validator import FormValidator
-from lib.gui.element.component.validation import ValidationField
 
 
 # Main
 
 class StringValidator(FormValidator):
-    def Widget(self, root, form_control, orientation):
-        return ValidationField(root, form_control, self, orientation)
+    def bind(self, form_control):
+        return form_control.On(
+            Event.Type.Input, self.validate_text_input,
+            with_target=False, with_event=True
+        )
+
+    def validate_text_input(self, event):
+        self.validate(event.text)
+        return True
