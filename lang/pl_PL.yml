@@ -26,6 +26,13 @@ window:
         labels:
           name: "Nazwa: "
           type: "Typ: "
+        form:
+          name:
+            message:
+              min: "Nazwa musi zawierać conajmniej {} znaki"
+              max: "Dozwolony limit nazwy to {} znaków"
+              signs: "Nazwa może składać się tylko z cyfr, małych i dużych liter"
+              spaces: "Nazwa nie może zaczynać się ani kończyć spacją lub pauzą"
         buttons:
           add: "Dodaj"
       modification:

@@ -141,25 +141,31 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                                     Length(
                                         LengthValidationData(
                                             min=4,
-                                            message="Nazwa musi zawierać conajmniej 4 znaki"
+                                            message=i18n(
+                                                "window.screens.network.creation.form.name.message.min",
+                                                4
+                                            )
                                         )
                                     ),
                                     Length(
                                         LengthValidationData(
                                             max=255,
-                                            message="Dozwolony limit nazwy to 255 znaków"
+                                            message=i18n(
+                                                "window.screens.network.creation.form.name.message.max",
+                                                255
+                                            )
                                         )
                                     ),
                                     Regex(
                                         RegexValidationData(
                                             pattern="^([A-Za-z0-9_\\-\\s]+)$",
-                                            message="Nazwa może składać się tylko z cyfr, małych i dużych liter"
+                                            message=i18n("window.screens.network.creation.form.name.message.signs")
                                         )
                                     ),
                                     Regex(
                                         RegexValidationData(
                                             pattern="^([A-Za-z0-9][A-Za-z0-9_\\-\\s]+[A-Za-z0-9])$",
-                                            message="Nazwa nie może zaczynać się ani kończyć spacją lub pauzą"
+                                            message=i18n("window.screens.network.creation.form.name.message.spaces")
                                         )
                                     )
                                 )
