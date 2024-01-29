@@ -98,7 +98,7 @@ class NeuronOperationModificationStrategy(SwitcherStrategy):
                 .append(
                     LayoutFactory(LayoutType.HORIZONTAL).create()
                     .add(
-                        Text(root, "UUID: ")
+                        Text(root, i18n("window.screens.network.modification.labels.uuid"))
                         .Font(self._form_label_font)
                     )
                     .append(
