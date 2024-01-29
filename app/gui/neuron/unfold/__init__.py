@@ -29,7 +29,7 @@ from app.gui.neuron.unfold.dimension_remover import DimensionRemover
 class UpdateOperation(Decorator):
     def method(self, target, *args, **kwargs):
         result = super().method(target, *args, **kwargs)
-        target.update(
+        target.make(
             NeuronBuilderUnfoldStrategy.Watch.LIST_ELEMENT,
             lambda element: element.update_view()
         )
@@ -120,7 +120,10 @@ class NeuronBuilderUnfoldStrategy(NeuronStrategy):
                             LayoutFactory(LayoutType.VERTICAL).create()
                             .margin_vertical(LS.rem(.6))
                             .add(
-                                Text(root, i18n("window.screens.network.neurons.unfold.dimension").format(index + 1))
+                                Text(
+                                    root,
+                                    i18n("window.screens.network.neurons.unfold.dimension", index + 1)
+                                )
                                 .Font(self._title_font)
                                 .Align(Qt.AlignCenter)
                                 .Margin(0, LS.rem(.6))
