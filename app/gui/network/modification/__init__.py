@@ -106,6 +106,7 @@ class NeuronOperationModificationStrategy(SwitcherStrategy):
                         .add(
                             Text(root, self.neuron.uuid.hex)
                             .Font(self._form_value_font)
+                            .Selectable()
                         )
                     )
                 )
@@ -120,6 +121,7 @@ class NeuronOperationModificationStrategy(SwitcherStrategy):
                         .add(
                             Text(root, self.neuron.name)
                             .Font(self._form_value_font)
+                            .Selectable()
                         )
                     )
                 )
@@ -134,6 +136,7 @@ class NeuronOperationModificationStrategy(SwitcherStrategy):
                         .add(
                             Text(root, self.neuron.title())
                             .Font(self._form_value_font)
+                            .Selectable()
                         )
                     )
                 )
