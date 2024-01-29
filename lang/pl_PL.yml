@@ -35,6 +35,7 @@ window:
               spaces: "Nazwa nie może zaczynać się ani kończyć spacją lub pauzą"
         buttons:
           add: "Dodaj"
+          cancel: "Anuluj"
       modification:
         title: "Modyfikuj neuron"
         labels:

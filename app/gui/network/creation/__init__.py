@@ -91,12 +91,20 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
     def create(self):
         return self.dependencies["create"]
 
+    @property
+    def action_entry(self):
+        return self.dependencies["action_entry"]
+
     def validate_form(self):
         self._form_container.validate()
         return self._form_container.is_valid
 
     def create_neuron(self):
         self.create(self.neuron_type)
+        return True
+
+    def cancel(self):
+        self.action_entry()
         return True
 
     @property
@@ -225,19 +233,32 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                         )
                     )
                 )
-                .add(
-                    Button(root, i18n("window.screens.network.creation.buttons.add"))
-                    .Height(LS.rem(2))
-                    .Cursor(self._button_cursor)
-                    .On(
-                        Event.Type.Click, self.validate_form,
-                        with_target=False,
-                        with_event=False
+                .append(
+                    LayoutFactory(LayoutType.HORIZONTAL).create()
+                    .add(
+                        Button(root, i18n("window.screens.network.creation.buttons.add"))
+                        .Height(LS.rem(2))
+                        .Cursor(self._button_cursor)
+                        .On(
+                            Event.Type.Click, self.validate_form,
+                            with_target=False,
+                            with_event=False
+                        )
+                        .On(
+                            Event.Type.Click, self.create_neuron,
+                            with_target=False,
+                            with_event=False
+                        )
                     )
-                    .On(
-                        Event.Type.Click, self.create_neuron,
-                        with_target=False,
-                        with_event=False
+                    .add(
+                        Button(root, i18n("window.screens.network.creation.buttons.cancel"))
+                        .Height(LS.rem(2))
+                        .Cursor(self._button_cursor)
+                        .On(
+                            Event.Type.Click, self.cancel,
+                            with_target=False,
+                            with_event=False
+                        )
                     )
                 )
             )
