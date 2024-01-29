@@ -1,5 +1,16 @@
 from PyQt5.QtCore import QObject
 
+from lib.decorators import method
+from lib.decorators.decorator import Decorator
+
+
+# Decorators
+
+class NoRepeatUpdate(Decorator):
+    def method(self, target, is_valid):
+        if target.is_valid:
+            super().method(target, is_valid)
+
 
 # Main
 
@@ -20,9 +31,9 @@ class FormContainer(QObject):
 
     # Slots
 
+    @method(NoRepeatUpdate)
     def update_validation_status(self, is_valid):
-        if self._is_valid:
-            self._is_valid = is_valid
+        self._is_valid = is_valid
 
     @property
     def is_valid(self):
