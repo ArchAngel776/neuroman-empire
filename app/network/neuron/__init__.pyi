@@ -1,3 +1,4 @@
+from uuid import UUID
 from abc import ABC, abstractmethod
 from typing import Generic, TypeVar, TypedDict
 
@@ -12,6 +13,7 @@ NeuronOptions = TypeVar("NeuronOptions", dict, TypedDict)
 # Main
 
 class Neuron(ABC, Generic[NeuronParams, NeuronOptions]):
+    _uuid: UUID
     _name: str
     _params: NeuronParams
     _options: NeuronOptions
@@ -25,6 +27,9 @@ class Neuron(ABC, Generic[NeuronParams, NeuronOptions]):
     @staticmethod
     @abstractmethod
     def title() -> str: ...
+
+    @property
+    def uuid(self) -> UUID: ...
 
     @property
     def name(self) -> str: ...

@@ -1,3 +1,4 @@
+from uuid import uuid4
 from abc import ABC, abstractmethod
 
 from app.network.neuron.type import NeuronType
@@ -7,6 +8,7 @@ from app.network.neuron.type import NeuronType
 
 class Neuron(ABC):
     def __init__(self, name, params, options):
+        self._uuid = uuid4()
         self._name = name
         self._params = params
         self._options = options
@@ -20,6 +22,10 @@ class Neuron(ABC):
     @abstractmethod
     def title():
         pass
+
+    @property
+    def uuid(self):
+        return self._uuid
 
     @property
     def name(self):

@@ -94,6 +94,21 @@ class NeuronOperationModificationStrategy(SwitcherStrategy):
             .append(
                 LayoutFactory(LayoutType.VERTICAL).create()
                 .weight(1)
+                .margin_vertical(LS.rem(.4))
+                .append(
+                    LayoutFactory(LayoutType.HORIZONTAL).create()
+                    .add(
+                        Text(root, "UUID: ")
+                        .Font(self._form_label_font)
+                    )
+                    .append(
+                        LayoutFactory(LayoutType.VERTICAL).create()
+                        .add(
+                            Text(root, self.neuron.uuid.hex)
+                            .Font(self._form_value_font)
+                        )
+                    )
+                )
                 .append(
                     LayoutFactory(LayoutType.HORIZONTAL).create()
                     .add(
@@ -128,7 +143,6 @@ class NeuronOperationModificationStrategy(SwitcherStrategy):
                 .weight(4)
                 .add(
                     Scrollable(root)
-                    .ScrollX(False)
                     .ScrollY(True, size=SCROLLBAR_SIZE)
                     .Content(
                         self.watch(
@@ -138,9 +152,9 @@ class NeuronOperationModificationStrategy(SwitcherStrategy):
                                 NeuronBuilderSwitcher(self.neuron_type, self.neuron_dependencies),
                                 LayoutType.VERTICAL
                             )
-                            .InnerSizing(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Fixed)
+                            .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
                             .On(
-                                Event.Type.Show, self.init_switcher,
+                                Event.Type.Switch, self.init_switcher,
                                 with_target=False,
                                 with_event=False
                             )
