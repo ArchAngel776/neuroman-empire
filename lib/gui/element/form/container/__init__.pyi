@@ -9,10 +9,15 @@ from .element import FormElement
 
 # Types
 
+TFormContainerConfigElement = TypeVar("TFormContainerConfigElement", bound=FormContainer)
 TFormContainerNoRepeatUpdate = TypeVar("TFormContainerNoRepeatUpdate", bound=FormContainer)
 
 
 # Decorators
+
+class ConfigElement(Decorator[FormContainer, [FormContainer, FormContainer]]):
+    def config(self, target: TFormContainerConfigElement, element: FormElement) -> Self: ...
+
 
 class NoRepeatUpdate(Decorator[void, [FormContainer, bool]]):
     def method(self, target: TFormContainerNoRepeatUpdate, is_valid: bool) -> void: ...
@@ -27,6 +32,7 @@ class FormContainer(QObject):
 
     def __init__(self) -> None: ...
 
+    @method(ConfigElement)
     def add(self, element: FormElement) -> Self: ...
 
     def validate(self) -> void: ...
@@ -35,6 +41,8 @@ class FormContainer(QObject):
 
     @method(NoRepeatUpdate)
     def update_validation_status(self, is_valid: bool) -> void: ...
+
+    def remove_element(self, element: FormElement) -> void: ...
 
     @property
     def is_valid(self) -> bool: ...

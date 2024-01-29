@@ -14,6 +14,19 @@ class ConfigControl(Decorator):
         return control
 
 
+class ConnectValidation(Decorator):
+    def method(self, target, form_control):
+        control = super().method(target, form_control)
+        target.validation.connect(control.make_validation)
+        return control
+
+
+class ConnectDestruction(Decorator):
+    def config(self, target, form_control):
+        form_control.destroyed.connect(target.remove)
+        return self
+
+
 # Main
 
 class FormElement(QObject):
@@ -21,19 +34,28 @@ class FormElement(QObject):
 
     validation = pyqtSignal()
     update_validation = pyqtSignal(bool)
+    removed = pyqtSignal(QObject)
 
     def __init__(self, container):
         super().__init__()
-        self.update_validation.connect(container.add(self).update_validation_status)
+        self._container = container
+        self._container.add(self)
+
+    def config(self):
+        self.update_validation.connect(self._container.update_validation_status)
+        self.removed.connect(self._container.remove_element)
 
     @method(ConfigControl)
+    @method(ConnectValidation)
+    @method(ConnectDestruction)
     def Control(self, form_control):
-        control = FormElementControl(form_control)
-        self.validation.connect(control.make_validation)
-        return control
+        return FormElementControl(form_control)
 
     def validate(self):
         self.validation.emit()
+
+    def remove(self):
+        self.removed.emit(self)
 
     # Slots
 

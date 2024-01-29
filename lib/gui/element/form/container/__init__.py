@@ -6,6 +6,12 @@ from lib.decorators.decorator import Decorator
 
 # Decorators
 
+class ConfigElement(Decorator):
+    def config(self, target, element):
+        element.config()
+        return self
+
+
 class NoRepeatUpdate(Decorator):
     def method(self, target, is_valid):
         if target.is_valid:
@@ -20,6 +26,7 @@ class FormContainer(QObject):
         self._elements = []
         self._is_valid = True
 
+    @method(ConfigElement)
     def add(self, element):
         self._elements.append(element)
         return self
@@ -34,6 +41,9 @@ class FormContainer(QObject):
     @method(NoRepeatUpdate)
     def update_validation_status(self, is_valid):
         self._is_valid = is_valid
+
+    def remove_element(self, element):
+        self._elements.remove(element)
 
     @property
     def is_valid(self):

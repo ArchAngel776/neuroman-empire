@@ -1,4 +1,4 @@
-from typing import TypeVar, Generic, ClassVar
+from typing import TypeVar, Generic, ClassVar, Self
 
 from PyQt5.QtCore import QObject, pyqtSignal
 
@@ -19,6 +19,14 @@ TFormElementConfigControl = TypeVar("TFormElementConfigControl", bound=FormEleme
 FormElementConfigControlType = TypeVar("FormElementConfigControlType")
 FormElementConfigControlValidationType = TypeVar("FormElementConfigControlValidationType", bound=Validation)
 
+TFormElementConnectValidation = TypeVar("TFormElementConnectValidation", bound=FormElement)
+FormElementConnectValidationType = TypeVar("FormElementConnectValidationType")
+FormElementConnectValidationValidationType = TypeVar("FormElementConnectValidationValidationType", bound=Validation)
+
+TFormElementConnectDestruction = TypeVar("TFormElementConnectDestruction", bound=FormElement)
+FormElementConnectDestructionType = TypeVar("FormElementConnectDestructionType")
+FormElementConnectDestructionValidationType = TypeVar("FormElementConnectDestructionValidationType", bound=Validation)
+
 
 # Decorators
 
@@ -38,20 +46,61 @@ class ConfigControl(
     ) -> FormElementControl[FormElementConfigControlType]: ...
 
 
+class ConnectValidation(
+    Decorator[
+        FormElementControl[FormElementConnectValidationType], [
+            FormElement[FormElementConnectValidationType, FormElementConnectValidationValidationType],
+            FormControl[FormElementConnectValidationType]
+        ]
+    ],
+    Generic[FormElementConnectValidationType, FormElementConnectValidationValidationType]
+):
+    def method(
+            self,
+            target: TFormElementConnectValidation,
+            form_control: FormControl[FormElementConnectValidationType]
+    ) -> FormElementControl[FormElementConnectValidationType]: ...
+
+
+class ConnectDestruction(
+    Decorator[
+        FormElementControl[FormElementConnectDestructionType], [
+            FormElement[FormElementConnectDestructionType, FormElementConnectDestructionValidationType],
+            FormControl[FormElementConnectDestructionType]
+        ]
+    ],
+    Generic[FormElementConnectDestructionType, FormElementConnectDestructionValidationType]
+):
+    def config(
+            self,
+            target: TFormElementConnectDestruction,
+            form_control: FormControl[FormElementConnectDestructionType]
+    ) -> Self: ...
+
+
 # Main
 
 class FormElement(QObject, Generic[FormElementType, FormElementValidationType]):
+    _container: FormContainer
+
     # Signals
 
     validation: ClassVar[pyqtSignal]
     update_validation: ClassVar[pyqtSignal]
+    removed: ClassVar[pyqtSignal]
 
     def __init__(self, container: FormContainer) -> None: ...
 
+    def config(self) -> void: ...
+
     @method(ConfigControl[FormElementType, FormElementValidationType])
+    @method(ConnectValidation[FormElementType, FormElementValidationType])
+    @method(ConnectDestruction[FormElementType, FormElementValidationType])
     def Control(self, form_control: FormControl[FormElementType]) -> FormElementControl[FormElementType]: ...
 
     def validate(self) -> void: ...
+
+    def remove(self) -> void: ...
 
     # Slots
 
