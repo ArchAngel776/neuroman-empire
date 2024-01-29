@@ -13,9 +13,9 @@ def main_icon():
     return QIcon(GUI_ICON)
 
 
-def i18n(xpath, lang=None):
-    international = I18N(lang)
-    return I18NMessage(international.get_value(xpath))
+def i18n(xpath, *values):
+    international = I18N()
+    return I18NMessage(international.get_value(xpath).format(*values))
 
 
 def home_image(image):

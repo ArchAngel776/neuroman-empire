@@ -54,7 +54,7 @@ class I18N:
 
     @property
     def path(self):
-        return "lang/{}.yml".format(self.lang)
+        return f"lang/{self.lang}.yml"
 
     @staticmethod
     def set_language(lang):
