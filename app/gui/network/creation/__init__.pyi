@@ -1,8 +1,10 @@
-from typing import Callable
+from typing import Callable, TypeVar
 
 from PyQt5.QtGui import QCursor
 
 from lib import void
+from lib.decorators import method
+from lib.decorators.decorator import Decorator
 from lib.gui.element.font import Font
 from lib.gui.element.form import FormInput
 from lib.gui.element.component.switcher.strategy import SwitcherStrategy
@@ -19,12 +21,30 @@ from app.gui.network.dependencies import NeuronOperationDependencies
 
 from .params import NeuronCreationParams
 
+# Types
+
+TNeuronOperationCreationStrategyCloseForm = TypeVar(
+    "TNeuronOperationCreationStrategyCloseForm",
+    bound=NeuronOperationCreationStrategy
+)
+
+
+# Decorators
+
+class CloseForm(Decorator[bool, [NeuronOperationCreationStrategy]]):
+    def method(self, target: TNeuronOperationCreationStrategyCloseForm) -> bool: ...
+
 
 # Main
 
 class NeuronOperationCreationStrategy(SwitcherStrategy[NeuronOperationDependencies, NeuronOperationParams]):
     class Watch(str):
         NEURON_SWITCHER_ELEMENT = ... #type: NeuronOperationCreationStrategy.Watch
+
+    class NeuronGroup(str):
+        CONV = ... #type: NeuronOperationCreationStrategy.NeuronGroup
+        POOL = ... #type: NeuronOperationCreationStrategy.NeuronGroup
+        LIN = ... #type: NeuronOperationCreationStrategy.NeuronGroup
 
     _neuron_name: FormInput[str]
     _neuron_type: FormInput[tuple[int, type[Neuron]]]
@@ -59,6 +79,7 @@ class NeuronOperationCreationStrategy(SwitcherStrategy[NeuronOperationDependenci
 
     def create_neuron(self) -> bool: ...
 
+    @method(CloseForm)
     def cancel(self) -> bool: ...
 
     @property
@@ -66,5 +87,8 @@ class NeuronOperationCreationStrategy(SwitcherStrategy[NeuronOperationDependenci
 
     @property
     def neuron_dependencies(self) -> NeuronBuilderDependencies: ...
+
+    @property
+    def form_container(self) -> FormContainer: ...
 
     def render(self, root: MainWindow) -> Layout: ...

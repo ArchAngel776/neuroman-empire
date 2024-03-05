@@ -2,13 +2,15 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QCursor
 from PyQt5.QtWidgets import QSizePolicy, QLayout
 
+from lib.decorators import method
+from lib.decorators.decorator import Decorator
 from lib.gui import LS
 from lib.gui.element.button import Button
 from lib.gui.element.font import Font
 from lib.gui.element.form import FormInput
 from lib.gui.element.form.container import FormContainer
 from lib.gui.element.form.container.element import FormElement
-from lib.gui.element.form.select import SelectBox
+from lib.gui.element.form.select.v2 import Select2Box
 from lib.gui.element.form.text import TextInput
 from lib.gui.element.form.validator.string import StringValidator
 from lib.gui.element.form.validator.string.length import Length
@@ -43,11 +45,24 @@ from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.network.creation.params import NeuronCreationParams
 
 
+# Decorators
+
+class CloseForm(Decorator):
+    def method(self, target):
+        target.form_container.close()
+        return super().method(target)
+
+
 # Main
 
 class NeuronOperationCreationStrategy(SwitcherStrategy):
     class Watch(str):
         NEURON_SWITCHER_ELEMENT = "neuron_switcher_element"
+
+    class NeuronGroup(str):
+        CONV = "conv"
+        POOL = "pool"
+        LIN = "lin"
 
     def __init__(self, dependencies):
         super().__init__(dependencies)
@@ -96,13 +111,14 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
         return self.dependencies["action_entry"]
 
     def validate_form(self):
-        self._form_container.validate()
-        return self._form_container.is_valid
+        self.form_container.validate()
+        return self.form_container.is_valid
 
     def create_neuron(self):
         self.create(self.neuron_type)
         return True
 
+    @method(CloseForm)
     def cancel(self):
         self.action_entry()
         return True
@@ -116,6 +132,10 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
         return NeuronBuilderDependencies(
             network=self.dependencies["network"]
         )
+
+    @property
+    def form_container(self):
+        return self._form_container
 
     def render(self, root):
         return (
@@ -149,19 +169,13 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                                     Length(
                                         LengthValidationData(
                                             min=4,
-                                            message=i18n(
-                                                "window.screens.network.creation.form.name.message.min",
-                                                4
-                                            )
+                                            message=i18n("window.screens.network.creation.form.name.message.min", 4)
                                         )
                                     ),
                                     Length(
                                         LengthValidationData(
                                             max=255,
-                                            message=i18n(
-                                                "window.screens.network.creation.form.name.message.max",
-                                                255
-                                            )
+                                            message=i18n("window.screens.network.creation.form.name.message.max", 255)
                                         )
                                     ),
                                     Regex(
@@ -191,32 +205,88 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                     .append(
                         LayoutFactory(LayoutType.VERTICAL).create()
                         .add(
-                            SelectBox(root)
+                            Select2Box(root)
                             .Bind(self._neuron_type)
                             .On(
                                 Event.Type.Select, self.select_neuron,
                                 with_target=False,
                                 with_event=True
                             )
-                            .Group("Convolution")
-                            .Option("Convolution", Convolution1d.title(), Convolution1d)
-                            .Option("Convolution", Convolution2d.title(), Convolution2d)
-                            .Option("Convolution", Convolution3d.title(), Convolution3d)
-                            .Option("Convolution", TransposedConvolution1d.title(), TransposedConvolution1d)
-                            .Option("Convolution", TransposedConvolution2d.title(), TransposedConvolution2d)
-                            .Option("Convolution", TransposedConvolution3d.title(), TransposedConvolution3d)
-                            .Option("Convolution", Unfold.title(), Unfold)
-                            .Option("Convolution", Fold.title(), Fold)
-                            .Group("Pooling")
-                            .Option("Pooling", MaxPooling1d.title(), MaxPooling1d)
-                            .Option("Pooling", MaxPooling2d.title(), MaxPooling2d)
-                            .Option("Pooling", MaxPooling3d.title(), MaxPooling3d)
-                            .Group("Linear")
-                            .Option("Linear", Linear.title(), Linear)
+                            .Group(
+                                NeuronOperationCreationStrategy.NeuronGroup.CONV,
+                                i18n("window.screens.network.creation.form.type.group.conv")
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.CONV,
+                                Convolution1d.title(),
+                                Convolution1d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.CONV,
+                                Convolution2d.title(),
+                                Convolution2d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.CONV,
+                                Convolution3d.title(),
+                                Convolution3d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.CONV,
+                                TransposedConvolution1d.title(),
+                                TransposedConvolution1d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.CONV,
+                                TransposedConvolution2d.title(),
+                                TransposedConvolution2d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.CONV,
+                                TransposedConvolution3d.title(),
+                                TransposedConvolution3d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.CONV,
+                                Unfold.title(),
+                                Unfold
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.CONV,
+                                Fold.title(),
+                                Fold
+                            )
+                            .Group(
+                                NeuronOperationCreationStrategy.NeuronGroup.POOL,
+                                i18n("window.screens.network.creation.form.type.group.pool")
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.POOL,
+                                MaxPooling1d.title(),
+                                MaxPooling1d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.POOL,
+                                MaxPooling2d.title(),
+                                MaxPooling2d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.POOL,
+                                MaxPooling3d.title(),
+                                MaxPooling3d
+                            )
+                            .Group(
+                                NeuronOperationCreationStrategy.NeuronGroup.LIN,
+                                i18n("window.screens.network.creation.form.type.group.lin")
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.LIN,
+                                Linear.title(),
+                                Linear
+                            )
                             .Active(self.neuron_index)
                         )
                     )
-
                 )
                 .add(
                     Scrollable(root)
