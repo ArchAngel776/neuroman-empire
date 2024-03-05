@@ -1,6 +1,6 @@
-from typing import TypeVar, Union, Iterable, Callable, Optional
+from typing import TypeVar, Union, Iterable, Callable, Optional, Type, Any
 
-from PyQt5.QtCore import Qt, QPoint
+from PyQt5.QtCore import Qt, QModelIndex
 from PyQt5.QtGui import QPalette, QColor, QGradient
 from PyQt5.QtWidgets import QLayout, QWidget, QApplication
 
@@ -17,6 +17,8 @@ MapFrom = TypeVar("MapFrom")
 MapTo = TypeVar("MapTo")
 
 MergeType = TypeVar("MergeType")
+
+ItemType = TypeVar("ItemType")
 
 
 # Modules
@@ -46,3 +48,12 @@ def app() -> QApplication: ...
 
 
 def bytes_to_string(target: bytes) -> str: ...
+
+
+def index_of(index: QModelIndex, item_type: Type[ItemType]) -> ItemType: ...
+
+
+def is_index(index: QModelIndex, *item_type: Type[object]) -> bool: ...
+
+
+def length(iterable: Iterable[Any]) -> int: ...

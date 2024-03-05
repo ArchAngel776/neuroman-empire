@@ -47,10 +47,25 @@ def merge(**sources):
 
 def app():
     app = QApplication.instance()
-    if not isinstance(app, QApplication):
-        raise TypeError("Application core hasn't been initialized or isn't proper core component.")
-    return app
+    if isinstance(app, QApplication):
+        return app
+    raise TypeError("Application core hasn't been initialized or isn't proper core component.")
 
 
 def bytes_to_string(target):
     return str(target, "utf-8")
+
+
+def index_of(index, item_type):
+    pointer = index.internalPointer()
+    if isinstance(pointer, item_type):
+        return pointer
+    raise TypeError("Cannot fetch internal pointer of index into specified item type.")
+
+
+def is_index(index, *item_type):
+    return isinstance(index.internalPointer(), item_type)
+
+
+def length(iterable):
+    return sum(1 for _ in iterable)
