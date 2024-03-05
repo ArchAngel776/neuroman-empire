@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QObject
+from PyQt5.QtCore import QObject, pyqtSignal
 
 from lib.decorators import method
 from lib.decorators.decorator import Decorator
@@ -12,6 +12,12 @@ class ConfigElement(Decorator):
         return self
 
 
+class ConnectClose(Decorator):
+    def config(self, target, element):
+        target.closed.connect(element.close_exception)
+        return self
+
+
 class NoRepeatUpdate(Decorator):
     def method(self, target, is_valid):
         if target.is_valid:
@@ -21,12 +27,15 @@ class NoRepeatUpdate(Decorator):
 # Main
 
 class FormContainer(QObject):
+    closed = pyqtSignal()
+
     def __init__(self):
         super().__init__()
         self._elements = []
         self._is_valid = True
 
     @method(ConfigElement)
+    @method(ConnectClose)
     def add(self, element):
         self._elements.append(element)
         return self
@@ -35,6 +44,9 @@ class FormContainer(QObject):
         self._is_valid = True
         for element in self._elements:
             element.validate()
+
+    def close(self):
+        self.closed.emit()
 
     # Slots
 

@@ -61,8 +61,8 @@ class FormElementControl(QObject, Generic[FormElementControlType, FormElementCon
 
     # Signals
 
-    validation: ClassVar[pyqtSignal]
-    validate: ClassVar[pyqtSignal]
+    validation: ClassVar[pyqtSignal] = ...
+    validate: ClassVar[pyqtSignal] = ...
 
     def __init__(self, form_control: FormControl[FormElementControlType]) -> None: ...
 
@@ -80,6 +80,8 @@ class FormElementControl(QObject, Generic[FormElementControlType, FormElementCon
     # Slots
 
     def make_validation(self) -> void: ...
+
+    def hide_message(self) -> void: ...
 
     @property
     def form_control(self) -> FormControl[FormElementControlType]: ...

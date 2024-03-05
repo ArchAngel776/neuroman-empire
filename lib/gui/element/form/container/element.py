@@ -1,5 +1,6 @@
 from PyQt5.QtCore import QObject, pyqtSignal
 
+from lib import void
 from lib.decorators import method
 from lib.decorators.decorator import Decorator
 from lib.gui.element.form.container.control import FormElementControl
@@ -27,6 +28,13 @@ class ConnectDestruction(Decorator):
         return self
 
 
+class ConnectClose(Decorator):
+    def method(self, target, form_control):
+        control = super().method(target, form_control)
+        target.closed.connect(control.hide_message)
+        return control
+
+
 # Main
 
 class FormElement(QObject):
@@ -35,6 +43,7 @@ class FormElement(QObject):
     validation = pyqtSignal()
     update_validation = pyqtSignal(bool)
     removed = pyqtSignal(QObject)
+    closed = pyqtSignal()
 
     def __init__(self, container):
         super().__init__()
@@ -48,6 +57,7 @@ class FormElement(QObject):
     @method(ConfigControl)
     @method(ConnectValidation)
     @method(ConnectDestruction)
+    @method(ConnectClose)
     def Control(self, form_control):
         return FormElementControl(form_control)
 
@@ -61,3 +71,6 @@ class FormElement(QObject):
 
     def send_validation_status(self, status):
         self.update_validation.emit(status)
+
+    def close_exception(self):
+        self.closed.emit()

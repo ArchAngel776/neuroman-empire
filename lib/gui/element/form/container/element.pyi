@@ -27,6 +27,10 @@ TFormElementConnectDestruction = TypeVar("TFormElementConnectDestruction", bound
 FormElementConnectDestructionType = TypeVar("FormElementConnectDestructionType")
 FormElementConnectDestructionValidationType = TypeVar("FormElementConnectDestructionValidationType", bound=Validation)
 
+TFormElementConnectClose = TypeVar("TFormElementConnectClose", bound=FormElement)
+FormElementConnectCloseType = TypeVar("FormElementConnectCloseType")
+FormElementConnectCloseValidationType = TypeVar("FormElementConnectCloseValidationType", bound=Validation)
+
 
 # Decorators
 
@@ -78,6 +82,22 @@ class ConnectDestruction(
     ) -> Self: ...
 
 
+class ConnectClose(
+    Decorator[
+        FormElementControl[FormElementConnectCloseType], [
+            FormElement[FormElementConnectCloseType, FormElementConnectCloseValidationType],
+            FormControl[FormElementConnectCloseType]
+        ]
+    ],
+    Generic[FormElementConnectCloseType, FormElementConnectCloseValidationType]
+):
+    def method(
+            self,
+            target: TFormElementConnectClose,
+            form_control: FormControl[FormElementConnectCloseType]
+    ) -> FormElementControl[FormElementConnectCloseType]: ...
+
+
 # Main
 
 class FormElement(QObject, Generic[FormElementType, FormElementValidationType]):
@@ -85,9 +105,10 @@ class FormElement(QObject, Generic[FormElementType, FormElementValidationType]):
 
     # Signals
 
-    validation: ClassVar[pyqtSignal]
-    update_validation: ClassVar[pyqtSignal]
-    removed: ClassVar[pyqtSignal]
+    validation: ClassVar[pyqtSignal] = ...
+    update_validation: ClassVar[pyqtSignal] = ...
+    removed: ClassVar[pyqtSignal] = ...
+    closed: ClassVar[pyqtSignal] = ...
 
     def __init__(self, container: FormContainer) -> None: ...
 
@@ -96,6 +117,7 @@ class FormElement(QObject, Generic[FormElementType, FormElementValidationType]):
     @method(ConfigControl[FormElementType, FormElementValidationType])
     @method(ConnectValidation[FormElementType, FormElementValidationType])
     @method(ConnectDestruction[FormElementType, FormElementValidationType])
+    @method(ConnectClose[FormElementType, FormElementValidationType])
     def Control(self, form_control: FormControl[FormElementType]) -> FormElementControl[FormElementType]: ...
 
     def validate(self) -> void: ...
@@ -105,3 +127,5 @@ class FormElement(QObject, Generic[FormElementType, FormElementValidationType]):
     # Slots
 
     def send_validation_status(self, status: bool) -> void: ...
+
+    def close_exception(self) -> void: ...

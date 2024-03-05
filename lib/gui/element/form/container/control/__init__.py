@@ -62,6 +62,9 @@ class FormElementControl(QObject):
     def make_validation(self):
         self.validate.emit(self._form_control.value)
 
+    def hide_message(self):
+        self._exception.hide()
+
     @property
     def form_control(self):
         return self._form_control
