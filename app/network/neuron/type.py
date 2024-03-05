@@ -15,4 +15,7 @@ class NeuronType(Enum):
     MAXPOOL1D = "maxpool1d"
     MAXPOOL2D = "maxpool2d"
     MAXPOOL3D = "maxpool3d"
+    MAXUNPOOL1D = "maxunpool1d"
+    MAXUNPOOL2D = "maxunpool2d"
+    MAXUNPOOL3D = "maxunpool3d"
     LINEAR = "linear"

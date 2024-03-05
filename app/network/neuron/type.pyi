@@ -15,4 +15,7 @@ class NeuronType(Enum):
     MAXPOOL1D = ... #type:NeuronType
     MAXPOOL2D = ... #type:NeuronType
     MAXPOOL3D = ... #type:NeuronType
+    MAXUNPOOL1D = ... #type: NeuronType
+    MAXUNPOOL2D = ... #type: NeuronType
+    MAXUNPOOL3D = ... #type: NeuronType
     LINEAR = ... #type: NeuronType
