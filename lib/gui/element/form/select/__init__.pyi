@@ -4,8 +4,8 @@ from PyQt5.QtGui import QShowEvent
 from PyQt5.QtWidgets import QComboBox
 
 from lib import void
-from lib.gui.element.form import FormControl
 from lib.gui.window import Window
+from lib.gui.element.form import FormControl
 
 # Types
 
@@ -27,10 +27,6 @@ class SelectBox(QComboBox, FormControl[tuple[int, Optional[SelectBoxData]]], Gen
 
     def select_input(self, index: int) -> void: ...
 
-    def Group(self, title: str) -> Self: ...
-
-    def Option(self, group: str, title: str, data: SelectBoxData = None) -> Self: ...
+    def Option(self,title: str, data: SelectBoxData) -> Self: ...
 
     def Active(self, index: int) -> Self: ...
-
-    def V2(self, enabled: bool = True) -> Self: ...
