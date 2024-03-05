@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QFile
+from PyQt5.QtCore import QFile, Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow, QAction
 
 from lib.decorators import method
@@ -63,12 +63,20 @@ class GUI:
         if not stylesheet.open(QFile.ReadOnly | QFile.Text):
             raise RuntimeError("Cannot load stylesheet for app.")
 
-        self._app.setStyleSheet(bytes_to_string(stylesheet.readAll()))
+        self.app.setStyleSheet(bytes_to_string(stylesheet.readAll()))
 
     def start_gui_cycle(self):
-        self._main_window.config()
-        self._main_window.show()
+        self.main_window.config()
+        self.main_window.show()
 
-        self._main_window.home()
+        self.main_window.home()
 
-        return self._app.exec_()
+        return self.app.exec_()
+
+    @property
+    def app(self):
+        return self._app
+
+    @property
+    def main_window(self):
+        return self._main_window
