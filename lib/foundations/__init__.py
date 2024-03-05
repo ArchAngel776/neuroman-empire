@@ -4,6 +4,10 @@ from PyQt5.QtCore import QObject
 # Main
 
 class Foundation(QObject):
+    def Parent(self, parent):
+        self.setParent(parent)
+        return self
+
     def Name(self, name):
         self.setObjectName(name)
         return self
