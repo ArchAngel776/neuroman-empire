@@ -33,6 +33,11 @@ window:
               max: "Dozwolony limit nazwy to {} znaków"
               signs: "Nazwa może składać się tylko z cyfr, małych i dużych liter"
               spaces: "Nazwa nie może zaczynać się ani kończyć spacją lub pauzą"
+          type:
+            group:
+              conv: "Convolution"
+              pool: "Pooling"
+              lin: "Linear"
         buttons:
           add: "Dodaj"
           cancel: "Anuluj"
