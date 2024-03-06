@@ -11,7 +11,7 @@ class UpdateControl(Decorator):
     def method(self, target, value, update_control=True):
         super().method(target, value)
         if target.form_control and update_control:
-            target.form_control.react(value)
+            target.sync()
 
 
 class ExistsInput(Decorator):
@@ -36,6 +36,9 @@ class FormInput:
     def bind(self, form_control):
         self._form_control = form_control
         return self
+
+    def sync(self):
+        self.form_control.react(self.value)
 
     @method(UpdateControl)
     def update(self, value):
