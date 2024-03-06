@@ -214,7 +214,7 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                             )
                             .Group(
                                 NeuronOperationCreationStrategy.NeuronGroup.CONV,
-                                i18n("window.screens.network.creation.form.type.group.conv")
+                                "Convolution"
                             )
                             .Option(
                                 NeuronOperationCreationStrategy.NeuronGroup.CONV,
@@ -258,7 +258,7 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                             )
                             .Group(
                                 NeuronOperationCreationStrategy.NeuronGroup.POOL,
-                                i18n("window.screens.network.creation.form.type.group.pool")
+                                "Pooling"
                             )
                             .Option(
                                 NeuronOperationCreationStrategy.NeuronGroup.POOL,
@@ -277,7 +277,7 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                             )
                             .Group(
                                 NeuronOperationCreationStrategy.NeuronGroup.LIN,
-                                i18n("window.screens.network.creation.form.type.group.lin")
+                                "Linear"
                             )
                             .Option(
                                 NeuronOperationCreationStrategy.NeuronGroup.LIN,
