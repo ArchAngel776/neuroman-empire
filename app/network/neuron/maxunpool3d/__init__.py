@@ -8,7 +8,7 @@ from app.network.neuron.maxunpool3d.options import MaxUnpool3dOptions
 
 # Main
 
-class MaxUnpooling1d(Neuron):
+class MaxUnpooling3d(Neuron):
     @staticmethod
     def type():
         return NeuronType.MAXUNPOOL3D

@@ -7,7 +7,7 @@ from .options import MaxUnpool3dOptions
 
 # Main
 
-class MaxUnpooling1d(Neuron[MaxUnpool3dParams, MaxUnpool3dOptions]):
+class MaxUnpooling3d(Neuron[MaxUnpool3dParams, MaxUnpool3dOptions]):
     @staticmethod
     def type() -> NeuronType: ...
 
