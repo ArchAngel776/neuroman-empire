@@ -47,3 +47,11 @@ class SwitcherProgram(ABC):
 
     def render_element(self, root):
         return self.current_strategy.render(root)
+
+    # Slots
+
+    def strategy_before_hook(self):
+        self.current_strategy.beforeShow()
+
+    def strategy_after_hook(self):
+        self.current_strategy.afterShow()

@@ -1,3 +1,4 @@
+from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QLayout
 
 from lib.decorators import method
@@ -23,9 +24,20 @@ class ConstraintLayout(Decorator):
 # Main
 
 class Switcher(Component):
+    # Signals
+
+    beforeShown = pyqtSignal()
+
+    afterShown = pyqtSignal()
+
     def __init__(self, root, program, orientation):
         super().__init__(root, orientation)
         self._program = program
+
+        self.beforeShown.connect(self.program.strategy_before_hook)
+        self.afterShown.connect(self.program.strategy_after_hook)
+
+        self.afterShown.connect(self.switchEvent)
 
     def config(self):
         super().config()
@@ -47,8 +59,9 @@ class Switcher(Component):
         return self
 
     def update_view(self):
+        self.beforeShown.emit()
         super().update_view()
-        self.emit(Event.Type.Switch, SwitcherSwitchEvent())
+        self.afterShown.emit()
 
     @method(ConstraintLayout)
     def render_view(self, root):
@@ -57,3 +70,8 @@ class Switcher(Component):
     @property
     def program(self):
         return self._program
+
+    # Slots
+
+    def switchEvent(self):
+        self.emit(Event.Type.Switch, SwitcherSwitchEvent())

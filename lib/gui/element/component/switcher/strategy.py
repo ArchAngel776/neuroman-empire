@@ -10,6 +10,12 @@ class SwitcherStrategy(Watcher, ABC):
         super().__init__()
         self._dependencies = dependencies
 
+    def beforeShow(self):
+        pass
+
+    def afterShow(self):
+        pass
+
     @property
     @abstractmethod
     def params(self):

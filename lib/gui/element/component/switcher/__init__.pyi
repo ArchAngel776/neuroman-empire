@@ -1,5 +1,7 @@
 from enum import Enum
-from typing import Generic, TypeVar, TypedDict, Self
+from typing import Generic, TypeVar, TypedDict, Self, ClassVar
+
+from PyQt5.QtCore import pyqtSignal
 
 from lib import void
 from lib.decorators import method
@@ -58,6 +60,12 @@ class ConstraintLayout(
 class Switcher(Component, Generic[SwitcherKey, SwitcherDependencies, SwitcherParams]):
     _program: SwitcherProgram[SwitcherKey, SwitcherDependencies, SwitcherParams]
 
+    # Signals
+
+    beforeShown: ClassVar[pyqtSignal] = ...
+
+    afterShown: ClassVar[pyqtSignal] = ...
+
     def __init__(
             self,
             root: Window,
@@ -72,7 +80,7 @@ class Switcher(Component, Generic[SwitcherKey, SwitcherDependencies, SwitcherPar
     @method(UpdateStrategy[SwitcherKey, SwitcherDependencies, SwitcherParams])
     def change_strategy(self, key: SwitcherKey) -> void: ...
 
-    def update_dependencies(self, dependencies: SwitcherDependencies, update_strategies: bool = False) -> Self: ...
+    def update_dependencies(self, dependencies: SwitcherDependencies, update_strategies: bool = ...) -> Self: ...
 
     def update_view(self) -> void: ...
 
@@ -81,3 +89,7 @@ class Switcher(Component, Generic[SwitcherKey, SwitcherDependencies, SwitcherPar
 
     @property
     def program(self) -> SwitcherProgram[SwitcherKey, SwitcherDependencies, SwitcherParams]: ...
+
+    # Slots
+
+    def switchEvent(self) -> void: ...
