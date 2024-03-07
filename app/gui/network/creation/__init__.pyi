@@ -11,6 +11,7 @@ from lib.gui.element.component.switcher.strategy import SwitcherStrategy
 from lib.gui.element.form.container import FormContainer
 from lib.gui.layout import Layout
 
+from app.network import Network
 from app.network.neuron import Neuron
 from app.gui import MainWindow
 from app.gui.event.select_network import SelectNeuronEvent
@@ -23,6 +24,11 @@ from .params import NeuronCreationParams
 
 # Types
 
+TNeuronOperationCreationStrategyPreventNeuron = TypeVar(
+    "TNeuronOperationCreationStrategyPreventNeuron",
+    bound=NeuronOperationCreationStrategy
+)
+
 TNeuronOperationCreationStrategyCloseForm = TypeVar(
     "TNeuronOperationCreationStrategyCloseForm",
     bound=NeuronOperationCreationStrategy
@@ -30,6 +36,10 @@ TNeuronOperationCreationStrategyCloseForm = TypeVar(
 
 
 # Decorators
+
+class PreventNeuron(Decorator[bool, [NeuronOperationCreationStrategy, SelectNeuronEvent]]):
+    def method(self, target: TNeuronOperationCreationStrategyPreventNeuron, event: SelectNeuronEvent) -> bool: ...
+
 
 class CloseForm(Decorator[bool, [NeuronOperationCreationStrategy]]):
     def method(self, target: TNeuronOperationCreationStrategyCloseForm) -> bool: ...
@@ -62,6 +72,15 @@ class NeuronOperationCreationStrategy(SwitcherStrategy[NeuronOperationDependenci
     def params(self) -> NeuronCreationParams: ...
 
     def select_neuron(self, event: SelectNeuronEvent) -> bool: ...
+
+    @method(PreventNeuron)
+    def secure_unpooling_layers(self, event: SelectNeuronEvent) -> bool: ...
+
+    @property
+    def network(self) -> Network: ...
+
+    @property
+    def neuron_item(self) -> FormInput[tuple[int, type[Neuron]]]: ...
 
     @property
     def neuron_index(self) -> int: ...

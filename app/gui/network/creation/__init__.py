@@ -1,10 +1,12 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QCursor
-from PyQt5.QtWidgets import QSizePolicy, QLayout
+from PyQt5.QtWidgets import QSizePolicy, QLayout, QMessageBox
 
+from lib.hooks import find_one
 from lib.decorators import method
 from lib.decorators.decorator import Decorator
 from lib.gui import LS
+from lib.gui.control.alert import Alert
 from lib.gui.element.button import Button
 from lib.gui.element.font import Font
 from lib.gui.element.form import FormInput
@@ -39,6 +41,9 @@ from app.network.neuron.fold import Fold
 from app.network.neuron.maxpool1d import MaxPooling1d
 from app.network.neuron.maxpool2d import MaxPooling2d
 from app.network.neuron.maxpool3d import MaxPooling3d
+from app.network.neuron.maxunpool1d import MaxUnpooling1d
+from app.network.neuron.maxunpool2d import MaxUnpooling2d
+from app.network.neuron.maxunpool3d import MaxUnpooling3d
 from app.network.neuron.linear import Linear
 from app.gui.neuron import NeuronBuilderSwitcher
 from app.gui.neuron.dependencies import NeuronBuilderDependencies
@@ -46,6 +51,15 @@ from app.gui.network.creation.params import NeuronCreationParams
 
 
 # Decorators
+
+class PreventNeuron(Decorator):
+    def method(self, target, event):
+        if super().method(target, event):
+            return True
+
+        target.neuron_item.sync()
+        return False
+
 
 class CloseForm(Decorator):
     def method(self, target):
@@ -92,14 +106,73 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
         )
         return True
 
+    @method(PreventNeuron)
+    def secure_unpooling_layers(self, event):
+        match event.data.type():
+            case NeuronType.MAXUNPOOL1D:
+                if find_one(
+                    self.network,
+                    lambda neuron: isinstance(neuron, MaxPooling1d) and neuron.params["return_indices"]
+                ):
+                    return True
+
+                (
+                    Alert(i18n("window.screens.network.creation.secure_pooling.message.maxunpool1d"))
+                    .title(i18n("window.screens.network.creation.secure_pooling.title"))
+                    .type(QMessageBox.Icon.Warning)
+                    .show()
+                )
+
+                return False
+            case NeuronType.MAXUNPOOL2D:
+                if find_one(
+                    self.network,
+                    lambda neuron: isinstance(neuron, MaxPooling2d) and neuron.params["return_indices"]
+                ):
+                    return True
+
+                (
+                    Alert(i18n("window.screens.network.creation.secure_pooling.message.maxunpool2d"))
+                    .title(i18n("window.screens.network.creation.secure_pooling.title"))
+                    .type(QMessageBox.Icon.Warning)
+                    .show()
+                )
+
+                return False
+            case NeuronType.MAXUNPOOL3D:
+                if find_one(
+                    self.network,
+                    lambda neuron: isinstance(neuron, MaxPooling3d) and neuron.params["return_indices"]
+                ):
+                    return True
+
+                (
+                    Alert(i18n("window.screens.network.creation.secure_pooling.message.maxunpool3d"))
+                    .title(i18n("window.screens.network.creation.secure_pooling.title"))
+                    .type(QMessageBox.Icon.Warning)
+                    .show()
+                )
+
+                return False
+            case _:
+                return True
+
+    @property
+    def network(self):
+        return self.dependencies["network"]
+
+    @property
+    def neuron_item(self):
+        return self._neuron_type
+
     @property
     def neuron_index(self):
-        index, neuron = self._neuron_type.value
+        index, neuron = self.neuron_item.value
         return index
 
     @property
     def neuron_type(self):
-        index, neuron = self._neuron_type.value
+        index, neuron = self.neuron_item.value
         return neuron
 
     @property
@@ -130,7 +203,7 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
     @property
     def neuron_dependencies(self):
         return NeuronBuilderDependencies(
-            network=self.dependencies["network"]
+            network=self.network
         )
 
     @property
@@ -206,7 +279,12 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                         LayoutFactory(LayoutType.VERTICAL).create()
                         .add(
                             Select2Box(root)
-                            .Bind(self._neuron_type)
+                            .Bind(self.neuron_item)
+                            .On(
+                                Event.Type.Select, self.secure_unpooling_layers,
+                                with_target=False,
+                                with_event=True
+                            )
                             .On(
                                 Event.Type.Select, self.select_neuron,
                                 with_target=False,
@@ -274,6 +352,21 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                                 NeuronOperationCreationStrategy.NeuronGroup.POOL,
                                 MaxPooling3d.title(),
                                 MaxPooling3d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.POOL,
+                                MaxUnpooling1d.title(),
+                                MaxUnpooling1d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.POOL,
+                                MaxUnpooling2d.title(),
+                                MaxUnpooling2d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.POOL,
+                                MaxUnpooling3d.title(),
+                                MaxUnpooling3d
                             )
                             .Group(
                                 NeuronOperationCreationStrategy.NeuronGroup.LIN,

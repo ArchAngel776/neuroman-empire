@@ -38,6 +38,9 @@ class NetworkBuilderCanvasProgram(CanvasProgram):
         self._color_maxpool1d = QColor(128, 32, 255)
         self._color_maxpool2d = QColor(128, 64, 255)
         self._color_maxpool3d = QColor(128, 96, 255)
+        self._color_maxunpool1d = QColor(128, 128, 192)
+        self._color_maxunpool2d = QColor(164, 128, 218)
+        self._color_maxunpool3d = QColor(192, 128, 255)
         self._color_linear = QColor(128, 255, 128)
 
         self._cursor_active = QCursor(Qt.PointingHandCursor)
@@ -150,6 +153,12 @@ class NetworkBuilderCanvasProgram(CanvasProgram):
                 return self.color_maxpool2d
             case NeuronType.MAXPOOL3D:
                 return self.color_maxpool3d
+            case NeuronType.MAXUNPOOL1D:
+                return self.color_maxunpool1d
+            case NeuronType.MAXUNPOOL2D:
+                return self.color_maxunpool2d
+            case NeuronType.MAXUNPOOL3D:
+                return self.color_maxunpool3d
             case NeuronType.LINEAR:
                 return self.color_linear
             case _:
@@ -273,6 +282,18 @@ class NetworkBuilderCanvasProgram(CanvasProgram):
     @property
     def color_maxpool3d(self):
         return self._color_maxpool3d
+
+    @property
+    def color_maxunpool1d(self):
+        return self._color_maxunpool1d
+
+    @property
+    def color_maxunpool2d(self):
+        return self._color_maxunpool2d
+
+    @property
+    def color_maxunpool3d(self):
+        return self._color_maxunpool3d
 
     @property
     def color_linear(self):

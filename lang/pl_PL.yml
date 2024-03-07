@@ -41,6 +41,12 @@ window:
         buttons:
           add: "Dodaj"
           cancel: "Anuluj"
+        secure_pooling:
+          title: "Nie można dodać neuronu"
+          message:
+            maxunpool1d: "Nie znaleziono żadnego MaxPoolingu 1D z indeksami zwrotnymi. MaxUnpooling 1D wymaga odwołania się do Poolingu z indeksami zwrotnymi. Proszę utwórz warstwę MaxUnpool1D z opcją indeksów zwrotnych i spróbuj ponownie."
+            maxunpool2d: "Nie znaleziono żadnego MaxPoolingu 2D z indeksami zwrotnymi. MaxUnpooling 2D wymaga odwołania się do Poolingu z indeksami zwrotnymi. Proszę utwórz warstwę MaxUnpool2D z opcją indeksów zwrotnych i spróbuj ponownie."
+            maxunpool3d: "Nie znaleziono żadnego MaxPoolingu 3D z indeksami zwrotnymi. MaxUnpooling 3D wymaga odwołania się do Poolingu z indeksami zwrotnymi. Proszę utwórz warstwę MaxUnpool3D z opcją indeksów zwrotnych i spróbuj ponownie."
       modification:
         title: "Modyfikuj neuron"
         labels:
@@ -193,6 +199,35 @@ window:
             dilation: "Odstęp: "
             return_indices: "Indeksy zwrotne: "
             ceil_mode: "Zaokrąglanie w górę: "
+        maxunpool1d:
+          dimensions:
+            length: "Długość"
+          labels:
+            indices: "Indeksy z: "
+            kernel: "Rozmiar jądra: "
+            stride: "Przeskok: "
+            padding: "Margines: "
+        maxunpool2d:
+          dimensions:
+            width: "Szerokość"
+            height: "Wysokość"
+          labels:
+            indices: "Indeksy z: "
+            square: "Wymiary kwadratowe: "
+            kernel: "Rozmiar jądra: "
+            stride: "Przeskok: "
+            padding: "Margines: "
+        maxunpool3d:
+          dimensions:
+            depth: "Głębia"
+            width: "Szerokość"
+            height: "Wysokość"
+          labels:
+            indices: "Indeksy z: "
+            cube: "Wymiary sześcienne: "
+            kernel: "Rozmiar jądra: "
+            stride: "Przeskok: "
+            padding: "Margines: "
         linear:
           labels:
             input: "Wejście: "

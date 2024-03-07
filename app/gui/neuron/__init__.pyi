@@ -16,6 +16,9 @@ from app.network.neuron.fold.params import FoldParams
 from app.network.neuron.maxpool1d.params import MaxPool1dParams
 from app.network.neuron.maxpool2d.params import MaxPool2dParams
 from app.network.neuron.maxpool3d.params import MaxPool3dParams
+from app.network.neuron.maxunpool1d.params import MaxUnpool1dParams
+from app.network.neuron.maxunpool2d.params import MaxUnpool2dParams
+from app.network.neuron.maxunpool3d.params import MaxUnpool3dParams
 from app.network.neuron.linear.params import LinearParams
 
 from app.network.neuron.conv1d.options import Conv1dOptions
@@ -29,6 +32,9 @@ from app.network.neuron.fold.options import FoldOptions
 from app.network.neuron.maxpool1d.options import MaxPool1dOptions
 from app.network.neuron.maxpool2d.options import MaxPool2dOptions
 from app.network.neuron.maxpool3d.options import MaxPool3dOptions
+from app.network.neuron.maxunpool1d.options import MaxUnpool1dOptions
+from app.network.neuron.maxunpool2d.options import MaxUnpool2dOptions
+from app.network.neuron.maxunpool3d.options import MaxUnpool3dOptions
 from app.network.neuron.linear.options import LinearOptions
 
 from .strategy import NeuronStrategy
@@ -44,6 +50,9 @@ from .fold import NeuronBuilderFoldStrategy
 from .maxpool1d import NeuronBuilderMaxPooling1dStrategy
 from .maxpool2d import NeuronBuilderMaxPooling2dStrategy
 from .maxpool3d import NeuronBuilderMaxPooling3dStrategy
+from .maxunpool1d import NeuronBuilderMaxUnpooling1dStrategy
+from .maxunpool2d import NeuronBuilderMaxUnpooling2dStrategy
+from .maxunpool3d import NeuronBuilderMaxUnpooling3dStrategy
 from .linear import NeuronBuilderLinearStrategy
 
 # Types
@@ -60,6 +69,9 @@ NeuronParams = Union[
     MaxPool1dParams,
     MaxPool2dParams,
     MaxPool3dParams,
+    MaxUnpool1dParams,
+    MaxUnpool2dParams,
+    MaxUnpool3dParams,
     LinearParams
 ]
 
@@ -75,6 +87,9 @@ NeuronOptions = Union[
     MaxPool1dOptions,
     MaxPool2dOptions,
     MaxPool3dOptions,
+    MaxUnpool1dOptions,
+    MaxUnpool2dOptions,
+    MaxUnpool3dOptions,
     LinearOptions
 ]
 
@@ -98,6 +113,10 @@ class NeuronBuilderSwitcher(
     _max_pooling1d_strategy: NeuronBuilderMaxPooling1dStrategy
     _max_pooling2d_strategy: NeuronBuilderMaxPooling2dStrategy
     _max_pooling3d_strategy: NeuronBuilderMaxPooling3dStrategy
+
+    _max_unpooling1d_strategy: NeuronBuilderMaxUnpooling1dStrategy
+    _max_unpooling2d_strategy: NeuronBuilderMaxUnpooling2dStrategy
+    _max_unpooling3d_strategy: NeuronBuilderMaxUnpooling3dStrategy
 
     _linear_strategy: NeuronBuilderLinearStrategy
 

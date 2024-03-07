@@ -13,6 +13,9 @@ from app.gui.neuron.fold import NeuronBuilderFoldStrategy
 from app.gui.neuron.maxpool1d import NeuronBuilderMaxPooling1dStrategy
 from app.gui.neuron.maxpool2d import NeuronBuilderMaxPooling2dStrategy
 from app.gui.neuron.maxpool3d import NeuronBuilderMaxPooling3dStrategy
+from app.gui.neuron.maxunpool1d import NeuronBuilderMaxUnpooling1dStrategy
+from app.gui.neuron.maxunpool2d import NeuronBuilderMaxUnpooling2dStrategy
+from app.gui.neuron.maxunpool3d import NeuronBuilderMaxUnpooling3dStrategy
 from app.gui.neuron.linear import NeuronBuilderLinearStrategy
 
 
@@ -37,6 +40,10 @@ class NeuronBuilderSwitcher(SwitcherProgram):
         self._max_pooling2d_strategy = NeuronBuilderMaxPooling2dStrategy(dependencies)
         self._max_pooling3d_strategy = NeuronBuilderMaxPooling3dStrategy(dependencies)
 
+        self._max_unpooling1d_strategy = NeuronBuilderMaxUnpooling1dStrategy(dependencies)
+        self._max_unpooling2d_strategy = NeuronBuilderMaxUnpooling2dStrategy(dependencies)
+        self._max_unpooling3d_strategy = NeuronBuilderMaxUnpooling3dStrategy(dependencies)
+
         self._linear_strategy = NeuronBuilderLinearStrategy(dependencies)
 
     @property
@@ -53,5 +60,8 @@ class NeuronBuilderSwitcher(SwitcherProgram):
             NeuronType.MAXPOOL1D: self._max_pooling1d_strategy,
             NeuronType.MAXPOOL2D: self._max_pooling2d_strategy,
             NeuronType.MAXPOOL3D: self._max_pooling3d_strategy,
+            NeuronType.MAXUNPOOL1D: self._max_unpooling1d_strategy,
+            NeuronType.MAXUNPOOL2D: self._max_unpooling2d_strategy,
+            NeuronType.MAXUNPOOL3D: self._max_unpooling3d_strategy,
             NeuronType.LINEAR: self._linear_strategy
         }
