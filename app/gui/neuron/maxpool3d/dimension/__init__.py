@@ -1,6 +1,5 @@
 from PyQt5.QtCore import Qt
 
-from app.network.neuron.conv3d.dimension.options import Conv3dDimensionOptions
 from lib.gui import LS
 from lib.gui.element.font import Font
 from lib.gui.element.form import FormInput
@@ -10,8 +9,9 @@ from lib.gui.layout.factory import LayoutFactory
 from lib.gui.layout.type import LayoutType
 
 from app.hooks import i18n
-from app.network.neuron.conv3d import Convolution3d
-from app.network.neuron.conv3d.dimension.params import Conv3dDimensionParams
+from app.network.neuron.maxpool3d import MaxPooling3d
+from app.network.neuron.maxpool3d.dimension.params import MaxPool3dDimensionParams
+from app.network.neuron.maxpool3d.dimension.options import MaxPool3dDimensionOptions
 from app.gui.neuron.strategy import NeuronStrategy
 from app.gui.neuron.params import NeuronStrategyParams
 
@@ -48,7 +48,7 @@ class TripleDimensionStrategy(NeuronStrategy):
     @property
     def params(self):
         return NeuronStrategyParams(
-            params=Conv3dDimensionParams(
+            params=MaxPool3dDimensionParams(
                 kernel_size=(
                     self._kernel_size_depth.value,
                     self._kernel_size_height.value,
@@ -70,16 +70,16 @@ class TripleDimensionStrategy(NeuronStrategy):
                     self._dilation_width.value
                 )
             ),
-            options=Conv3dDimensionOptions()
+            options=MaxPool3dDimensionOptions()
         )
 
     @property
     def default_params(self):
-        return Convolution3d.default_params()
+        return MaxPooling3d.default_params()
 
     @property
     def default_options(self):
-        return Convolution3d.default_options()
+        return MaxPooling3d.default_options()
 
     def load(self, params, options):
         self._kernel_size_depth.update(params["kernel_size"][self.Dimension.DEPTH])
