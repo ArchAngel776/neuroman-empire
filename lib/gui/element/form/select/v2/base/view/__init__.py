@@ -7,10 +7,6 @@ from lib.gui.element.form.select.v2.base.view.style import Select2ViewStyle
 # Main
 
 class Select2View(QTreeView):
-    # Signals
-
-    currentIndexChanged = pyqtSignal(QModelIndex)
-
     def __init__(self, parent):
         super().__init__(parent)
 
@@ -21,24 +17,19 @@ class Select2View(QTreeView):
         self.setHeaderHidden(True)
 
         self.clicked.connect(self.toggleGroup)
-
-        self.currentIndexChanged.connect(self.expandCurrentGroup)
         self.expanded.connect(self.closeTheRest)
 
         self.expanded.connect(self.adjustContentFrame)
         self.collapsed.connect(self.adjustContentFrame)
 
-    def setCurrentIndex(self, index):
-        super().setCurrentIndex(index)
-        self.currentIndexChanged.emit(index)
+    def currentChanged(self, current, previous):
+        super().currentChanged(current, previous)
+        self.expand(current.parent())
 
     # Slots
 
     def toggleGroup(self, index):
         self.collapse(index) if self.isExpanded(index) else self.expand(index)
-
-    def expandCurrentGroup(self, index):
-        self.expand(index.parent())
 
     def closeTheRest(self, index):
         for row in range(self.model().rowCount(index.parent())):

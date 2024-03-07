@@ -14,19 +14,11 @@ Select2ViewData = TypeVar("Select2ViewData")
 # Main
 
 class Select2View(QTreeView, Generic[Select2ViewData]):
-    # Signals
-
-    currentIndexChanged: ClassVar[pyqtSignal] = ...
-
     def __init__(self, parent: Select2Box[Select2ViewData]) -> None: ...
-
-    def setCurrentIndex(self, index: QModelIndex) -> void: ...
 
     # Slots
 
     def toggleGroup(self, index: QModelIndex) -> void: ...
-
-    def expandCurrentGroup(self, index: QModelIndex) -> void: ...
 
     def adjustContentFrame(self) -> void: ...
 
