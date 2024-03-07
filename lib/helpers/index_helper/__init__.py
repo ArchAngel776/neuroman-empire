@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QModelIndex
+from PyQt5.QtCore import QModelIndex, Qt
 
 from lib.helpers.index_helper.counter import Counter
 
@@ -31,8 +31,12 @@ class IndexHelper:
                 item = model.index(row, column, counter.index)
                 assert item.isValid()
 
+                current = counter.index
+
                 if self.recursive_index_to_position(model, index, level, counter.setup(item), current_level + 1):
                     return True
+
+                counter.setup(current)
 
         return False
 
