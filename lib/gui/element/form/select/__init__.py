@@ -37,3 +37,8 @@ class SelectBox(QComboBox, FormControl):
     def Active(self, index):
         self.setCurrentIndex(index)
         return self
+
+    def Generate(self, source):
+        for title, data in source:
+            self.addItem(title, data)
+        return self
