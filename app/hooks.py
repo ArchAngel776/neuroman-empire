@@ -1,5 +1,6 @@
 from PyQt5.QtGui import QIcon
 
+from lib.hooks import mapping
 from lib.gui.element.form import FormInput
 
 from app import GUI_ICON
@@ -30,3 +31,7 @@ def value_to_form(value, index):
 
 def form_to_value(form, index):
     return form.value
+
+
+def map_neurons(neurons):
+    return mapping(neurons, lambda neuron, index: (neuron.name, neuron))
