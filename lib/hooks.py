@@ -35,6 +35,10 @@ def mapping(target, callback):
     return [callback(item, index) for index, item in entities(target)]
 
 
+def filtering(target, callback):
+    return [item for index, item in entities(target) if callback(item, index)]
+
+
 def merge(**sources):
     result = []
     for name in sources:
@@ -69,3 +73,11 @@ def is_index(index, *item_type):
 
 def length(iterable):
     return sum(1 for _ in iterable)
+
+
+def find_one(source, finder):
+    for item in source:
+        if finder(item):
+            return True
+
+    return False

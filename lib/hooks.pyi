@@ -16,9 +16,15 @@ ForEachType = TypeVar("ForEachType")
 MapFrom = TypeVar("MapFrom")
 MapTo = TypeVar("MapTo")
 
+FilterItem = TypeVar("FilterItem")
+
 MergeType = TypeVar("MergeType")
 
 ItemType = TypeVar("ItemType")
+
+TypeofTarget = TypeVar("TypeofTarget")
+
+FindOneItemType = TypeVar("FindOneItemType")
 
 
 # Modules
@@ -41,6 +47,9 @@ def foreach(target: Iterable[ForEachType], callback: Callable[[ForEachType, Opti
 def mapping(target: Iterable[MapFrom], callback: Callable[[MapFrom, Optional[int]], MapTo]) -> list[MapTo]: ...
 
 
+def filtering(target: Iterable[FilterItem], callback: Callable[[FilterItem, Optional[int]], bool]) -> list[FilterItem]: ...
+
+
 def merge(**sources: list[MergeType]) -> list[dict[str, MergeType]]: ...
 
 
@@ -57,3 +66,6 @@ def is_index(index: QModelIndex, *item_type: Type[object]) -> bool: ...
 
 
 def length(iterable: Iterable[Any]) -> int: ...
+
+
+def find_one(source: Iterable[FindOneItemType], finder: Callable[[FindOneItemType], bool]) -> bool: ...
