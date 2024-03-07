@@ -28,6 +28,6 @@ class MaxUnpooling1d(Neuron):
     @staticmethod
     def default_options():
         return MaxUnpool3dOptions(
-            pooling=UUID(),
+            pooling=UUID(int=0),
             cube=False
         )
