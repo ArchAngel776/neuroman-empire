@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QComboBox, QWidget
 from lib import void
 from lib.decorators import method
 from lib.decorators.decorator import Decorator
+from lib.foundations.data_provider.model_index_provider import ModelIndexProvider
 from lib.foundations.data_provider.string_list_provider import StringListProvider
 from lib.helpers.index_helper import IndexHelper
 
@@ -16,7 +17,7 @@ TQComboBox2PreventRoot = TypeVar("TQComboBox2PreventRoot", bound=QComboBox2)
 
 TQComboBox2EditableIndexChanged = TypeVar("TQComboBox2EditableIndexChanged", bound=QComboBox2)
 
-TQComboBox2ClearSelection = TypeVar("TQComboBox2ClearSelection", bound=QComboBox2)
+TQComboBox2ClearRootProvider = TypeVar("TQComboBox2ClearRootProvider", bound=QComboBox2)
 
 
 # Decorators
@@ -27,6 +28,10 @@ class PreventRoot(Decorator[void, [QComboBox2, int]]):
 
 class EditableIndexChanged(Decorator[void, QComboBox2, Optional[str]]):
     def method(self, target: TQComboBox2EditableIndexChanged, text: Optional[str]) -> void: ...
+
+
+class ClearRootProvider(Decorator[void, [QComboBox2, int]]):
+    def method(self, target: TQComboBox2ClearRootProvider, index: int) -> void: ...
 
 
 # Main
@@ -44,11 +49,15 @@ class QComboBox2(QComboBox):
 
     _group_id_provider: StringListProvider
 
+    _root_index_provider: ModelIndexProvider
+
     def __init__(self, parent: Optional[QWidget] = ...) -> None: ...
 
     def addItem(self, text: Optional[str], userData: Any = ...) -> void: ...
 
     def addItems(self, texts: Iterable[Optional[str]]) -> void: ...
+
+    def currentIndex(self) -> int: ...
 
     def findData(
             self,
@@ -124,8 +133,16 @@ class QComboBox2(QComboBox):
 
     def setOptionTitle(self, group_id: str, index: int, title: Optional[str]) -> void: ...
 
+    # Slots
+
+    @method(ClearRootProvider)
+    def storeRoot(self) -> void: ...
+
     @property
     def index_helper(self) -> IndexHelper: ...
 
     @property
     def group_id_provider(self) -> StringListProvider: ...
+
+    @property
+    def root_index_provider(self) -> ModelIndexProvider: ...

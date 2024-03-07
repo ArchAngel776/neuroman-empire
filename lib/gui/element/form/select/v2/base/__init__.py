@@ -5,6 +5,7 @@ from lib.hooks import length, index_of, entities
 from lib.decorators import method
 from lib.decorators.decorator import Decorator
 from lib.foundations.data_provider.string_list_provider import StringListProvider
+from lib.foundations.data_provider.model_index_provider import ModelIndexProvider
 from lib.helpers.index_helper import IndexHelper
 from lib.gui.element.form.select.v2.base.style import Select2BoxStyle
 from lib.gui.element.form.select.v2.data.group import Select2Group
@@ -29,6 +30,12 @@ class EditableIndexChanged(Decorator):
             super().method(target, text)
 
 
+class ClearRootProvider(Decorator):
+    def method(self, target, index):
+        target.root_index_provider.clear()
+        super().method(target)
+
+
 # Main
 
 class QComboBox2(QComboBox):
@@ -42,13 +49,17 @@ class QComboBox2(QComboBox):
 
     def __init__(self, parent=None):
         super().__init__(parent)
+
         self._index_helper = IndexHelper()
         self._group_id_provider = StringListProvider()
+        self._root_index_provider = ModelIndexProvider()
 
         self.setModel(Select2Model(self, self.group_id_provider))
         self.setView(Select2View(self))
 
         self.setStyle(Select2BoxStyle().Parent(self))
+
+        self.currentIndexChanged.connect(self.storeRoot)
 
         self.view().selectionModel().currentChanged.connect(self.view().setCurrentIndex)
 
@@ -69,7 +80,7 @@ class QComboBox2(QComboBox):
             flags=Qt.MatchFlag.MatchExactly | Qt.MatchFlag.MatchCaseSensitive
     ):
         raise NotImplementedError(
-            "Find Fata method is not implemented in ComboBox2. Please use Find Option Data instead."
+            "Find Data method is not implemented in ComboBox2. Please use Find Option Data instead."
         )
 
     def findText(self, text, flags=Qt.MatchFlag.MatchExactly | Qt.MatchFlag.MatchCaseSensitive):
@@ -135,6 +146,10 @@ class QComboBox2(QComboBox):
 
         if parent.isValid():
             self.insertOptions(group_id, self.model().rowCount(parent), titles)
+
+    def currentIndex(self):
+        index = self.model().index(super().currentIndex(), self.modelColumn(), self.root_index_provider.provide())
+        return self.index_helper.index_to_position(self.model(), index, QComboBox2.HIERARCHY_LEVEL)
 
     def findGroupId(self, group_id):
         for row in range(self.model().rowCount()):
@@ -310,6 +325,17 @@ class QComboBox2(QComboBox):
 
         self.model().setData(option, title, Qt.ItemDataRole.DisplayRole)
 
+    # Slots
+
+    @method(ClearRootProvider)
+    def storeRoot(self):
+        if self.view().currentIndex().isValid():
+            root = self.view().currentIndex().parent()
+        else:
+            root = self.rootModelIndex()
+
+        self.root_index_provider.add(root)
+
     @property
     def index_helper(self):
         return self._index_helper
@@ -317,3 +343,7 @@ class QComboBox2(QComboBox):
     @property
     def group_id_provider(self):
         return self._group_id_provider
+
+    @property
+    def root_index_provider(self):
+        return self._root_index_provider
