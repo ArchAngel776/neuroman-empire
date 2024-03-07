@@ -11,7 +11,7 @@ from app.network.neuron.maxunpool2d.options import MaxUnpool2dOptions
 class MaxUnpooling2d(Neuron):
     @staticmethod
     def type():
-        return NeuronType.MAXPOOL2D
+        return NeuronType.MAXUNPOOL2D
 
     @staticmethod
     def title():
