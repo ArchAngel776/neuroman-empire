@@ -31,7 +31,7 @@ class DoubleDimensionStrategy(NeuronStrategy):
         self._padding_height = FormInput(self.default_params["padding"][self.Dimension.HEIGHT])
 
         self._kernel_size_width = FormInput(self.default_params["kernel_size"][self.Dimension.WIDTH])
-        self._stride_width = FormInput(self.default_params["kernel_size"][self.Dimension.WIDTH])
+        self._stride_width = FormInput(self.default_params["stride"][self.Dimension.WIDTH])
         self._padding_width = FormInput(self.default_params["padding"][self.Dimension.WIDTH])
 
         self._input_height = LS.rem(1.6)

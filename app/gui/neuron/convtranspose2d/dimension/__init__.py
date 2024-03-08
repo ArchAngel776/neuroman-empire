@@ -33,7 +33,7 @@ class DoubleDimensionStrategy(NeuronStrategy):
         self._output_padding_height = FormInput(self.default_params["output_padding"][self.Dimension.HEIGHT])
 
         self._kernel_size_width = FormInput(self.default_params["kernel_size"][self.Dimension.WIDTH])
-        self._stride_width = FormInput(self.default_params["kernel_size"][self.Dimension.WIDTH])
+        self._stride_width = FormInput(self.default_params["stride"][self.Dimension.WIDTH])
         self._padding_width = FormInput(self.default_params["padding"][self.Dimension.WIDTH])
         self._dilation_width = FormInput(self.default_params["dilation"][self.Dimension.WIDTH])
         self._output_padding_width = FormInput(self.default_params["output_padding"][self.Dimension.WIDTH])
