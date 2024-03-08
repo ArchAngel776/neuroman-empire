@@ -21,7 +21,7 @@ from app.network.neuron.fold.params import FoldParams
 from app.network.neuron.fold.options import FoldOptions
 from app.gui.neuron.strategy import NeuronStrategy
 from app.gui.neuron.params import NeuronStrategyParams
-from app.gui.neuron.fold.dimension_remover import DimensionRemover
+from app.gui.neuron.fold.helpers.dimension_remover import DimensionRemover
 
 
 # Decorators

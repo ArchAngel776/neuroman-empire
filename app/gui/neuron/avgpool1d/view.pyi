@@ -7,7 +7,7 @@ from app.network.neuron.avgpool1d.dimension.options import AvgPool1dDimensionOpt
 from app.gui.neuron.strategy import NeuronStrategy
 from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.neuron.params import NeuronStrategyParams
-from app.gui.neuron.maxpool1d.dimension import SingleDimensionStrategy
+from app.gui.neuron.avgpool1d.dimension import SingleDimensionStrategy
 
 
 # View

@@ -21,7 +21,7 @@ from app.network.neuron.unfold.params import UnfoldParams
 from app.network.neuron.unfold.options import UnfoldOptions
 from app.gui.neuron.strategy import NeuronStrategy
 from app.gui.neuron.params import NeuronStrategyParams
-from app.gui.neuron.unfold.dimension_remover import DimensionRemover
+from app.gui.neuron.unfold.helpers.dimension_remover import DimensionRemover
 
 
 # Decorators

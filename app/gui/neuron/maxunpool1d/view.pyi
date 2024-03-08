@@ -7,7 +7,7 @@ from app.network.neuron.maxunpool1d.dimension.options import MaxUnpool1dDimensio
 from app.gui.neuron.strategy import NeuronStrategy
 from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.neuron.params import NeuronStrategyParams
-from app.gui.neuron.maxpool1d.dimension import SingleDimensionStrategy
+from app.gui.neuron.maxunpool1d.dimension import SingleDimensionStrategy
 
 
 # View
