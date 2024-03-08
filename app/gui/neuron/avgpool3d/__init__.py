@@ -106,7 +106,7 @@ class NeuronBuilderAveragePooling3dStrategy(NeuronStrategy):
                 LayoutFactory(LayoutType.HORIZONTAL).create()
                 .margin_vertical(LS.rem(.8))
                 .add(
-                    Text(root, i18n("window.screens.network.neurons.maxpool3d.labels.cube"))
+                    Text(root, i18n("window.screens.network.neurons.avgpool3d.labels.cube"))
                 )
                 .append(
                     LayoutFactory(LayoutType.VERTICAL).create()
@@ -144,7 +144,7 @@ class NeuronBuilderAveragePooling3dStrategy(NeuronStrategy):
                 LayoutFactory(LayoutType.HORIZONTAL).create()
                 .margin_vertical(LS.rem(.8))
                 .add(
-                    Text(root, i18n("window.screens.network.neurons.maxpool3d.labels.ceil_mode"))
+                    Text(root, i18n("window.screens.network.neurons.avgpool3d.labels.ceil_mode"))
                 )
                 .append(
                     LayoutFactory(LayoutType.VERTICAL).create()
