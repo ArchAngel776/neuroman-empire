@@ -39,8 +39,11 @@ class Switcher(Component):
 
         self.afterShown.connect(self.switchEvent)
 
+        self.program.view_updated.connect(self.view_update)
+
     def config(self):
         super().config()
+        self.program.config()
         self.layout().setSizeConstraint(QLayout.SizeConstraint.SetMinAndMaxSize)
 
     def AutoInit(self):
@@ -75,3 +78,6 @@ class Switcher(Component):
 
     def switchEvent(self):
         self.emit(Event.Type.Switch, SwitcherSwitchEvent())
+
+    def view_update(self):
+        super().update_view()

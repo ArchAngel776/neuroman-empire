@@ -1,10 +1,20 @@
 from abc import ABC, abstractmethod
 
+from PyQt5.QtCore import pyqtSignal
+
 from lib.decorators import method
 from lib.decorators.decorator import Decorator
+from lib.foundations import Foundation
 
 
 # Decorators
+
+class UpdateConnection(Decorator):
+    def method(self, target, key):
+        target.current_strategy.view_updated.disconnect(target.view_update)
+        super().method(target, key)
+        target.current_strategy.view_updated.connect(target.view_update)
+
 
 class DeepUpdate(Decorator):
     def method(self, target, dependencies, update_strategies):
@@ -14,12 +24,26 @@ class DeepUpdate(Decorator):
         return super().method(target, dependencies)
 
 
+# Meta
+
+class SwitcherProgramMeta(type(Foundation), type(ABC)):
+    pass
+
+
 # Main
 
-class SwitcherProgram(ABC):
+class SwitcherProgram(Foundation, ABC, metaclass=SwitcherProgramMeta):
+    # Signals
+
+    view_updated = pyqtSignal()
+
     def __init__(self, key, dependencies):
+        super().__init__()
         self._key = key
         self._dependencies = dependencies
+
+    def config(self):
+        self.current_strategy.view_updated.connect(self.view_update)
 
     @property
     @abstractmethod
@@ -38,6 +62,7 @@ class SwitcherProgram(ABC):
     def dependencies(self):
         return self._dependencies
 
+    @method(UpdateConnection)
     def change_key(self, key):
         self._key = key
 
@@ -49,6 +74,9 @@ class SwitcherProgram(ABC):
         return self.current_strategy.render(root)
 
     # Slots
+
+    def view_update(self):
+        self.view_updated.emit()
 
     def strategy_before_hook(self):
         self.current_strategy.beforeShow()

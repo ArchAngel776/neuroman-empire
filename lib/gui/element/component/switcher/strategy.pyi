@@ -1,7 +1,10 @@
 from abc import abstractmethod, ABC
-from typing import Generic, TypeVar, TypedDict
+from typing import Generic, TypeVar, TypedDict, ClassVar
+
+from PyQt5.QtCore import pyqtSignal
 
 from lib import void
+from lib.foundations import Foundation
 from lib.gui import Watcher
 from lib.gui.layout import Layout
 from lib.gui.window import Window
@@ -12,10 +15,26 @@ SwitcherStrategyDependencies = TypeVar("SwitcherStrategyDependencies", dict, Typ
 SwitcherStrategyParams = TypeVar("SwitcherStrategyParams", dict, TypedDict)
 
 
+# Meta
+
+class SwitcherStrategyMeta(type(Foundation), type(ABC)):
+    ...
+
+
 # Main
 
-class SwitcherStrategy(Watcher, ABC, Generic[SwitcherStrategyDependencies, SwitcherStrategyParams]):
+class SwitcherStrategy(
+    Foundation,
+    Watcher,
+    ABC,
+    Generic[SwitcherStrategyDependencies, SwitcherStrategyParams],
+    metaclass=SwitcherStrategyMeta
+):
     _dependencies: SwitcherStrategyDependencies
+
+    # Signals
+
+    view_updated: ClassVar[pyqtSignal] = ...
 
     def __init__(self, dependencies: SwitcherStrategyDependencies) -> None: ...
 
@@ -32,5 +51,7 @@ class SwitcherStrategy(Watcher, ABC, Generic[SwitcherStrategyDependencies, Switc
 
     @abstractmethod
     def render(self, root: Window) -> Layout: ...
+
+    def update_view(self) -> void: ...
 
     def update_dependencies(self, dependencies: SwitcherStrategyDependencies) -> void: ...
