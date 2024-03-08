@@ -42,6 +42,9 @@ class NetworkBuilderCanvasProgram(CanvasProgram[NetworkBuilderVariantType]):
     _color_maxunpool1d: QColor
     _color_maxunpool2d: QColor
     _color_maxunpool3d: QColor
+    _color_avgpool1d: QColor
+    _color_avgpool2d: QColor
+    _color_avgpool3d: QColor
     _color_linear: QColor
 
     _cursor_active: QCursor
@@ -168,6 +171,15 @@ class NetworkBuilderCanvasProgram(CanvasProgram[NetworkBuilderVariantType]):
 
     @property
     def color_maxunpool3d(self) -> QColor: ...
+
+    @property
+    def color_avgpool1d(self) -> QColor: ...
+
+    @property
+    def color_avgpool2d(self) -> QColor: ...
+
+    @property
+    def color_avgpool3d(self) -> QColor: ...
 
     @property
     def color_linear(self) -> QColor: ...

@@ -7,7 +7,7 @@ from .options import AvgPool1dOptions
 
 # Main
 
-class MaxPooling1d(Neuron[AvgPool1dParams, AvgPool1dOptions]):
+class AveragePooling1d(Neuron[AvgPool1dParams, AvgPool1dOptions]):
     @staticmethod
     def type() -> NeuronType: ...
 

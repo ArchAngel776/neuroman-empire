@@ -16,6 +16,9 @@ from app.gui.neuron.maxpool3d import NeuronBuilderMaxPooling3dStrategy
 from app.gui.neuron.maxunpool1d import NeuronBuilderMaxUnpooling1dStrategy
 from app.gui.neuron.maxunpool2d import NeuronBuilderMaxUnpooling2dStrategy
 from app.gui.neuron.maxunpool3d import NeuronBuilderMaxUnpooling3dStrategy
+from app.gui.neuron.avgpool1d import NeuronBuilderAveragePooling1dStrategy
+from app.gui.neuron.avgpool2d import NeuronBuilderAveragePooling2dStrategy
+from app.gui.neuron.avgpool3d import NeuronBuilderAveragePooling3dStrategy
 from app.gui.neuron.linear import NeuronBuilderLinearStrategy
 
 
@@ -44,6 +47,10 @@ class NeuronBuilderSwitcher(SwitcherProgram):
         self._max_unpooling2d_strategy = NeuronBuilderMaxUnpooling2dStrategy(dependencies)
         self._max_unpooling3d_strategy = NeuronBuilderMaxUnpooling3dStrategy(dependencies)
 
+        self._average_pooling1d_strategy = NeuronBuilderAveragePooling1dStrategy(dependencies)
+        self._average_pooling2d_strategy = NeuronBuilderAveragePooling2dStrategy(dependencies)
+        self._average_pooling3d_strategy = NeuronBuilderAveragePooling3dStrategy(dependencies)
+
         self._linear_strategy = NeuronBuilderLinearStrategy(dependencies)
 
     @property
@@ -63,5 +70,8 @@ class NeuronBuilderSwitcher(SwitcherProgram):
             NeuronType.MAXUNPOOL1D: self._max_unpooling1d_strategy,
             NeuronType.MAXUNPOOL2D: self._max_unpooling2d_strategy,
             NeuronType.MAXUNPOOL3D: self._max_unpooling3d_strategy,
+            NeuronType.AVGPOOL1D: self._average_pooling1d_strategy,
+            NeuronType.AVGPOOL2D: self._average_pooling2d_strategy,
+            NeuronType.AVGPOOL3D: self._average_pooling3d_strategy,
             NeuronType.LINEAR: self._linear_strategy
         }
