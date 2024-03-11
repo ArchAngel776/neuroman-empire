@@ -19,6 +19,8 @@ from app.gui.neuron.maxunpool3d import NeuronBuilderMaxUnpooling3dStrategy
 from app.gui.neuron.avgpool1d import NeuronBuilderAveragePooling1dStrategy
 from app.gui.neuron.avgpool2d import NeuronBuilderAveragePooling2dStrategy
 from app.gui.neuron.avgpool3d import NeuronBuilderAveragePooling3dStrategy
+from app.gui.neuron.fractionalmaxpool2d import NeuronBuilderFractionalMaxPooling2dStrategy
+from app.gui.neuron.fractionalmaxpool3d import NeuronBuilderFractionalMaxPooling3dStrategy
 from app.gui.neuron.linear import NeuronBuilderLinearStrategy
 
 
@@ -51,6 +53,9 @@ class NeuronBuilderSwitcher(SwitcherProgram):
         self._average_pooling2d_strategy = NeuronBuilderAveragePooling2dStrategy(dependencies)
         self._average_pooling3d_strategy = NeuronBuilderAveragePooling3dStrategy(dependencies)
 
+        self._fractional_max_pooling2d_strategy = NeuronBuilderFractionalMaxPooling2dStrategy(dependencies)
+        self._fractional_max_pooling3d_strategy = NeuronBuilderFractionalMaxPooling3dStrategy(dependencies)
+
         self._linear_strategy = NeuronBuilderLinearStrategy(dependencies)
 
     @property
@@ -73,5 +78,7 @@ class NeuronBuilderSwitcher(SwitcherProgram):
             NeuronType.AVGPOOL1D: self._average_pooling1d_strategy,
             NeuronType.AVGPOOL2D: self._average_pooling2d_strategy,
             NeuronType.AVGPOOL3D: self._average_pooling3d_strategy,
+            NeuronType.FRACTIONALMAXPOOL2D: self._fractional_max_pooling2d_strategy,
+            NeuronType.FRACTIONALMAXPOOL3D: self._fractional_max_pooling3d_strategy,
             NeuronType.LINEAR: self._linear_strategy
         }

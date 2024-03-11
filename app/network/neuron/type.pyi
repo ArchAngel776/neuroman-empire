@@ -21,4 +21,6 @@ class NeuronType(Enum):
     AVGPOOL1D = ...  #type:NeuronType
     AVGPOOL2D = ...  #type:NeuronType
     AVGPOOL3D = ...  #type:NeuronType
+    FRACTIONALMAXPOOL2D = ...  #type:NeuronType
+    FRACTIONALMAXPOOL3D = ...  #type:NeuronType
     LINEAR = ... #type: NeuronType

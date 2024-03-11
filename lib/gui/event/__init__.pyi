@@ -11,6 +11,7 @@ class Event(QEvent):
     Input = ... #type: int
     ScrollContent = ... #type: int
     Validated = ...  #type: int
+    Toggled = ...  #type: int
 
     class Type(int):
         # Extended
@@ -21,6 +22,7 @@ class Event(QEvent):
         Input = ... #type: Event.Type
         ScrollContent = ... #type: Event.Type
         Validated = ... #type: Event.Type
+        Toggled = ... #type: Event.Type
 
         # Base
         None_ = ... #type: Event.Type

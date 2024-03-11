@@ -44,6 +44,8 @@ class NetworkBuilderCanvasProgram(CanvasProgram):
         self._color_avgpool1d = QColor(64, 255, 164)
         self._color_avgpool2d = QColor(64, 255, 192)
         self._color_avgpool3d = QColor(64, 255, 220)
+        self._color_fractionalmaxpool2d = QColor(164, 255, 64)
+        self._color_fractionalmaxpool3d = QColor(192, 255, 92)
         self._color_linear = QColor(128, 255, 128)
 
         self._cursor_active = QCursor(Qt.PointingHandCursor)
@@ -168,6 +170,10 @@ class NetworkBuilderCanvasProgram(CanvasProgram):
                 return self.color_avgpool2d
             case NeuronType.AVGPOOL3D:
                 return self.color_avgpool3d
+            case NeuronType.FRACTIONALMAXPOOL2D:
+                return self.color_fractionalmaxpool2d
+            case NeuronType.FRACTIONALMAXPOOL3D:
+                return self._color_fractionalmaxpool3d
             case NeuronType.LINEAR:
                 return self.color_linear
             case _:
@@ -315,6 +321,14 @@ class NetworkBuilderCanvasProgram(CanvasProgram):
     @property
     def color_avgpool3d(self):
         return self._color_avgpool3d
+
+    @property
+    def color_fractionalmaxpool2d(self):
+        return self._color_fractionalmaxpool2d
+
+    @property
+    def color_fractionalmaxpool3d(self):
+        return self._color_fractionalmaxpool3d
 
     @property
     def color_linear(self):

@@ -47,6 +47,8 @@ from app.network.neuron.maxunpool3d import MaxUnpooling3d
 from app.network.neuron.avgpool1d import AveragePooling1d
 from app.network.neuron.avgpool2d import AveragePooling2d
 from app.network.neuron.avgpool3d import AveragePooling3d
+from app.network.neuron.fractionalmaxpool2d import FractionalMaxPooling2d
+from app.network.neuron.fractionalmaxpool3d import FractionalMaxPooling3d
 from app.network.neuron.linear import Linear
 from app.gui.neuron import NeuronBuilderSwitcher
 from app.gui.neuron.dependencies import NeuronBuilderDependencies
@@ -385,6 +387,16 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                                 NeuronOperationCreationStrategy.NeuronGroup.POOL,
                                 AveragePooling3d.title(),
                                 AveragePooling3d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.POOL,
+                                FractionalMaxPooling2d.title(),
+                                FractionalMaxPooling2d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.POOL,
+                                FractionalMaxPooling3d.title(),
+                                FractionalMaxPooling3d
                             )
                             .Group(
                                 NeuronOperationCreationStrategy.NeuronGroup.LIN,

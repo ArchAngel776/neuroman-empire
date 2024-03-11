@@ -22,6 +22,8 @@ from app.network.neuron.maxunpool3d.params import MaxUnpool3dParams
 from app.network.neuron.avgpool1d.params import AvgPool1dParams
 from app.network.neuron.avgpool2d.params import AvgPool2dParams
 from app.network.neuron.avgpool3d.params import AvgPool3dParams
+from app.network.neuron.fractionalmaxpool2d.params import FractionalMaxPool2dParams
+from app.network.neuron.fractionalmaxpool3d.params import FractionalMaxPool3dParams
 from app.network.neuron.linear.params import LinearParams
 
 from app.network.neuron.conv1d.options import Conv1dOptions
@@ -41,6 +43,8 @@ from app.network.neuron.maxunpool3d.options import MaxUnpool3dOptions
 from app.network.neuron.avgpool1d.options import AvgPool1dOptions
 from app.network.neuron.avgpool2d.options import AvgPool2dOptions
 from app.network.neuron.avgpool3d.options import AvgPool3dOptions
+from app.network.neuron.fractionalmaxpool2d.options import FractionalMaxPool2dOptions
+from app.network.neuron.fractionalmaxpool3d.options import FractionalMaxPool3dOptions
 from app.network.neuron.linear.options import LinearOptions
 
 from .strategy import NeuronStrategy
@@ -62,6 +66,8 @@ from .maxunpool3d import NeuronBuilderMaxUnpooling3dStrategy
 from .avgpool1d import NeuronBuilderAveragePooling1dStrategy
 from .avgpool2d import NeuronBuilderAveragePooling2dStrategy
 from .avgpool3d import NeuronBuilderAveragePooling3dStrategy
+from .fractionalmaxpool2d import NeuronBuilderFractionalMaxPooling2dStrategy
+from .fractionalmaxpool3d import NeuronBuilderFractionalMaxPooling3dStrategy
 from .linear import NeuronBuilderLinearStrategy
 
 # Types
@@ -84,6 +90,8 @@ NeuronParams = Union[
     AvgPool1dParams,
     AvgPool2dParams,
     AvgPool3dParams,
+    FractionalMaxPool2dParams,
+    FractionalMaxPool3dParams,
     LinearParams
 ]
 
@@ -105,6 +113,8 @@ NeuronOptions = Union[
     AvgPool1dOptions,
     AvgPool2dOptions,
     AvgPool3dOptions,
+    FractionalMaxPool2dOptions,
+    FractionalMaxPool3dOptions,
     LinearOptions
 ]
 
@@ -136,6 +146,9 @@ class NeuronBuilderSwitcher(
     _average_pooling1d_strategy: NeuronBuilderAveragePooling1dStrategy
     _average_pooling2d_strategy: NeuronBuilderAveragePooling2dStrategy
     _average_pooling3d_strategy: NeuronBuilderAveragePooling3dStrategy
+
+    _fractional_max_pooling2d_strategy: NeuronBuilderFractionalMaxPooling2dStrategy
+    _fractional_max_pooling3d_strategy: NeuronBuilderFractionalMaxPooling3dStrategy
 
     _linear_strategy: NeuronBuilderLinearStrategy
 

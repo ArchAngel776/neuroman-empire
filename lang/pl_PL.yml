@@ -264,8 +264,42 @@ window:
             count_include_pad: "Uwzględnianie zer: "
             divisor_enabled: "Użyj własnego dzielnika: "
             divisor_override: "Watrtość dzielnika: "
+        fractionalmaxpool2d:
+          dimensions:
+            width: "Szerokość"
+            height: "Wysokość"
+          labels:
+            square: "Wymiary kwadratowe: "
+            kernel: "Rozmiar jądra: "
+            size: "Rozmiar: "
+            ratio: "Stosunek"
+            output_size: "Rozmiar wyniku: "
+            output_ratio: "Stosunek wyniku: "
+            return_indices: "Indeksy zwrotne: "
+        fractionalmaxpool3d:
+          dimensions:
+            depth: "Głębia"
+            width: "Szerokość"
+            height: "Wysokość"
+          labels:
+            cube: "Wymiary sześcienne: "
+            kernel: "Rozmiar jądra: "
+            size: "Rozmiar: "
+            ratio: "Stosunek"
+            output_size: "Rozmiar wyniku: "
+            output_ratio: "Stosunek wyniku: "
+            return_indices: "Indeksy zwrotne: "
         linear:
           labels:
             input: "Wejście: "
             output: "Wyjście: "
             bias: "Bias: "
+      extension:
+        fractionalmaxpool:
+          single:
+            labels:
+              kernel: "Rozmiar jądra: "
+              size: "Rozmiar: "
+              ratio: "Stosunek"
+              output_size: "Rozmiar wyniku: "
+              output_ratio: "Stosunek wyniku: "

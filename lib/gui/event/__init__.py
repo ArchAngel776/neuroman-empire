@@ -11,6 +11,7 @@ class Event(QEvent):
     Input = QEvent.registerEventType(1205)
     ScrollContent = QEvent.registerEventType(1206)
     Validated = QEvent.registerEventType(1207)
+    Toggled = QEvent.registerEventType(1207)
 
     class Type(int):
         # Extended
@@ -21,6 +22,7 @@ class Event(QEvent):
         Input = 1205
         ScrollContent = 1206
         Validated = 1207
+        Toggled = 1208
 
         # Base
         None_ = QEvent.Type.None_
