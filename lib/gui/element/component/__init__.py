@@ -37,6 +37,7 @@ class Component(Element, Watcher, ABC, metaclass=ComponentMeta):
         Watcher.__init__(self)
         self._orientation = orientation
         self._sizing = QSizePolicy()
+        self._margin = None
 
     def config(self):
         super().config()
@@ -48,9 +49,17 @@ class Component(Element, Watcher, ABC, metaclass=ComponentMeta):
             case _:
                 raise ValueError("Cannot handle specified layout type.")
 
+        if self._margin:
+            horizontal, vertical = self._margin
+            self.layout().setContentsMargins(horizontal, vertical, horizontal, vertical)
+
     def InnerSizing(self, horizontal, vertical):
         self._sizing.setHorizontalPolicy(horizontal)
         self._sizing.setVerticalPolicy(vertical)
+        return self
+
+    def InnerMargin(self, horizontal: int, vertical: int):
+        self._margin = horizontal, vertical
         return self
 
     @method(ClearRender)

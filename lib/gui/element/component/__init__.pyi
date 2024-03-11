@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Self, Callable, TypeVar
+from typing import Self, Callable, TypeVar, Optional
 
 from PyQt5.QtWidgets import QSizePolicy
 
@@ -38,12 +38,15 @@ class ComponentMeta(type(Element), type(ABC)): ...
 class Component(Element, Watcher, ABC, metaclass=ComponentMeta):
     _orientation: LayoutType
     _sizing: QSizePolicy
+    _margin: Optional[tuple[int, int]]
 
     def __init__(self, root: Window, orientation: LayoutType) -> None: ...
 
     def config(self) -> void: ...
 
     def InnerSizing(self, horizontal: QSizePolicy.Policy, vertical: QSizePolicy.Policy) -> Self: ...
+
+    def InnerMargin(self, horizontal: int, vertical: int) -> Self: ...
 
     @method(ClearRender)
     def update_view(self) -> void: ...
