@@ -58,7 +58,7 @@ class Component(Element, Watcher, ABC, metaclass=ComponentMeta):
         self._sizing.setVerticalPolicy(vertical)
         return self
 
-    def InnerMargin(self, horizontal: int, vertical: int):
+    def InnerMargin(self, horizontal, vertical):
         self._margin = horizontal, vertical
         return self
 
