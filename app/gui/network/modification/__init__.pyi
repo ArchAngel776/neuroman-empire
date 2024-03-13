@@ -2,16 +2,16 @@ from typing import Callable
 
 from PyQt5.QtGui import QCursor
 
+from app.gui.neuron.params import NeuronStrategyParams
 from lib import void
 from lib.gui.element.font import Font
-from lib.gui.element.component.switcher import Switcher
 from lib.gui.element.component.switcher.strategy import SwitcherStrategy
 from lib.gui.layout import Layout
 
 from app.network.neuron import Neuron
 from app.network.neuron.type import NeuronType
 from app.gui import MainWindow
-from app.gui.neuron import NeuronParams, NeuronBuilderSwitcher
+from app.gui.neuron import NeuronBuilderSwitcher, NeuronParams, NeuronOptions
 from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.network.dependencies import NeuronOperationDependencies
 from app.gui.network import NeuronOperationParams
@@ -51,8 +51,12 @@ class NeuronOperationModificationStrategy(SwitcherStrategy[NeuronOperationDepend
 
     def cancel(self) -> bool: ...
 
-    @staticmethod
-    def init_switcher(switcher: Switcher[NeuronType, {}, NeuronParams]) -> bool: ...
+    def init_switcher(
+            self,
+            neuron_strategy: SwitcherStrategy[
+                NeuronBuilderDependencies, NeuronStrategyParams[NeuronParams, NeuronOptions]
+            ]
+    ) -> void: ...
 
     @property
     def switcher_program(self) -> NeuronBuilderSwitcher: ...

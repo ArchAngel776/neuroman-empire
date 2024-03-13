@@ -17,6 +17,7 @@ from app import SCROLLBAR_SIZE
 from app.hooks import i18n
 from app.gui.neuron import NeuronBuilderSwitcher
 from app.gui.neuron.dependencies import NeuronBuilderDependencies
+from app.gui.neuron.strategy import NeuronStrategy
 from app.gui.network.modification.params import NeuronModificationParams
 
 
@@ -69,9 +70,9 @@ class NeuronOperationModificationStrategy(SwitcherStrategy):
         self.action_entry()
         return True
 
-    def init_switcher(self):
-        self.switcher_program.strategy[self.neuron_type].load(self.neuron.params, self.neuron.options)
-        return True
+    def init_switcher(self, neuron_strategy):
+        assert isinstance(neuron_strategy, NeuronStrategy)
+        neuron_strategy.read(self.neuron.params, self.neuron.options)
 
     @property
     def switcher_program(self):
@@ -156,11 +157,7 @@ class NeuronOperationModificationStrategy(SwitcherStrategy):
                                 LayoutType.VERTICAL
                             )
                             .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-                            .On(
-                                Event.Type.Switch, self.init_switcher,
-                                with_target=False,
-                                with_event=False
-                            )
+                            .PayloadInjection(self.init_switcher)
                             .AutoInit()
                         )
                     )
