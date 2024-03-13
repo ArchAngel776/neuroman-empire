@@ -30,6 +30,9 @@ class SwitcherStrategy(Foundation, Watcher, ABC, metaclass=SwitcherStrategyMeta)
     def afterShow(self):
         pass
 
+    def beforeClose(self):
+        pass
+
     @property
     @abstractmethod
     def params(self):

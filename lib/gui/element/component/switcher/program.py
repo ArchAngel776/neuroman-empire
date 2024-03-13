@@ -83,3 +83,6 @@ class SwitcherProgram(Foundation, ABC, metaclass=SwitcherProgramMeta):
 
     def strategy_after_hook(self):
         self.current_strategy.afterShow()
+
+    def strategy_close_hook(self):
+        self.current_strategy.beforeClose()

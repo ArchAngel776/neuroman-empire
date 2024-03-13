@@ -30,12 +30,16 @@ class Switcher(Component):
 
     afterShown = pyqtSignal()
 
+    beforeClosed = pyqtSignal()
+
     def __init__(self, root, program, orientation):
         super().__init__(root, orientation)
         self._program = program
+        self._payload = None
 
         self.beforeShown.connect(self.program.strategy_before_hook)
         self.afterShown.connect(self.program.strategy_after_hook)
+        self.beforeClosed.connect(self.program.strategy_close_hook)
 
         self.afterShown.connect(self.switchEvent)
 
@@ -46,6 +50,10 @@ class Switcher(Component):
         self.program.config()
         self.layout().setSizeConstraint(QLayout.SizeConstraint.SetMinAndMaxSize)
 
+    def Payload(self, payload):
+        self._payload = payload
+        return self
+
     def AutoInit(self):
         self.add_event_listener(
             Event.Type.Show, lambda switcher: switcher.update_view(),
@@ -53,8 +61,12 @@ class Switcher(Component):
         )
         return self
 
-    @method(UpdateStrategy)
     def change_strategy(self, key):
+        self.change_switcher_strategy(key)
+
+    @method(UpdateStrategy)
+    def change_switcher_strategy(self, key):
+        self.beforeClosed.emit()
         self.program.change_key(key)
 
     def update_dependencies(self, dependencies, update_strategies=False):
@@ -68,11 +80,10 @@ class Switcher(Component):
 
     @method(ConstraintLayout)
     def render_view(self, root):
-        return self.program.render_element(root)
-
-    @property
-    def program(self):
-        return self._program
+        strategy = self.program.current_strategy
+        if self.payload:
+            self.payload(strategy)
+        return strategy.render(root)
 
     # Slots
 
@@ -81,3 +92,11 @@ class Switcher(Component):
 
     def view_update(self):
         super().update_view()
+
+    @property
+    def program(self):
+        return self._program
+
+    @property
+    def payload(self):
+        return self._payload

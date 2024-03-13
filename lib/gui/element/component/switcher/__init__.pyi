@@ -1,7 +1,8 @@
 from enum import Enum
-from typing import Generic, TypeVar, TypedDict, Self, ClassVar
+from typing import Generic, TypeVar, TypedDict, Self, ClassVar, Optional, Callable
 
 from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtGui import QShowEvent
 
 from lib import void
 from lib.decorators import method
@@ -11,8 +12,11 @@ from lib.gui.layout import Layout
 from lib.gui.layout.type import LayoutType
 from lib.gui.window import Window
 from .program import SwitcherProgram
+from .strategy import SwitcherStrategy
 
 # Types
+
+TSwitcherStrategy = TypeVar("TSwitcherStrategy", bound=SwitcherStrategy)
 
 SwitcherKey = TypeVar("SwitcherKey", int, str, Enum)
 SwitcherDependencies = TypeVar("SwitcherDependencies", dict, TypedDict)
@@ -60,11 +64,15 @@ class ConstraintLayout(
 class Switcher(Component, Generic[SwitcherKey, SwitcherDependencies, SwitcherParams]):
     _program: SwitcherProgram[SwitcherKey, SwitcherDependencies, SwitcherParams]
 
+    _payload: Optional[Callable[[SwitcherStrategy[SwitcherDependencies, SwitcherParams]], void]]
+
     # Signals
 
     beforeShown: ClassVar[pyqtSignal] = ...
 
     afterShown: ClassVar[pyqtSignal] = ...
+
+    beforeClosed: ClassVar[pyqtSignal] = ...
 
     def __init__(
             self,
@@ -75,10 +83,19 @@ class Switcher(Component, Generic[SwitcherKey, SwitcherDependencies, SwitcherPar
 
     def config(self) -> void: ...
 
+    def showEvent(self, event: Optional[QShowEvent]) -> void: ...
+
+    def Payload(
+            self,
+            payload: Callable[[TSwitcherStrategy], void]
+    ) -> Self: ...
+
     def AutoInit(self) -> Self: ...
 
-    @method(UpdateStrategy[SwitcherKey, SwitcherDependencies, SwitcherParams])
     def change_strategy(self, key: SwitcherKey) -> void: ...
+
+    @method(UpdateStrategy[SwitcherKey, SwitcherDependencies, SwitcherParams])
+    def change_switcher_strategy(self, key: SwitcherKey) -> void: ...
 
     def update_dependencies(self, dependencies: SwitcherDependencies, update_strategies: bool = ...) -> Self: ...
 
@@ -87,11 +104,14 @@ class Switcher(Component, Generic[SwitcherKey, SwitcherDependencies, SwitcherPar
     @method(ConstraintLayout[SwitcherKey, SwitcherDependencies, SwitcherParams])
     def render_view(self, root: Window) -> Layout: ...
 
-    @property
-    def program(self) -> SwitcherProgram[SwitcherKey, SwitcherDependencies, SwitcherParams]: ...
-
     # Slots
 
     def switchEvent(self) -> void: ...
 
     def view_update(self) -> void: ...
+
+    @property
+    def program(self) -> SwitcherProgram[SwitcherKey, SwitcherDependencies, SwitcherParams]: ...
+
+    @property
+    def payload(self) -> Optional[Callable[[SwitcherStrategy[SwitcherDependencies, SwitcherParams]], void]]: ...
