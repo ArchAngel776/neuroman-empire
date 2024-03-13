@@ -53,8 +53,6 @@ class NeuronBuilderAveragePooling1dStrategy(NeuronStrategy):
         return AveragePooling1d.default_options()
 
     def load(self, params, options):
-        self.dimension_switcher_program.current_strategy.load(params, options)
-
         self._ceil_mode.update(params["ceil_mode"])
         self._count_include_pad.update(params["count_include_pad"])
 
@@ -78,6 +76,7 @@ class NeuronBuilderAveragePooling1dStrategy(NeuronStrategy):
                         LayoutType.VERTICAL
                     )
                     .InnerSizing(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Fixed)
+                    .Payload(self.neuron_payload_provider.provide())
                     .AutoInit()
                 )
             )

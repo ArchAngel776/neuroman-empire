@@ -59,7 +59,6 @@ class NeuronBuilderMaxPooling3dStrategy(NeuronStrategy):
 
     def load(self, params, options):
         self._reflection.update(options["cube"])
-        self.dimension_switcher_program.current_strategy.load(params, options)
 
         self._return_indices.update(params["return_indices"])
         self._ceil_mode.update(params["ceil_mode"])
@@ -68,11 +67,14 @@ class NeuronBuilderMaxPooling3dStrategy(NeuronStrategy):
     def dimension_params(self):
         return self.dimension_switcher_program.params
 
+    @staticmethod
+    def value_to_dimension(value):
+        return Dimension3dView.SINGLE if value else Dimension3dView.TRIPLE
+
     def change_dimension(self, event):
-        key = Dimension3dView.SINGLE if event.checked else Dimension3dView.TRIPLE
         self.make(
             NeuronBuilderMaxPooling3dStrategy.Watch.DIMENSION_SWITCHER,
-            lambda switcher: switcher.change_strategy(key)
+            lambda switcher: switcher.change_strategy(self.value_to_dimension(event.checked))
         )
         return True
 
@@ -114,10 +116,11 @@ class NeuronBuilderMaxPooling3dStrategy(NeuronStrategy):
                         NeuronBuilderMaxPooling3dStrategy.Watch.DIMENSION_SWITCHER,
                         Switcher(
                             root,
-                            Dimension3dSwitcher(Dimension3dView.TRIPLE, self.dependencies),
+                            Dimension3dSwitcher(self.value_to_dimension(self._reflection.value), self.dependencies),
                             LayoutType.VERTICAL
                         )
                         .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+                        .Payload(self.neuron_payload_provider.provide())
                     )
                 )
             )

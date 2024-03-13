@@ -48,6 +48,9 @@ class NeuronBuilderMaxUnpooling3dStrategy(NeuronStrategy[MaxUnpool3dParams, MaxU
     @property
     def dimension_params(self) -> NeuronStrategyParams[MaxUnpool3dDimensionParams, MaxUnpool3dDimensionOptions]: ...
 
+    @staticmethod
+    def value_to_dimension(value: bool) -> Dimension3dView: ...
+
     def change_dimension(self, event: CheckBoxChangedEvent) -> bool: ...
 
     @property

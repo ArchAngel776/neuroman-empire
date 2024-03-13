@@ -77,15 +77,13 @@ class TripleDimensionStrategy(NeuronStrategy):
         self._kernel_size_width.update(params["kernel_size"][self.Dimension.WIDTH])
 
         self._output.update(options["output"])
-        self.output_switcher_program.current_strategy.load(params, options)
 
     @property
     def output_params(self):
         return self.output_switcher_program.params
 
     def toggle_output(self, event):
-        key = event.value
-        self.make(TripleDimensionStrategy.Watch.OUTPUT_SWITCHER, lambda switcher: switcher.change_strategy(key))
+        self.make(TripleDimensionStrategy.Watch.OUTPUT_SWITCHER, lambda switcher: switcher.change_strategy(event.value))
         return True
 
     @property
@@ -164,22 +162,26 @@ class TripleDimensionStrategy(NeuronStrategy):
             .add(
                 self.watch(
                     TripleDimensionStrategy.Watch.OUTPUT_SWITCHER,
-                    Switcher(root, OutputSwitcher(Output.SIZE, self.dependencies), LayoutType.HORIZONTAL)
+                    Switcher(root, OutputSwitcher(self._output.value, self.dependencies), LayoutType.HORIZONTAL)
                     .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
                     .InnerMargin(LS.rem(0), LS.rem(0))
-                    .AutoInit()
+                    .Payload(self.neuron_payload_provider.provide())
                 )
             )
-            .add(
-                RadioButton(root, LayoutType.HORIZONTAL, self._output.value)
-                .Sizing(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
-                .Bind(self._output)
-                .On(
-                    Event.Type.Toggled, self.toggle_output,
-                    with_target=False,
-                    with_event=True
+            .append(
+                LayoutFactory(LayoutType.HORIZONTAL).create()
+                .align(Qt.AlignmentFlag.AlignCenter)
+                .add(
+                    RadioButton(root, LayoutType.HORIZONTAL, self._output.value)
+                    .Sizing(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
+                    .Bind(self._output)
+                    .On(
+                        Event.Type.Toggled, self.toggle_output,
+                        with_target=False,
+                        with_event=True
+                    )
+                    .Add(Output.SIZE, i18n("window.screens.network.neurons.fractionalmaxpool3d.labels.size"))
+                    .Add(Output.RATIO, i18n("window.screens.network.neurons.fractionalmaxpool3d.labels.ratio"))
                 )
-                .Add(Output.SIZE, i18n("window.screens.network.neurons.fractionalmaxpool3d.labels.size"))
-                .Add(Output.RATIO, i18n("window.screens.network.neurons.fractionalmaxpool3d.labels.ratio"))
             )
         )

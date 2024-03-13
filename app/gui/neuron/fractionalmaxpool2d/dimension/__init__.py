@@ -72,7 +72,6 @@ class DoubleDimensionStrategy(NeuronStrategy):
         self._kernel_size_width.update(params["kernel_size"][self.Dimension.WIDTH])
 
         self._output.update(options["output"])
-        self.output_switcher_program.current_strategy.load(params, options)
 
     @property
     def output_params(self):
@@ -138,22 +137,26 @@ class DoubleDimensionStrategy(NeuronStrategy):
             .add(
                 self.watch(
                     DoubleDimensionStrategy.Watch.OUTPUT_SWITCHER,
-                    Switcher(root, OutputSwitcher(Output.SIZE, self.dependencies), LayoutType.HORIZONTAL)
+                    Switcher(root, OutputSwitcher(self._output.value, self.dependencies), LayoutType.HORIZONTAL)
                     .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
                     .InnerMargin(LS.rem(0), LS.rem(0))
-                    .AutoInit()
+                    .Payload(self.neuron_payload_provider.provide())
                 )
             )
-            .add(
-                RadioButton(root, LayoutType.HORIZONTAL, self._output.value)
-                .Sizing(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
-                .Bind(self._output)
-                .On(
-                    Event.Type.Toggled, self.toggle_output,
-                    with_target=False,
-                    with_event=True
+            .append(
+                LayoutFactory(LayoutType.HORIZONTAL).create()
+                .align(Qt.AlignmentFlag.AlignCenter)
+                .add(
+                    RadioButton(root, LayoutType.HORIZONTAL, self._output.value)
+                    .Sizing(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
+                    .Bind(self._output)
+                    .On(
+                        Event.Type.Toggled, self.toggle_output,
+                        with_target=False,
+                        with_event=True
+                    )
+                    .Add(Output.SIZE, i18n("window.screens.network.neurons.fractionalmaxpool2d.labels.size"))
+                    .Add(Output.RATIO, i18n("window.screens.network.neurons.fractionalmaxpool2d.labels.ratio"))
                 )
-                .Add(Output.SIZE, i18n("window.screens.network.neurons.fractionalmaxpool2d.labels.size"))
-                .Add(Output.RATIO, i18n("window.screens.network.neurons.fractionalmaxpool2d.labels.ratio"))
             )
         )

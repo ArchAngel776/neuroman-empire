@@ -1,4 +1,4 @@
-from typing import TypedDict, TypeVar
+from typing import TypedDict, TypeVar, ParamSpec, Any
 
 from lib import void
 from lib.decorators import method
@@ -21,6 +21,9 @@ TNeuronBuilderFoldStrategyUpdateOperation = TypeVar(
     bound=NeuronBuilderFoldStrategy
 )
 
+UpdateOperationTargetParams = ParamSpec("UpdateOperationTargetParams")
+
+
 class ListData(TypedDict):
     output_size: FormInput[int]
     kernel_size: FormInput[int]
@@ -31,13 +34,13 @@ class ListData(TypedDict):
 
 # Decorators
 
-class UpdateOperation(Decorator[bool, [NeuronBuilderFoldStrategy, ...]]):
+class UpdateOperation(Decorator[Any, [NeuronBuilderFoldStrategy, *UpdateOperationTargetParams.args]]):
     def method(
             self,
             target: TNeuronBuilderFoldStrategyUpdateOperation,
-            *args: ...,
-            **kwargs: ...
-    ) -> ...: ...
+            *args: UpdateOperationTargetParams.args,
+            **kwargs: UpdateOperationTargetParams.kwargs
+    ) -> Any: ...
 
 
 # Main

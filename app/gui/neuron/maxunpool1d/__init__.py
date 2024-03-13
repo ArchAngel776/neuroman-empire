@@ -59,10 +59,9 @@ class NeuronBuilderMaxUnpooling1dStrategy(NeuronStrategy):
     def load(self, params, options):
         for index, data in entities(self.pooling_neurons):
             name, neuron = data
-            if neuron.uuid == options["pooling"]:
-                self._pool_layer.update((index, neuron))
-
-        self.dimension_switcher_program.current_strategy.load(params, options)
+            if neuron.uuid != options["pooling"]:
+                continue
+            self._pool_layer.update((index, neuron))
 
     @property
     def dimension_params(self):
@@ -133,6 +132,7 @@ class NeuronBuilderMaxUnpooling1dStrategy(NeuronStrategy):
                         LayoutType.VERTICAL
                     )
                     .InnerSizing(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Fixed)
+                    .Payload(self.neuron_payload_provider.provide())
                     .AutoInit()
                 )
             )

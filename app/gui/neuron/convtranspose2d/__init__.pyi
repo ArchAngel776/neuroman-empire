@@ -12,7 +12,7 @@ from app.gui.neuron.strategy import NeuronStrategy
 from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.neuron.params import NeuronStrategyParams
 
-from .view import Dimension2dSwitcher
+from .view import Dimension2dSwitcher, Dimension2dView
 
 
 # Main
@@ -45,6 +45,9 @@ class NeuronBuilderTransposedConvolution2dStrategy(NeuronStrategy[ConvTranspose2
 
     @property
     def dimension_params(self) -> NeuronStrategyParams[ConvTranspose2dDimensionParams, ConvTranspose2dDimensionOptions]: ...
+
+    @staticmethod
+    def value_to_dimension(value: bool) -> Dimension2dView: ...
 
     def change_dimension(self, event: CheckBoxChangedEvent) -> bool: ...
 

@@ -12,7 +12,7 @@ from app.gui.neuron.strategy import NeuronStrategy
 from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.neuron.params import NeuronStrategyParams
 
-from .view import Dimension2dSwitcher
+from .view import Dimension2dSwitcher, Dimension2dView
 
 
 # Main
@@ -44,6 +44,9 @@ class NeuronBuilderFractionalMaxPooling2dStrategy(NeuronStrategy[FractionalMaxPo
     def dimension_params(self) -> NeuronStrategyParams[
         FractionalMaxPool2dDimensionParams, FractionalMaxPool2dDimensionOptions
     ]: ...
+
+    @staticmethod
+    def value_to_dimension(value: bool) -> Dimension2dView: ...
 
     def change_dimension(self, event: CheckBoxChangedEvent) -> bool: ...
 

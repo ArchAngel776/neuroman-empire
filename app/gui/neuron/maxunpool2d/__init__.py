@@ -65,21 +65,24 @@ class NeuronBuilderMaxUnpooling2dStrategy(NeuronStrategy):
     def load(self, params, options):
         for index, data in entities(self.pooling_neurons):
             name, neuron = data
-            if neuron.uuid == options["pooling"]:
-                self._pool_layer.update((index, neuron))
+            if neuron.uuid != options["pooling"]:
+                continue
+            self._pool_layer.update((index, neuron))
 
         self._reflection.update(options["square"])
-        self.dimension_switcher_program.current_strategy.load(params, options)
 
     @property
     def dimension_params(self):
         return self.dimension_switcher_program.params
 
+    @staticmethod
+    def value_to_dimension(value):
+        return Dimension2dView.SINGLE if value else Dimension2dView.DOUBLE
+
     def change_dimension(self, event):
-        key = Dimension2dView.SINGLE if event.checked else Dimension2dView.DOUBLE
         self.make(
             NeuronBuilderMaxUnpooling2dStrategy.Watch.DIMENSION_SWITCHER,
-            lambda switcher: switcher.change_strategy(key)
+            lambda switcher: switcher.change_strategy(self.value_to_dimension(self._reflection.value))
         )
         return True
 
@@ -170,10 +173,11 @@ class NeuronBuilderMaxUnpooling2dStrategy(NeuronStrategy):
                         NeuronBuilderMaxUnpooling2dStrategy.Watch.DIMENSION_SWITCHER,
                         Switcher(
                             root,
-                            Dimension2dSwitcher(Dimension2dView.DOUBLE, self.dependencies),
+                            Dimension2dSwitcher(self.value_to_dimension(self._reflection.value), self.dependencies),
                             LayoutType.VERTICAL
                         )
                         .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+                        .Payload(self.neuron_payload_provider.provide())
                     )
                 )
             )

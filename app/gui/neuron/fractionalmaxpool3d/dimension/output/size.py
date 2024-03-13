@@ -56,9 +56,9 @@ class OutputSizeStrategy(NeuronStrategy):
         return FractionalMaxPooling3d.default_options()
 
     def load(self, params, options):
-        self._output_size_depth.update(params["output_size"][self.Dimension.DEPTH])
-        self._output_size_height.update(params["output_size"][self.Dimension.HEIGHT])
-        self._output_size_width.update(params["output_size"][self.Dimension.WIDTH])
+        self._output_size_depth.update(params["output_size"][OutputSizeStrategy.Dimension.DEPTH])
+        self._output_size_height.update(params["output_size"][OutputSizeStrategy.Dimension.HEIGHT])
+        self._output_size_width.update(params["output_size"][OutputSizeStrategy.Dimension.WIDTH])
 
     def render(self, root):
         return (

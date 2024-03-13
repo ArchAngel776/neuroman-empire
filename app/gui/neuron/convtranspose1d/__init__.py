@@ -61,8 +61,6 @@ class NeuronBuilderTransposedConvolution1dStrategy(NeuronStrategy):
         self._input_channels.update(params["in_channels"])
         self._output_channels.update(params["out_channels"])
 
-        self.dimension_switcher_program.current_strategy.load(params, options)
-
         self._groups.update(params["groups"])
         self._bias.update(params["bias"])
 
@@ -117,6 +115,7 @@ class NeuronBuilderTransposedConvolution1dStrategy(NeuronStrategy):
                         LayoutType.VERTICAL
                     )
                     .InnerSizing(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Fixed)
+                    .Payload(self.neuron_payload_provider.provide())
                     .AutoInit()
                 )
             )

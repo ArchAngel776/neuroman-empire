@@ -53,8 +53,6 @@ class NeuronBuilderMaxPooling1dStrategy(NeuronStrategy):
         return MaxPooling1d.default_options()
 
     def load(self, params, options):
-        self.dimension_switcher_program.current_strategy.load(params, options)
-
         self._return_indices.update(params["return_indices"])
         self._ceil_mode.update(params["ceil_mode"])
 
@@ -78,6 +76,7 @@ class NeuronBuilderMaxPooling1dStrategy(NeuronStrategy):
                         LayoutType.VERTICAL
                     )
                     .InnerSizing(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Fixed)
+                    .Payload(self.neuron_payload_provider.provide())
                     .AutoInit()
                 )
             )

@@ -79,8 +79,8 @@ class OutputRatioStrategy(NeuronStrategy):
                     Text(root, i18n("window.screens.network.neurons.fractionalmaxpool2d.labels.output_ratio"))
                 )
                 .add(
-                    NumberInput(root, self._output_ratio_height.value)
-                    .Bind(self._output_ratio_height)
+                    NumberInput(root, self._output_ratio_width.value)
+                    .Bind(self._output_ratio_width)
                     .Min(0.01)
                     .Max(0.99)
                     .Height(self._input_height)

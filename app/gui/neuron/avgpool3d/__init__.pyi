@@ -46,6 +46,9 @@ class NeuronBuilderAveragePooling3dStrategy(NeuronStrategy[AvgPool3dParams, AvgP
     @property
     def dimension_params(self) -> NeuronStrategyParams[AvgPool3dDimensionParams, AvgPool3dDimensionOptions]: ...
 
+    @staticmethod
+    def value_to_dimension(value: bool) -> Dimension3dView: ...
+
     def change_dimension(self, event: CheckBoxChangedEvent) -> bool: ...
 
     @property

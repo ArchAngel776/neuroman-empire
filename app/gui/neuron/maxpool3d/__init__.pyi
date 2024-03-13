@@ -44,6 +44,9 @@ class NeuronBuilderMaxPooling3dStrategy(NeuronStrategy[MaxPool3dParams, MaxPool3
     @property
     def dimension_params(self) -> NeuronStrategyParams[MaxPool3dDimensionParams, MaxPool3dDimensionOptions]: ...
 
+    @staticmethod
+    def value_to_dimension(value: bool) -> Dimension3dView: ...
+
     def change_dimension(self, event: CheckBoxChangedEvent) -> bool: ...
 
     @property

@@ -60,15 +60,13 @@ class SingleDimensionStrategy(NeuronStrategy):
         self._kernel_size.update(params["kernel_size"])
 
         self._output.update(options["output"])
-        self.output_switcher_program.current_strategy.load(params, options)
 
     @property
     def output_params(self):
         return self.output_switcher_program.params
 
     def toggle_output(self, event):
-        key = event.value
-        self.make(SingleDimensionStrategy.Watch.OUTPUT_SWITCHER, lambda switcher: switcher.change_strategy(key))
+        self.make(SingleDimensionStrategy.Watch.OUTPUT_SWITCHER, lambda switcher: switcher.change_strategy(event.value))
         return True
 
     @property
@@ -96,10 +94,10 @@ class SingleDimensionStrategy(NeuronStrategy):
             .add(
                 self.watch(
                     SingleDimensionStrategy.Watch.OUTPUT_SWITCHER,
-                    Switcher(root, OutputSwitcher(Output.SIZE, self.dependencies), LayoutType.HORIZONTAL)
+                    Switcher(root, OutputSwitcher(self._output.value, self.dependencies), LayoutType.HORIZONTAL)
                     .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
                     .InnerMargin(LS.rem(0), LS.rem(0))
-                    .AutoInit()
+                    .Payload(self.neuron_payload_provider.provide())
                 )
             )
             .add(

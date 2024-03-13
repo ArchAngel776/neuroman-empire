@@ -99,6 +99,7 @@ class NeuronBuilderFoldStrategy(NeuronStrategy):
         self._stride.append(FormInput(0))
         self._padding.append(FormInput(0))
         self._dilation.append(FormInput(0))
+
         return True
 
     @method(UpdateOperation)
@@ -108,6 +109,7 @@ class NeuronBuilderFoldStrategy(NeuronStrategy):
         self._stride.pop(index)
         self._padding.pop(index)
         self._dilation.pop(index)
+
         return True
 
     def render(self, root):
