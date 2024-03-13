@@ -112,7 +112,10 @@ class NeuronBuilderMaxUnpooling3dStrategy(NeuronStrategy):
 
     @staticmethod
     def select_indicated_pooling(neuron, index):
-        return neuron.type() == NeuronType.MAXPOOL3D and neuron.params["return_indices"]
+        return (
+                neuron.type() in (NeuronType.MAXPOOL3D, NeuronType.FRACTIONALMAXPOOL3D) and
+                neuron.params["return_indices"]
+        )
 
     @property
     def default_pool_layer_neuron(self):
@@ -122,7 +125,7 @@ class NeuronBuilderMaxUnpooling3dStrategy(NeuronStrategy):
             name, neuron = pooling_neurons[0]
             return neuron
 
-        raise BrokenPipeError("Cannot detect any MaxPooling1D layer with enabled indices.")
+        raise BrokenPipeError("Cannot detect any MaxPooling3D layer with enabled indices.")
 
     def render(self, root):
         return (
