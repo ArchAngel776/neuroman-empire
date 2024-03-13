@@ -1,4 +1,4 @@
-from typing import Self, Any
+from typing import Self, Any, Optional
 
 from PyQt5.QtCore import QObject
 
@@ -12,4 +12,4 @@ class Foundation(QObject):
 
     def Property(self, name: str, value: Any) -> Self: ...
 
-    def Class(self, class_name: str | None) -> Self: ...
+    def Class(self, class_name: Optional[str]) -> Self: ...
