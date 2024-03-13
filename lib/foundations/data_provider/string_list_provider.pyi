@@ -4,7 +4,7 @@ from lib.foundations.data_provider import DataProvider
 
 # Main
 
-class StringListProvider(DataProvider[str]):
+class StringListProvider(DataProvider[str, str]):
     _list: list[str]
 
     def __init__(self) -> None: ...

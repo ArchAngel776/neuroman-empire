@@ -20,7 +20,7 @@ class SingleIndexValidation(Decorator[void, [ModelIndexProvider, *tuple[QModelIn
 
 # Main
 
-class ModelIndexProvider(DataProvider[QModelIndex]):
+class ModelIndexProvider(DataProvider[QModelIndex, QModelIndex]):
     _index: QModelIndex
 
     def __init__(self) -> None: ...
