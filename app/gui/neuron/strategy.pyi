@@ -6,6 +6,7 @@ from lib.gui.element.component.switcher.strategy import SwitcherStrategy
 
 from app.gui.neuron.dependencies import NeuronBuilderDependencies
 from app.gui.neuron.params import NeuronStrategyParams as StrategyParams
+from app.gui.neuron.payload_provider import NeuronPayloadProvider
 
 # Types
 
@@ -20,7 +21,11 @@ class NeuronStrategy(
     ABC,
     Generic[NeuronStrategyParams, NeuronStrategyOptions]
 ):
+    _neuron_payload_provider: NeuronPayloadProvider[NeuronStrategyParams, NeuronStrategyOptions]
+
     def __init__(self, dependencies: NeuronBuilderDependencies) -> None: ...
+
+    def beforeClose(self) -> void: ...
 
     @property
     @abstractmethod
@@ -32,3 +37,8 @@ class NeuronStrategy(
 
     @abstractmethod
     def load(self, params: NeuronStrategyParams, options: NeuronStrategyOptions) -> void: ...
+
+    def read(self, params: NeuronStrategyParams, options: NeuronStrategyOptions) -> void: ...
+
+    @property
+    def neuron_payload_provider(self) -> NeuronPayloadProvider[NeuronStrategyParams, NeuronStrategyOptions]: ...
