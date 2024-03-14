@@ -23,4 +23,6 @@ class NeuronType(Enum):
     AVGPOOL3D = "avgpool3d"
     FRACTIONALMAXPOOL2D = "fractionalmaxpool2d"
     FRACTIONALMAXPOOL3D = "fractionalmaxpool3d"
+    LPPOOL1D = "lppool1d"
+    LPPOOL2D = "lppool2d"
     LINEAR = "linear"

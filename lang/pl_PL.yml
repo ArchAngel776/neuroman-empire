@@ -289,6 +289,24 @@ window:
             output_size: "Rozmiar wyniku: "
             output_ratio: "Stosunek wyniku: "
             return_indices: "Indeksy zwrotne: "
+        lppool1d:
+          dimensions:
+            length: "Długość"
+          labels:
+            power: "Potęga: "
+            kernel: "Rozmiar jądra: "
+            stride: "Przeskok: "
+            ceil_mode: "Zaokrąglanie w górę: "
+        lppool2d:
+          dimensions:
+            width: "Szerokość"
+            height: "Wysokość"
+          labels:
+            power: "Potęga: "
+            square: "Wymiary kwadratowe: "
+            kernel: "Rozmiar jądra: "
+            stride: "Przeskok: "
+            ceil_mode: "Zaokrąglanie w górę: "
         linear:
           labels:
             input: "Wejście: "
