@@ -51,6 +51,12 @@ from app.network.neuron.fractionalmaxpool2d import FractionalMaxPooling2d
 from app.network.neuron.fractionalmaxpool3d import FractionalMaxPooling3d
 from app.network.neuron.lppool1d import LocalPooling1d
 from app.network.neuron.lppool2d import LocalPooling2d
+from app.network.neuron.adaptivemaxpool1d import AdaptiveMaxPooling1d
+from app.network.neuron.adaptivemaxpool2d import AdaptiveMaxPooling2d
+from app.network.neuron.adaptivemaxpool3d import AdaptiveMaxPooling3d
+from app.network.neuron.adaptiveavgpool1d import AdaptiveAveragePooling1d
+from app.network.neuron.adaptiveavgpool2d import AdaptiveAveragePooling2d
+from app.network.neuron.adaptiveavgpool3d import AdaptiveAveragePooling3d
 from app.network.neuron.linear import Linear
 from app.gui.neuron import NeuronBuilderSwitcher
 from app.gui.neuron.dependencies import NeuronBuilderDependencies
@@ -412,6 +418,36 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                                 NeuronOperationCreationStrategy.NeuronGroup.POOL,
                                 LocalPooling2d.title(),
                                 LocalPooling2d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.POOL,
+                                AdaptiveMaxPooling1d.title(),
+                                AdaptiveMaxPooling1d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.POOL,
+                                AdaptiveMaxPooling2d.title(),
+                                AdaptiveMaxPooling2d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.POOL,
+                                AdaptiveMaxPooling3d.title(),
+                                AdaptiveMaxPooling3d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.POOL,
+                                AdaptiveAveragePooling1d.title(),
+                                AdaptiveAveragePooling1d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.POOL,
+                                AdaptiveAveragePooling2d.title(),
+                                AdaptiveAveragePooling2d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.POOL,
+                                AdaptiveAveragePooling3d.title(),
+                                AdaptiveAveragePooling3d
                             )
                             .Group(
                                 NeuronOperationCreationStrategy.NeuronGroup.LIN,

@@ -25,4 +25,10 @@ class NeuronType(Enum):
     FRACTIONALMAXPOOL3D = ...  #type:NeuronType
     LPPOOL1D = ...  #type:NeuronType
     LPPOOL2D = ...  #type:NeuronType
+    ADAPTIVEMAXPOOL1D = ...  #type:NeuronType
+    ADAPTIVEMAXPOOL2D = ...  #type:NeuronType
+    ADAPTIVEMAXPOOL3D = ...  #type:NeuronType
+    ADAPTIVEAVGPOOL1D = ...  #type:NeuronType
+    ADAPTIVEAVGPOOL2D = ...  #type:NeuronType
+    ADAPTIVEAVGPOOL3D = ...  #type:NeuronType
     LINEAR = ... #type: NeuronType

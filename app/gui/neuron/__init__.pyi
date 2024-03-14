@@ -26,6 +26,12 @@ from app.network.neuron.fractionalmaxpool2d.params import FractionalMaxPool2dPar
 from app.network.neuron.fractionalmaxpool3d.params import FractionalMaxPool3dParams
 from app.network.neuron.lppool1d.params import LPPool1dParams
 from app.network.neuron.lppool2d.params import LPPool2dParams
+from app.network.neuron.adaptivemaxpool1d.params import AdaptiveMaxPool1dParams
+from app.network.neuron.adaptivemaxpool2d.params import AdaptiveMaxPool2dParams
+from app.network.neuron.adaptivemaxpool3d.params import AdaptiveMaxPool3dParams
+from app.network.neuron.adaptiveavgpool1d.params import AdaptiveAvgPool1dParams
+from app.network.neuron.adaptiveavgpool2d.params import AdaptiveAvgPool2dParams
+from app.network.neuron.adaptiveavgpool3d.params import AdaptiveAvgPool3dParams
 from app.network.neuron.linear.params import LinearParams
 
 from app.network.neuron.conv1d.options import Conv1dOptions
@@ -49,6 +55,12 @@ from app.network.neuron.fractionalmaxpool2d.options import FractionalMaxPool2dOp
 from app.network.neuron.fractionalmaxpool3d.options import FractionalMaxPool3dOptions
 from app.network.neuron.lppool1d.options import LPPool1dOptions
 from app.network.neuron.lppool2d.options import LPPool2dOptions
+from app.network.neuron.adaptivemaxpool1d.options import AdaptiveMaxPool1dOptions
+from app.network.neuron.adaptivemaxpool2d.options import AdaptiveMaxPool2dOptions
+from app.network.neuron.adaptivemaxpool3d.options import AdaptiveMaxPool3dOptions
+from app.network.neuron.adaptiveavgpool1d.options import AdaptiveAvgPool1dOptions
+from app.network.neuron.adaptiveavgpool2d.options import AdaptiveAvgPool2dOptions
+from app.network.neuron.adaptiveavgpool3d.options import AdaptiveAvgPool3dOptions
 from app.network.neuron.linear.options import LinearOptions
 
 from .strategy import NeuronStrategy
@@ -74,6 +86,12 @@ from .fractionalmaxpool2d import NeuronBuilderFractionalMaxPooling2dStrategy
 from .fractionalmaxpool3d import NeuronBuilderFractionalMaxPooling3dStrategy
 from .lppool1d import NeuronBuilderLocalPooling1dStrategy
 from .lppool2d import NeuronBuilderLocalPooling2dStrategy
+from .adaptivemaxpool1d import NeuronBuilderAdaptiveMaxPooling1dStrategy
+from .adaptivemaxpool2d import NeuronBuilderAdaptiveMaxPooling2dStrategy
+from .adaptivemaxpool3d import NeuronBuilderAdaptiveMaxPooling3dStrategy
+from .adaptiveavgpool1d import NeuronBuilderAdaptiveAveragePooling1dStrategy
+from .adaptiveavgpool2d import NeuronBuilderAdaptiveAveragePooling2dStrategy
+from .adaptiveavgpool3d import NeuronBuilderAdaptiveAveragePooling3dStrategy
 from .linear import NeuronBuilderLinearStrategy
 
 # Types
@@ -100,6 +118,12 @@ NeuronParams = Union[
     FractionalMaxPool3dParams,
     LPPool1dParams,
     LPPool2dParams,
+    AdaptiveMaxPool1dParams,
+    AdaptiveMaxPool2dParams,
+    AdaptiveMaxPool3dParams,
+    AdaptiveAvgPool1dParams,
+    AdaptiveAvgPool2dParams,
+    AdaptiveAvgPool3dParams,
     LinearParams
 ]
 
@@ -125,6 +149,12 @@ NeuronOptions = Union[
     FractionalMaxPool3dOptions,
     LPPool1dOptions,
     LPPool2dOptions,
+    AdaptiveMaxPool1dOptions,
+    AdaptiveMaxPool2dOptions,
+    AdaptiveMaxPool3dOptions,
+    AdaptiveAvgPool1dOptions,
+    AdaptiveAvgPool2dOptions,
+    AdaptiveAvgPool3dOptions,
     LinearOptions
 ]
 
@@ -162,6 +192,14 @@ class NeuronBuilderSwitcher(
 
     _local_pooling1d_strategy: NeuronBuilderLocalPooling1dStrategy
     _local_pooling2d_strategy: NeuronBuilderLocalPooling2dStrategy
+
+    _adaptive_max_pooling1d_strategy: NeuronBuilderAdaptiveMaxPooling1dStrategy
+    _adaptive_max_pooling2d_strategy: NeuronBuilderAdaptiveMaxPooling2dStrategy
+    _adaptive_max_pooling3d_strategy: NeuronBuilderAdaptiveMaxPooling3dStrategy
+
+    _adaptive_average_pooling1d_strategy: NeuronBuilderAdaptiveAveragePooling1dStrategy
+    _adaptive_average_pooling2d_strategy: NeuronBuilderAdaptiveAveragePooling2dStrategy
+    _adaptive_average_pooling3d_strategy: NeuronBuilderAdaptiveAveragePooling3dStrategy
 
     _linear_strategy: NeuronBuilderLinearStrategy
 

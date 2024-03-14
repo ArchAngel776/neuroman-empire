@@ -307,6 +307,49 @@ window:
             kernel: "Rozmiar jądra: "
             stride: "Przeskok: "
             ceil_mode: "Zaokrąglanie w górę: "
+        adaptivemaxpool1d:
+          dimensions:
+            length: "Długość"
+          labels:
+            output: "Rozmiar wyjściowy: "
+            return_indices: "Indeksy zwrotne: "
+        adaptivemaxpool2d:
+          dimensions:
+            width: "Szerokość"
+            height: "Wysokość"
+          labels:
+            square: "Wymiary kwadratowe: "
+            output: "Rozmiar wyjściowy: "
+            return_indices: "Indeksy zwrotne: "
+        adaptivemaxpool3d:
+          dimensions:
+            depth: "Głębia"
+            width: "Szerokość"
+            height: "Wysokość"
+          labels:
+            cube: "Wymiary sześcienne: "
+            output: "Rozmiar wyjściowy: "
+            return_indices: "Indeksy zwrotne: "
+        adaptiveavgpool1d:
+          dimensions:
+            length: "Długość"
+          labels:
+            output: "Rozmiar wyjściowy: "
+        adaptiveavgpool2d:
+          dimensions:
+            width: "Szerokość"
+            height: "Wysokość"
+          labels:
+            square: "Wymiary kwadratowe: "
+            output: "Rozmiar wyjściowy: "
+        adaptiveavgpool3d:
+          dimensions:
+            depth: "Głębia"
+            width: "Szerokość"
+            height: "Wysokość"
+          labels:
+            cube: "Wymiary sześcienne: "
+            output: "Rozmiar wyjściowy: "
         linear:
           labels:
             input: "Wejście: "

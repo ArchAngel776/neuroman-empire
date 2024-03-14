@@ -48,6 +48,12 @@ class NetworkBuilderCanvasProgram(CanvasProgram):
         self._color_fractionalmaxpool3d = QColor(192, 255, 92)
         self._color_lppool1d = QColor(128, 232, 232)
         self._color_lppool2d = QColor(164, 232, 232)
+        self._color_adaptivemaxpool1d = QColor(32, 132, 255)
+        self._color_adaptivemaxpool2d = QColor(32, 164, 255)
+        self._color_adaptivemaxpool3d = QColor(32, 196, 255)
+        self._color_adaptiveavgpool1d = QColor(32, 255, 132)
+        self._color_adaptiveavgpool2d = QColor(32, 255, 164)
+        self._color_adaptiveavgpool3d = QColor(32, 255, 196)
         self._color_linear = QColor(128, 255, 128)
 
         self._cursor_active = QCursor(Qt.PointingHandCursor)
@@ -180,6 +186,18 @@ class NetworkBuilderCanvasProgram(CanvasProgram):
                 return self.color_lppool1d
             case NeuronType.LPPOOL2D:
                 return self.color_lppool2d
+            case NeuronType.ADAPTIVEMAXPOOL1D:
+                return self.color_adaptivemaxpool1d
+            case NeuronType.ADAPTIVEMAXPOOL2D:
+                return self.color_adaptivemaxpool2d
+            case NeuronType.ADAPTIVEMAXPOOL3D:
+                return self.color_adaptivemaxpool3d
+            case NeuronType.ADAPTIVEAVGPOOL1D:
+                return self.color_adaptiveavgpool1d
+            case NeuronType.ADAPTIVEAVGPOOL2D:
+                return self.color_adaptiveavgpool2d
+            case NeuronType.ADAPTIVEAVGPOOL3D:
+                return self.color_adaptiveavgpool3d
             case NeuronType.LINEAR:
                 return self.color_linear
             case _:
@@ -343,6 +361,30 @@ class NetworkBuilderCanvasProgram(CanvasProgram):
     @property
     def color_lppool2d(self):
         return self._color_lppool2d
+
+    @property
+    def color_adaptivemaxpool1d(self):
+        return self._color_adaptivemaxpool1d
+
+    @property
+    def color_adaptivemaxpool2d(self):
+        return self._color_adaptivemaxpool2d
+
+    @property
+    def color_adaptivemaxpool3d(self):
+        return self._color_adaptivemaxpool3d
+
+    @property
+    def color_adaptiveavgpool1d(self):
+        return self._color_adaptiveavgpool1d
+
+    @property
+    def color_adaptiveavgpool2d(self):
+        return self._color_adaptiveavgpool2d
+
+    @property
+    def color_adaptiveavgpool3d(self):
+        return self._color_adaptiveavgpool3d
 
     @property
     def color_linear(self):

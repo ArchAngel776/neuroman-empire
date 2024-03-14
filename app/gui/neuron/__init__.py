@@ -23,6 +23,12 @@ from app.gui.neuron.fractionalmaxpool2d import NeuronBuilderFractionalMaxPooling
 from app.gui.neuron.fractionalmaxpool3d import NeuronBuilderFractionalMaxPooling3dStrategy
 from app.gui.neuron.lppool1d import NeuronBuilderLocalPooling1dStrategy
 from app.gui.neuron.lppool2d import NeuronBuilderLocalPooling2dStrategy
+from app.gui.neuron.adaptivemaxpool1d import NeuronBuilderAdaptiveMaxPooling1dStrategy
+from app.gui.neuron.adaptivemaxpool2d import NeuronBuilderAdaptiveMaxPooling2dStrategy
+from app.gui.neuron.adaptivemaxpool3d import NeuronBuilderAdaptiveMaxPooling3dStrategy
+from app.gui.neuron.adaptiveavgpool1d import NeuronBuilderAdaptiveAveragePooling1dStrategy
+from app.gui.neuron.adaptiveavgpool2d import NeuronBuilderAdaptiveAveragePooling2dStrategy
+from app.gui.neuron.adaptiveavgpool3d import NeuronBuilderAdaptiveAveragePooling3dStrategy
 from app.gui.neuron.linear import NeuronBuilderLinearStrategy
 
 
@@ -61,6 +67,14 @@ class NeuronBuilderSwitcher(SwitcherProgram):
         self._local_pooling1d_strategy = NeuronBuilderLocalPooling1dStrategy(dependencies)
         self._local_pooling2d_strategy = NeuronBuilderLocalPooling2dStrategy(dependencies)
 
+        self._adaptive_max_pooling1d_strategy = NeuronBuilderAdaptiveMaxPooling1dStrategy(dependencies)
+        self._adaptive_max_pooling2d_strategy = NeuronBuilderAdaptiveMaxPooling2dStrategy(dependencies)
+        self._adaptive_max_pooling3d_strategy = NeuronBuilderAdaptiveMaxPooling3dStrategy(dependencies)
+
+        self._adaptive_average_pooling1d_strategy = NeuronBuilderAdaptiveAveragePooling1dStrategy(dependencies)
+        self._adaptive_average_pooling2d_strategy = NeuronBuilderAdaptiveAveragePooling2dStrategy(dependencies)
+        self._adaptive_average_pooling3d_strategy = NeuronBuilderAdaptiveAveragePooling3dStrategy(dependencies)
+
         self._linear_strategy = NeuronBuilderLinearStrategy(dependencies)
 
     @property
@@ -87,5 +101,11 @@ class NeuronBuilderSwitcher(SwitcherProgram):
             NeuronType.FRACTIONALMAXPOOL3D: self._fractional_max_pooling3d_strategy,
             NeuronType.LPPOOL1D: self._local_pooling1d_strategy,
             NeuronType.LPPOOL2D: self._local_pooling2d_strategy,
+            NeuronType.ADAPTIVEMAXPOOL1D: self._adaptive_max_pooling1d_strategy,
+            NeuronType.ADAPTIVEMAXPOOL2D: self._adaptive_max_pooling2d_strategy,
+            NeuronType.ADAPTIVEMAXPOOL3D: self._adaptive_max_pooling3d_strategy,
+            NeuronType.ADAPTIVEAVGPOOL1D: self._adaptive_average_pooling1d_strategy,
+            NeuronType.ADAPTIVEAVGPOOL2D: self._adaptive_average_pooling2d_strategy,
+            NeuronType.ADAPTIVEAVGPOOL3D: self._adaptive_average_pooling3d_strategy,
             NeuronType.LINEAR: self._linear_strategy
         }
