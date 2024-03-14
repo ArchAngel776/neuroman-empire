@@ -21,7 +21,7 @@ class NeuronPayloadProvider(DataProvider):
         self._options = None
 
     def callback(self, neuron_strategy):
-        if self.params and self.options:
+        if self.params is not None and self.options is not None:
             neuron_strategy.read(self.params, self.options)
 
     @property
