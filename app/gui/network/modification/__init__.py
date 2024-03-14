@@ -157,7 +157,7 @@ class NeuronOperationModificationStrategy(SwitcherStrategy):
                                 LayoutType.VERTICAL
                             )
                             .InnerSizing(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-                            .PayloadInjection(self.init_switcher)
+                            .Payload(self.init_switcher)
                             .AutoInit()
                         )
                     )
