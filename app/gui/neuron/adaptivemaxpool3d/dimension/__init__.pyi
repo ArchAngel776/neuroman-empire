@@ -1,6 +1,7 @@
 from lib import void
 from lib.gui.element.font import Font
 from lib.gui.element.form import FormInput
+from lib.gui.event.check_box_changed import CheckBoxChangedEvent
 from lib.gui.layout import Layout
 
 from app.network.neuron.adaptivemaxpool3d.dimension.params import AdaptiveMaxPool3dDimensionParams
@@ -25,6 +26,12 @@ class TripleDimensionStrategy(NeuronStrategy[AdaptiveMaxPool3dDimensionParams, A
 
     _output_size_width: FormInput[int]
 
+    _output_enabled_depth: FormInput[bool]
+
+    _output_enabled_height: FormInput[bool]
+
+    _output_enabled_width: FormInput[bool]
+
     _input_height: int
     _font_caption_title: Font
 
@@ -40,5 +47,11 @@ class TripleDimensionStrategy(NeuronStrategy[AdaptiveMaxPool3dDimensionParams, A
     def default_options(self) -> AdaptiveMaxPool3dDimensionOptions: ...
 
     def load(self, params: AdaptiveMaxPool3dDimensionParams, options: AdaptiveMaxPool3dDimensionOptions) -> void: ...
+
+    def enable_depth(self, event: CheckBoxChangedEvent) -> bool: ...
+
+    def enable_height(self, event: CheckBoxChangedEvent) -> bool: ...
+
+    def enable_width(self, event: CheckBoxChangedEvent) -> bool: ...
 
     def render(self, root: MainWindow) -> Layout: ...

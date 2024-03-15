@@ -43,7 +43,8 @@ class NeuronBuilderAdaptiveMaxPooling2dStrategy(NeuronStrategy):
                 return_indices=self._return_indices.value
             ),
             options=AdaptiveMaxPool2dOptions(
-                square=self._reflection.value
+                square=self._reflection.value,
+                **self.dimension_params.options
             )
         )
 

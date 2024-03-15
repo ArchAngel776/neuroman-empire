@@ -25,5 +25,6 @@ class AdaptiveMaxPooling2d(Neuron):
     @staticmethod
     def default_options():
         return AdaptiveMaxPool2dOptions(
-            square=False
+            square=False,
+            output_enabled=(True, True)
         )

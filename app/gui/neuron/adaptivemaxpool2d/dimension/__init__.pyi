@@ -1,6 +1,7 @@
 from lib import void
 from lib.gui.element.font import Font
 from lib.gui.element.form import FormInput
+from lib.gui.event.check_box_changed import CheckBoxChangedEvent
 from lib.gui.layout import Layout
 
 from app.network.neuron.adaptivemaxpool2d.dimension.params import AdaptiveMaxPool2dDimensionParams
@@ -22,6 +23,10 @@ class DoubleDimensionStrategy(NeuronStrategy[AdaptiveMaxPool2dDimensionParams, A
 
     _output_size_width: FormInput[int]
 
+    _output_enabled_height: FormInput[bool]
+
+    _output_enabled_width: FormInput[bool]
+
     _input_height: int
     _font_caption_title: Font
 
@@ -37,5 +42,9 @@ class DoubleDimensionStrategy(NeuronStrategy[AdaptiveMaxPool2dDimensionParams, A
     def default_options(self) -> AdaptiveMaxPool2dDimensionOptions: ...
 
     def load(self, params: AdaptiveMaxPool2dDimensionParams, options: AdaptiveMaxPool2dDimensionOptions) -> void: ...
+
+    def enable_height(self, event: CheckBoxChangedEvent) -> bool: ...
+
+    def enable_width(self, event: CheckBoxChangedEvent) -> bool: ...
 
     def render(self, root: MainWindow) -> Layout: ...

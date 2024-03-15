@@ -40,7 +40,8 @@ class NeuronBuilderAdaptiveAveragePooling2dStrategy(NeuronStrategy):
                 **self.dimension_params.params
             ),
             options=AdaptiveAvgPool2dOptions(
-                square=self._reflection.value
+                square=self._reflection.value,
+                **self.dimension_params.options
             )
         )
 

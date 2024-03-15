@@ -25,5 +25,6 @@ class AdaptiveMaxPooling3d(Neuron):
     @staticmethod
     def default_options():
         return AdaptiveMaxPool3dOptions(
-            cube=False
+            cube=False,
+            output_enabled=(True, True, True)
         )

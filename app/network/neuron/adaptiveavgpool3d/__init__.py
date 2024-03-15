@@ -24,5 +24,6 @@ class AdaptiveAveragePooling3d(Neuron):
     @staticmethod
     def default_options():
         return AdaptiveAvgPool3dOptions(
-            cube=False
+            cube=False,
+            output_enabled=(True, True, True)
         )

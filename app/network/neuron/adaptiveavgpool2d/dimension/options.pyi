@@ -1,11 +1,11 @@
-from typing import TypedDict, Literal
+from typing import TypedDict, Literal, NotRequired
 
 # Types
 
-AdaptiveAvgPool2dDimensionOptionsKeyof = Literal[None]
+AdaptiveAvgPool2dDimensionOptionsKeyof = Literal["output_enabled"]
 
 
 # Main
 
 class AdaptiveAvgPool2dDimensionOptions(TypedDict):
-    pass
+    output_enabled: NotRequired[tuple[bool, bool]]

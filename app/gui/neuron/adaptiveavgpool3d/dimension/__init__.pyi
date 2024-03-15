@@ -1,6 +1,7 @@
 from lib import void
 from lib.gui.element.font import Font
 from lib.gui.element.form import FormInput
+from lib.gui.event.check_box_changed import CheckBoxChangedEvent
 from lib.gui.layout import Layout
 
 from app.network.neuron.adaptiveavgpool3d.dimension.params import AdaptiveAvgPool3dDimensionParams
@@ -25,6 +26,12 @@ class TripleDimensionStrategy(NeuronStrategy[AdaptiveAvgPool3dDimensionParams, A
 
     _output_size_width: FormInput[int]
 
+    _output_enabled_depth: FormInput[bool]
+
+    _output_enabled_height: FormInput[bool]
+
+    _output_enabled_width: FormInput[bool]
+
     _input_height: int
     _font_caption_title: Font
 
@@ -40,5 +47,11 @@ class TripleDimensionStrategy(NeuronStrategy[AdaptiveAvgPool3dDimensionParams, A
     def default_options(self) -> AdaptiveAvgPool3dDimensionOptions: ...
 
     def load(self, params: AdaptiveAvgPool3dDimensionParams, options: AdaptiveAvgPool3dDimensionOptions) -> void: ...
+
+    def enable_depth(self, event: CheckBoxChangedEvent) -> bool: ...
+
+    def enable_height(self, event: CheckBoxChangedEvent) -> bool: ...
+
+    def enable_width(self, event: CheckBoxChangedEvent) -> bool: ...
 
     def render(self, root: MainWindow) -> Layout: ...

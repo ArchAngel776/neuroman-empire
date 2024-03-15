@@ -43,7 +43,8 @@ class NeuronBuilderAdaptiveMaxPooling3dStrategy(NeuronStrategy):
                 return_indices=self._return_indices.value
             ),
             options=AdaptiveMaxPool3dOptions(
-                cube=self._reflection.value
+                cube=self._reflection.value,
+                **self.dimension_params.options
             )
         )
 

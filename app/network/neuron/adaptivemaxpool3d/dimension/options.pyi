@@ -1,11 +1,11 @@
-from typing import TypedDict, Literal
+from typing import TypedDict, Literal, NotRequired
 
 # Types
 
-AdaptiveMaxPool3dDimensionOptionsKeyof = Literal[None]
+AdaptiveMaxPool3dDimensionOptionsKeyof = Literal["output_enabled"]
 
 
 # Main
 
 class AdaptiveMaxPool3dDimensionOptions(TypedDict):
-    pass
+    output_enabled: NotRequired[tuple[bool, bool, bool]]
