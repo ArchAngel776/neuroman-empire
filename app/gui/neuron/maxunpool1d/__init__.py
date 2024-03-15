@@ -93,7 +93,11 @@ class NeuronBuilderMaxUnpooling1dStrategy(NeuronStrategy):
 
     @staticmethod
     def select_indicated_pooling(neuron, index):
-        return neuron.type() == NeuronType.MAXPOOL1D and neuron.params["return_indices"]
+        return (
+                neuron.type() in (NeuronType.MAXPOOL1D, NeuronType.ADAPTIVEMAXPOOL1D)
+                and
+                neuron.params["return_indices"]
+        )
 
     @property
     def default_pool_layer_neuron(self):

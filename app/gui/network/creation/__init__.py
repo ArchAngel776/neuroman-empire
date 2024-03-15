@@ -126,7 +126,8 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                 if find_one(
                     self.network,
                     lambda neuron:
-                    isinstance(neuron, MaxPooling1d) and neuron.params["return_indices"]
+                    isinstance(neuron, (MaxPooling1d, AdaptiveMaxPooling1d)) and
+                    neuron.params["return_indices"]
                 ):
                     return True
 
@@ -142,7 +143,8 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                 if find_one(
                     self.network,
                     lambda neuron:
-                    isinstance(neuron, (MaxPooling2d, FractionalMaxPooling2d)) and neuron.params["return_indices"]
+                    isinstance(neuron, (MaxPooling2d, FractionalMaxPooling2d, AdaptiveMaxPooling2d)) and
+                    neuron.params["return_indices"]
                 ):
                     return True
 
@@ -158,7 +160,8 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                 if find_one(
                     self.network,
                     lambda neuron:
-                    isinstance(neuron, (MaxPooling3d, FractionalMaxPooling3d)) and neuron.params["return_indices"]
+                    isinstance(neuron, (MaxPooling3d, FractionalMaxPooling3d, AdaptiveMaxPooling3d)) and
+                    neuron.params["return_indices"]
                 ):
                     return True
 

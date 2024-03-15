@@ -113,7 +113,8 @@ class NeuronBuilderMaxUnpooling2dStrategy(NeuronStrategy):
     @staticmethod
     def select_indicated_pooling(neuron, index):
         return (
-                neuron.type() in (NeuronType.MAXPOOL2D, NeuronType.FRACTIONALMAXPOOL2D) and
+                neuron.type() in (NeuronType.MAXPOOL2D, NeuronType.FRACTIONALMAXPOOL2D, NeuronType.ADAPTIVEMAXPOOL2D)
+                and
                 neuron.params["return_indices"]
         )
 
