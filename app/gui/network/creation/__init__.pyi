@@ -54,6 +54,7 @@ class NeuronOperationCreationStrategy(SwitcherStrategy[NeuronOperationDependenci
     class NeuronGroup(str):
         CONV = ... #type: NeuronOperationCreationStrategy.NeuronGroup
         POOL = ... #type: NeuronOperationCreationStrategy.NeuronGroup
+        PAD = ... #type: NeuronOperationCreationStrategy.NeuronGroup
         LIN = ... #type: NeuronOperationCreationStrategy.NeuronGroup
 
     _neuron_name: FormInput[str]

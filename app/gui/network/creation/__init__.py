@@ -89,6 +89,7 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
     class NeuronGroup(str):
         CONV = "conv"
         POOL = "pool"
+        PAD = "pad"
         LIN = "lin"
 
     def __init__(self, dependencies):
