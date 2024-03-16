@@ -57,6 +57,18 @@ class NetworkBuilderCanvasProgram(CanvasProgram):
         self._color_reflectionpad1d = QColor(255, 96, 96)
         self._color_reflectionpad2d = QColor(255, 96, 128)
         self._color_reflectionpad3d = QColor(255, 96, 156)
+        self._color_replicationpad1d = QColor(232, 128, 96)
+        self._color_replicationpad2d = QColor(232, 128, 128)
+        self._color_replicationpad3d = QColor(232, 128, 156)
+        self._color_zeropad1d = QColor(192, 164, 96)
+        self._color_zeropad2d = QColor(192, 164, 128)
+        self._color_zeropad3d = QColor(192, 164, 156)
+        self._color_constantpad1d = QColor(192, 96, 96)
+        self._color_constantpad2d = QColor(192, 128, 96)
+        self._color_constantpad3d = QColor(192, 164, 96)
+        self._color_circularpad1d = QColor(192, 96, 128)
+        self._color_circularpad2d = QColor(192, 128, 128)
+        self._color_circularpad3d = QColor(192, 164, 128)
         self._color_linear = QColor(128, 255, 128)
 
         self._cursor_active = QCursor(Qt.PointingHandCursor)
@@ -207,6 +219,30 @@ class NetworkBuilderCanvasProgram(CanvasProgram):
                 return self.color_reflectionpad2d
             case NeuronType.REFLECTIONPAD3D:
                 return self.color_reflectionpad3d
+            case NeuronType.REPLICATIONPAD1D:
+                return self.color_replicationpad1d
+            case NeuronType.REPLICATIONPAD2D:
+                return self.color_replicationpad2d
+            case NeuronType.REPLICATIONPAD3D:
+                return self.color_replicationpad3d
+            case NeuronType.ZEROPAD1D:
+                return self.color_zeropad1d
+            case NeuronType.ZEROPAD2D:
+                return self.color_zeropad2d
+            case NeuronType.ZEROPAD3D:
+                return self.color_zeropad3d
+            case NeuronType.CONSTANTPAD1D:
+                return self.color_constantpad1d
+            case NeuronType.CONSTANTPAD2D:
+                return self.color_constantpad2d
+            case NeuronType.CONSTANTPAD3D:
+                return self.color_constantpad3d
+            case NeuronType.CIRCULARPAD1D:
+                return self.color_circularpad1d
+            case NeuronType.CIRCULARPAD2D:
+                return self.color_circularpad2d
+            case NeuronType.CIRCULARPAD3D:
+                return self.color_circularpad3d
             case NeuronType.LINEAR:
                 return self.color_linear
             case _:
@@ -406,6 +442,54 @@ class NetworkBuilderCanvasProgram(CanvasProgram):
     @property
     def color_reflectionpad3d(self):
         return self._color_reflectionpad1d
+
+    @property
+    def color_replicationpad1d(self):
+        return self._color_replicationpad1d
+
+    @property
+    def color_replicationpad2d(self):
+        return self._color_replicationpad2d
+
+    @property
+    def color_replicationpad3d(self):
+        return self._color_replicationpad3d
+
+    @property
+    def color_zeropad1d(self):
+        return self._color_zeropad1d
+
+    @property
+    def color_zeropad2d(self):
+        return self._color_zeropad2d
+
+    @property
+    def color_zeropad3d(self):
+        return self._color_zeropad3d
+
+    @property
+    def color_constantpad1d(self):
+        return self._color_constantpad1d
+
+    @property
+    def color_constantpad2d(self):
+        return self._color_constantpad2d
+
+    @property
+    def color_constantpad3d(self):
+        return self._color_constantpad3d
+
+    @property
+    def color_circularpad1d(self):
+        return self._color_circularpad1d
+
+    @property
+    def color_circularpad2d(self):
+        return self._color_circularpad2d
+
+    @property
+    def color_circularpad3d(self):
+        return self._color_circularpad3d
 
     @property
     def color_linear(self):

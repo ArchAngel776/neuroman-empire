@@ -60,6 +60,18 @@ from app.network.neuron.adaptiveavgpool3d import AdaptiveAveragePooling3d
 from app.network.neuron.reflectionpad1d import ReflectionPadding1d
 from app.network.neuron.reflectionpad2d import ReflectionPadding2d
 from app.network.neuron.reflectionpad3d import ReflectionPadding3d
+from app.network.neuron.replicationpad1d import ReplicationPadding1d
+from app.network.neuron.replicationpad2d import ReplicationPadding2d
+from app.network.neuron.replicationpad3d import ReplicationPadding3d
+from app.network.neuron.zeropad1d import ZeroPadding1d
+from app.network.neuron.zeropad2d import ZeroPadding2d
+from app.network.neuron.zeropad3d import ZeroPadding3d
+from app.network.neuron.constantpad1d import ConstantPadding1d
+from app.network.neuron.constantpad2d import ConstantPadding2d
+from app.network.neuron.constantpad3d import ConstantPadding3d
+from app.network.neuron.circularpad1d import CircularPadding1d
+from app.network.neuron.circularpad2d import CircularPadding2d
+from app.network.neuron.circularpad3d import CircularPadding3d
 from app.network.neuron.linear import Linear
 from app.gui.neuron import NeuronBuilderSwitcher
 from app.gui.neuron.dependencies import NeuronBuilderDependencies
@@ -474,6 +486,66 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                                 NeuronOperationCreationStrategy.NeuronGroup.PAD,
                                 ReflectionPadding3d.title(),
                                 ReflectionPadding3d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.PAD,
+                                ReplicationPadding1d.title(),
+                                ReplicationPadding1d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.PAD,
+                                ReplicationPadding2d.title(),
+                                ReplicationPadding2d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.PAD,
+                                ReplicationPadding3d.title(),
+                                ReplicationPadding3d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.PAD,
+                                ZeroPadding1d.title(),
+                                ZeroPadding1d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.PAD,
+                                ZeroPadding2d.title(),
+                                ZeroPadding2d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.PAD,
+                                ZeroPadding3d.title(),
+                                ZeroPadding3d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.PAD,
+                                ConstantPadding1d.title(),
+                                ConstantPadding1d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.PAD,
+                                ConstantPadding2d.title(),
+                                ConstantPadding2d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.PAD,
+                                ConstantPadding3d.title(),
+                                ConstantPadding3d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.PAD,
+                                CircularPadding1d.title(),
+                                CircularPadding1d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.PAD,
+                                CircularPadding2d.title(),
+                                CircularPadding2d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.PAD,
+                                CircularPadding3d.title(),
+                                CircularPadding3d
                             )
                             .Group(
                                 NeuronOperationCreationStrategy.NeuronGroup.LIN,

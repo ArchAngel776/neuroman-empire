@@ -377,6 +377,117 @@ window:
           labels:
             bounded: "Symetryczny: "
             padding: "Margines: "
+        replicationpad1d:
+          boundaries:
+            left: "Z lewej: "
+            right: "Z prawej: "
+          labels:
+            bounded: "Symetryczny: "
+            padding: "Margines: "
+        replicationpad2d:
+          boundaries:
+            left: "Z lewej: "
+            right: "Z prawej: "
+            top: "Od góry: "
+            bottom: "Od dołu: "
+          labels:
+            bounded: "Symetryczny: "
+            padding: "Margines: "
+        replicationpad3d:
+          boundaries:
+            left: "Z lewej: "
+            right: "Z prawej: "
+            top: "Od góry: "
+            bottom: "Od dołu: "
+            front: "Z przodu: "
+            back: "Z tyłu: "
+          labels:
+            bounded: "Symetryczny: "
+            padding: "Margines: "
+        zeropad1d:
+          boundaries:
+            left: "Z lewej: "
+            right: "Z prawej: "
+          labels:
+            bounded: "Symetryczny: "
+            padding: "Margines: "
+        zeropad2d:
+          boundaries:
+            left: "Z lewej: "
+            right: "Z prawej: "
+            top: "Od góry: "
+            bottom: "Od dołu: "
+          labels:
+            bounded: "Symetryczny: "
+            padding: "Margines: "
+        zeropad3d:
+          boundaries:
+            left: "Z lewej: "
+            right: "Z prawej: "
+            top: "Od góry: "
+            bottom: "Od dołu: "
+            front: "Z przodu: "
+            back: "Z tyłu: "
+          labels:
+            bounded: "Symetryczny: "
+            padding: "Margines: "
+        constantpad1d:
+          boundaries:
+            left: "Z lewej: "
+            right: "Z prawej: "
+          labels:
+            value: "Wartość marginesu: "
+            bounded: "Symetryczny: "
+            padding: "Margines: "
+        constantpad2d:
+          boundaries:
+            left: "Z lewej: "
+            right: "Z prawej: "
+            top: "Od góry: "
+            bottom: "Od dołu: "
+          labels:
+            value: "Wartość marginesu: "
+            bounded: "Symetryczny: "
+            padding: "Margines: "
+        constantpad3d:
+          boundaries:
+            left: "Z lewej: "
+            right: "Z prawej: "
+            top: "Od góry: "
+            bottom: "Od dołu: "
+            front: "Z przodu: "
+            back: "Z tyłu: "
+          labels:
+            value: "Wartość marginesu: "
+            bounded: "Symetryczny: "
+            padding: "Margines: "
+        circularpad1d:
+          boundaries:
+            left: "Z lewej: "
+            right: "Z prawej: "
+          labels:
+            bounded: "Symetryczny: "
+            padding: "Margines: "
+        circularpad2d:
+          boundaries:
+            left: "Z lewej: "
+            right: "Z prawej: "
+            top: "Od góry: "
+            bottom: "Od dołu: "
+          labels:
+            bounded: "Symetryczny: "
+            padding: "Margines: "
+        circularpad3d:
+          boundaries:
+            left: "Z lewej: "
+            right: "Z prawej: "
+            top: "Od góry: "
+            bottom: "Od dołu: "
+            front: "Z przodu: "
+            back: "Z tyłu: "
+          labels:
+            bounded: "Symetryczny: "
+            padding: "Margines: "
         linear:
           labels:
             input: "Wejście: "
@@ -392,6 +503,22 @@ window:
               output_size: "Rozmiar wyniku: "
               output_ratio: "Stosunek wyniku: "
         reflectionpad:
+          bounded:
+            labels:
+              padding: "Margines: "
+        replicationpad:
+          bounded:
+            labels:
+              padding: "Margines: "
+        zeropad:
+          bounded:
+            labels:
+              padding: "Margines: "
+        constantpad:
+          bounded:
+            labels:
+              padding: "Margines: "
+        circularpad:
           bounded:
             labels:
               padding: "Margines: "

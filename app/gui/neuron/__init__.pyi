@@ -35,6 +35,18 @@ from app.network.neuron.adaptiveavgpool3d.params import AdaptiveAvgPool3dParams
 from app.network.neuron.reflectionpad1d.params import ReflectionPad1dParams
 from app.network.neuron.reflectionpad2d.params import ReflectionPad2dParams
 from app.network.neuron.reflectionpad3d.params import ReflectionPad3dParams
+from app.network.neuron.replicationpad1d.params import ReplicationPad1dParams
+from app.network.neuron.replicationpad2d.params import ReplicationPad2dParams
+from app.network.neuron.replicationpad3d.params import ReplicationPad3dParams
+from app.network.neuron.zeropad1d.params import ZeroPad1dParams
+from app.network.neuron.zeropad2d.params import ZeroPad2dParams
+from app.network.neuron.zeropad3d.params import ZeroPad3dParams
+from app.network.neuron.constantpad1d.params import ConstantPad1dParams
+from app.network.neuron.constantpad2d.params import ConstantPad2dParams
+from app.network.neuron.constantpad3d.params import ConstantPad3dParams
+from app.network.neuron.circularpad1d.params import CircularPad1dParams
+from app.network.neuron.circularpad2d.params import CircularPad2dParams
+from app.network.neuron.circularpad3d.params import CircularPad3dParams
 from app.network.neuron.linear.params import LinearParams
 
 from app.network.neuron.conv1d.options import Conv1dOptions
@@ -67,6 +79,18 @@ from app.network.neuron.adaptiveavgpool3d.options import AdaptiveAvgPool3dOption
 from app.network.neuron.reflectionpad1d.options import ReflectionPad1dOptions
 from app.network.neuron.reflectionpad2d.options import ReflectionPad2dOptions
 from app.network.neuron.reflectionpad3d.options import ReflectionPad3dOptions
+from app.network.neuron.replicationpad1d.options import ReplicationPad1dOptions
+from app.network.neuron.replicationpad2d.options import ReplicationPad2dOptions
+from app.network.neuron.replicationpad3d.options import ReplicationPad3dOptions
+from app.network.neuron.zeropad1d.options import ZeroPad1dOptions
+from app.network.neuron.zeropad2d.options import ZeroPad2dOptions
+from app.network.neuron.zeropad3d.options import ZeroPad3dOptions
+from app.network.neuron.constantpad1d.options import ConstantPad1dOptions
+from app.network.neuron.constantpad2d.options import ConstantPad2dOptions
+from app.network.neuron.constantpad3d.options import ConstantPad3dOptions
+from app.network.neuron.circularpad1d.options import CircularPad1dOptions
+from app.network.neuron.circularpad2d.options import CircularPad2dOptions
+from app.network.neuron.circularpad3d.options import CircularPad3dOptions
 from app.network.neuron.linear.options import LinearOptions
 
 from .strategy import NeuronStrategy
@@ -101,6 +125,18 @@ from .adaptiveavgpool3d import NeuronBuilderAdaptiveAveragePooling3dStrategy
 from .reflectionpad1d import NeuronBuilderReflectionPadding1dStrategy
 from .reflectionpad2d import NeuronBuilderReflectionPadding2dStrategy
 from .reflectionpad3d import NeuronBuilderReflectionPadding3dStrategy
+from .replicationpad1d import NeuronBuilderReplicationPadding1dStrategy
+from .replicationpad2d import NeuronBuilderReplicationPadding2dStrategy
+from .replicationpad3d import NeuronBuilderReplicationPadding3dStrategy
+from .zeropad1d import NeuronBuilderZeroPadding1dStrategy
+from .zeropad2d import NeuronBuilderZeroPadding2dStrategy
+from .zeropad3d import NeuronBuilderZeroPadding3dStrategy
+from .constantpad1d import NeuronBuilderConstantPadding1dStrategy
+from .constantpad2d import NeuronBuilderConstantPadding2dStrategy
+from .constantpad3d import NeuronBuilderConstantPadding3dStrategy
+from .circularpad1d import NeuronBuilderCircularPadding1dStrategy
+from .circularpad2d import NeuronBuilderCircularPadding2dStrategy
+from .circularpad3d import NeuronBuilderCircularPadding3dStrategy
 from .linear import NeuronBuilderLinearStrategy
 
 # Types
@@ -136,6 +172,18 @@ NeuronParams = Union[
     ReflectionPad1dParams,
     ReflectionPad2dParams,
     ReflectionPad3dParams,
+    ReplicationPad1dParams,
+    ReplicationPad2dParams,
+    ReplicationPad3dParams,
+    ZeroPad1dParams,
+    ZeroPad2dParams,
+    ZeroPad3dParams,
+    ConstantPad1dParams,
+    ConstantPad2dParams,
+    ConstantPad3dParams,
+    CircularPad1dParams,
+    CircularPad2dParams,
+    CircularPad3dParams,
     LinearParams
 ]
 
@@ -170,6 +218,18 @@ NeuronOptions = Union[
     ReflectionPad1dOptions,
     ReflectionPad2dOptions,
     ReflectionPad3dOptions,
+    ReplicationPad1dOptions,
+    ReplicationPad2dOptions,
+    ReplicationPad3dOptions,
+    ZeroPad1dOptions,
+    ZeroPad2dOptions,
+    ZeroPad3dOptions,
+    ConstantPad1dOptions,
+    ConstantPad2dOptions,
+    ConstantPad3dOptions,
+    CircularPad1dOptions,
+    CircularPad2dOptions,
+    CircularPad3dOptions,
     LinearOptions
 ]
 
@@ -219,6 +279,22 @@ class NeuronBuilderSwitcher(
     _reflection_padding1d_strategy: NeuronBuilderReflectionPadding1dStrategy
     _reflection_padding2d_strategy: NeuronBuilderReflectionPadding2dStrategy
     _reflection_padding3d_strategy: NeuronBuilderReflectionPadding3dStrategy
+
+    _replication_padding1d_strategy: NeuronBuilderReplicationPadding1dStrategy
+    _replication_padding2d_strategy: NeuronBuilderReplicationPadding2dStrategy
+    _replication_padding3d_strategy: NeuronBuilderReplicationPadding3dStrategy
+
+    _zero_padding1d_strategy: NeuronBuilderZeroPadding1dStrategy
+    _zero_padding2d_strategy: NeuronBuilderZeroPadding2dStrategy
+    _zero_padding3d_strategy: NeuronBuilderZeroPadding3dStrategy
+
+    _constant_padding1d_strategy: NeuronBuilderConstantPadding1dStrategy
+    _constant_padding2d_strategy: NeuronBuilderConstantPadding2dStrategy
+    _constant_padding3d_strategy: NeuronBuilderConstantPadding3dStrategy
+
+    _circular_padding1d_strategy: NeuronBuilderCircularPadding1dStrategy
+    _circular_padding2d_strategy: NeuronBuilderCircularPadding2dStrategy
+    _circular_padding3d_strategy: NeuronBuilderCircularPadding3dStrategy
 
     _linear_strategy: NeuronBuilderLinearStrategy
 

@@ -32,6 +32,18 @@ from app.gui.neuron.adaptiveavgpool3d import NeuronBuilderAdaptiveAveragePooling
 from app.gui.neuron.reflectionpad1d import NeuronBuilderReflectionPadding1dStrategy
 from app.gui.neuron.reflectionpad2d import NeuronBuilderReflectionPadding2dStrategy
 from app.gui.neuron.reflectionpad3d import NeuronBuilderReflectionPadding3dStrategy
+from app.gui.neuron.replicationpad1d import NeuronBuilderReplicationPadding1dStrategy
+from app.gui.neuron.replicationpad2d import NeuronBuilderReplicationPadding2dStrategy
+from app.gui.neuron.replicationpad3d import NeuronBuilderReplicationPadding3dStrategy
+from app.gui.neuron.zeropad1d import NeuronBuilderZeroPadding1dStrategy
+from app.gui.neuron.zeropad2d import NeuronBuilderZeroPadding2dStrategy
+from app.gui.neuron.zeropad3d import NeuronBuilderZeroPadding3dStrategy
+from app.gui.neuron.constantpad1d import NeuronBuilderConstantPadding1dStrategy
+from app.gui.neuron.constantpad2d import NeuronBuilderConstantPadding2dStrategy
+from app.gui.neuron.constantpad3d import NeuronBuilderConstantPadding3dStrategy
+from app.gui.neuron.circularpad1d import NeuronBuilderCircularPadding1dStrategy
+from app.gui.neuron.circularpad2d import NeuronBuilderCircularPadding2dStrategy
+from app.gui.neuron.circularpad3d import NeuronBuilderCircularPadding3dStrategy
 from app.gui.neuron.linear import NeuronBuilderLinearStrategy
 
 
@@ -82,6 +94,22 @@ class NeuronBuilderSwitcher(SwitcherProgram):
         self._reflection_padding2d_strategy = NeuronBuilderReflectionPadding2dStrategy(dependencies)
         self._reflection_padding3d_strategy = NeuronBuilderReflectionPadding3dStrategy(dependencies)
 
+        self._replication_padding1d_strategy = NeuronBuilderReplicationPadding1dStrategy(dependencies)
+        self._replication_padding2d_strategy = NeuronBuilderReplicationPadding2dStrategy(dependencies)
+        self._replication_padding3d_strategy = NeuronBuilderReplicationPadding3dStrategy(dependencies)
+
+        self._zero_padding1d_strategy = NeuronBuilderZeroPadding1dStrategy(dependencies)
+        self._zero_padding2d_strategy = NeuronBuilderZeroPadding2dStrategy(dependencies)
+        self._zero_padding3d_strategy = NeuronBuilderZeroPadding3dStrategy(dependencies)
+
+        self._constant_padding1d_strategy = NeuronBuilderConstantPadding1dStrategy(dependencies)
+        self._constant_padding2d_strategy = NeuronBuilderConstantPadding2dStrategy(dependencies)
+        self._constant_padding3d_strategy = NeuronBuilderConstantPadding3dStrategy(dependencies)
+
+        self._circular_padding1d_strategy = NeuronBuilderCircularPadding1dStrategy(dependencies)
+        self._circular_padding2d_strategy = NeuronBuilderCircularPadding2dStrategy(dependencies)
+        self._circular_padding3d_strategy = NeuronBuilderCircularPadding3dStrategy(dependencies)
+
         self._linear_strategy = NeuronBuilderLinearStrategy(dependencies)
 
     @property
@@ -117,5 +145,17 @@ class NeuronBuilderSwitcher(SwitcherProgram):
             NeuronType.REFLECTIONPAD1D: self._reflection_padding1d_strategy,
             NeuronType.REFLECTIONPAD2D: self._reflection_padding2d_strategy,
             NeuronType.REFLECTIONPAD3D: self._reflection_padding3d_strategy,
+            NeuronType.REPLICATIONPAD1D: self._replication_padding1d_strategy,
+            NeuronType.REPLICATIONPAD2D: self._replication_padding2d_strategy,
+            NeuronType.REPLICATIONPAD3D: self._replication_padding3d_strategy,
+            NeuronType.ZEROPAD1D: self._zero_padding1d_strategy,
+            NeuronType.ZEROPAD2D: self._zero_padding2d_strategy,
+            NeuronType.ZEROPAD3D: self._zero_padding3d_strategy,
+            NeuronType.CONSTANTPAD1D: self._constant_padding1d_strategy,
+            NeuronType.CONSTANTPAD2D: self._constant_padding2d_strategy,
+            NeuronType.CONSTANTPAD3D: self._constant_padding3d_strategy,
+            NeuronType.CIRCULARPAD1D: self._circular_padding1d_strategy,
+            NeuronType.CIRCULARPAD2D: self._circular_padding2d_strategy,
+            NeuronType.CIRCULARPAD3D: self._circular_padding3d_strategy,
             NeuronType.LINEAR: self._linear_strategy
         }

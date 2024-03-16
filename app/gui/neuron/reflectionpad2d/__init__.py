@@ -32,8 +32,6 @@ class NeuronBuilderReflectionPadding2dStrategy(NeuronStrategy):
 
         self._bounded = FormInput(self.default_options["bounded"])
 
-        self._input_height = LS.rem(1.6)
-
     @property
     def params(self):
         return NeuronStrategyParams(

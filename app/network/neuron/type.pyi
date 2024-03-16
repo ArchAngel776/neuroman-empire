@@ -34,4 +34,16 @@ class NeuronType(Enum):
     REFLECTIONPAD1D = ...  #type:NeuronType
     REFLECTIONPAD2D = ...  #type:NeuronType
     REFLECTIONPAD3D = ...  #type:NeuronType
+    REPLICATIONPAD1D = ...  #type:NeuronType
+    REPLICATIONPAD2D = ...  #type:NeuronType
+    REPLICATIONPAD3D = ...  #type:NeuronType
+    ZEROPAD1D = ...  #type:NeuronType
+    ZEROPAD2D = ...  #type:NeuronType
+    ZEROPAD3D = ...  #type:NeuronType
+    CONSTANTPAD1D = ...  #type:NeuronType
+    CONSTANTPAD2D = ...  #type:NeuronType
+    CONSTANTPAD3D = ...  #type:NeuronType
+    CIRCULARPAD1D = ...  #type:NeuronType
+    CIRCULARPAD2D = ...  #type:NeuronType
+    CIRCULARPAD3D = ...  #type:NeuronType
     LINEAR = ... #type: NeuronType

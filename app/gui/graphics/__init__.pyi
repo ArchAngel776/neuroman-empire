@@ -58,6 +58,18 @@ class NetworkBuilderCanvasProgram(CanvasProgram[NetworkBuilderVariantType]):
     _color_reflectionpad1d: QColor
     _color_reflectionpad2d: QColor
     _color_reflectionpad3d: QColor
+    _color_replicationpad1d: QColor
+    _color_replicationpad2d: QColor
+    _color_replicationpad3d: QColor
+    _color_zeropad1d: QColor
+    _color_zeropad2d: QColor
+    _color_zeropad3d: QColor
+    _color_constantpad1d: QColor
+    _color_constantpad2d: QColor
+    _color_constantpad3d: QColor
+    _color_circularpad1d: QColor
+    _color_circularpad2d: QColor
+    _color_circularpad3d: QColor
     _color_linear: QColor
 
     _cursor_active: QCursor
@@ -232,6 +244,42 @@ class NetworkBuilderCanvasProgram(CanvasProgram[NetworkBuilderVariantType]):
 
     @property
     def color_reflectionpad3d(self) -> QColor: ...
+
+    @property
+    def color_replicationpad1d(self) -> QColor: ...
+
+    @property
+    def color_replicationpad2d(self) -> QColor: ...
+
+    @property
+    def color_replicationpad3d(self) -> QColor: ...
+
+    @property
+    def color_zeropad1d(self) -> QColor: ...
+
+    @property
+    def color_zeropad2d(self) -> QColor: ...
+
+    @property
+    def color_zeropad3d(self) -> QColor: ...
+
+    @property
+    def color_constantpad1d(self) -> QColor: ...
+
+    @property
+    def color_constantpad2d(self) -> QColor: ...
+
+    @property
+    def color_constantpad3d(self) -> QColor: ...
+
+    @property
+    def color_circularpad1d(self) -> QColor: ...
+
+    @property
+    def color_circularpad2d(self) -> QColor: ...
+
+    @property
+    def color_circularpad3d(self) -> QColor: ...
 
     @property
     def color_linear(self) -> QColor: ...
