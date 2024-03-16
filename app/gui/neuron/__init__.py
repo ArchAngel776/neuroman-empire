@@ -29,6 +29,9 @@ from app.gui.neuron.adaptivemaxpool3d import NeuronBuilderAdaptiveMaxPooling3dSt
 from app.gui.neuron.adaptiveavgpool1d import NeuronBuilderAdaptiveAveragePooling1dStrategy
 from app.gui.neuron.adaptiveavgpool2d import NeuronBuilderAdaptiveAveragePooling2dStrategy
 from app.gui.neuron.adaptiveavgpool3d import NeuronBuilderAdaptiveAveragePooling3dStrategy
+from app.gui.neuron.reflectionpad1d import NeuronBuilderReflectionPadding1dStrategy
+from app.gui.neuron.reflectionpad2d import NeuronBuilderReflectionPadding2dStrategy
+from app.gui.neuron.reflectionpad3d import NeuronBuilderReflectionPadding3dStrategy
 from app.gui.neuron.linear import NeuronBuilderLinearStrategy
 
 
@@ -75,6 +78,10 @@ class NeuronBuilderSwitcher(SwitcherProgram):
         self._adaptive_average_pooling2d_strategy = NeuronBuilderAdaptiveAveragePooling2dStrategy(dependencies)
         self._adaptive_average_pooling3d_strategy = NeuronBuilderAdaptiveAveragePooling3dStrategy(dependencies)
 
+        self._reflection_padding1d_strategy = NeuronBuilderReflectionPadding1dStrategy(dependencies)
+        self._reflection_padding2d_strategy = NeuronBuilderReflectionPadding2dStrategy(dependencies)
+        self._reflection_padding3d_strategy = NeuronBuilderReflectionPadding3dStrategy(dependencies)
+
         self._linear_strategy = NeuronBuilderLinearStrategy(dependencies)
 
     @property
@@ -107,5 +114,8 @@ class NeuronBuilderSwitcher(SwitcherProgram):
             NeuronType.ADAPTIVEAVGPOOL1D: self._adaptive_average_pooling1d_strategy,
             NeuronType.ADAPTIVEAVGPOOL2D: self._adaptive_average_pooling2d_strategy,
             NeuronType.ADAPTIVEAVGPOOL3D: self._adaptive_average_pooling3d_strategy,
+            NeuronType.REFLECTIONPAD1D: self._reflection_padding1d_strategy,
+            NeuronType.REFLECTIONPAD2D: self._reflection_padding2d_strategy,
+            NeuronType.REFLECTIONPAD3D: self._reflection_padding3d_strategy,
             NeuronType.LINEAR: self._linear_strategy
         }

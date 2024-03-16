@@ -32,6 +32,9 @@ from app.network.neuron.adaptivemaxpool3d.params import AdaptiveMaxPool3dParams
 from app.network.neuron.adaptiveavgpool1d.params import AdaptiveAvgPool1dParams
 from app.network.neuron.adaptiveavgpool2d.params import AdaptiveAvgPool2dParams
 from app.network.neuron.adaptiveavgpool3d.params import AdaptiveAvgPool3dParams
+from app.network.neuron.reflectionpad1d.params import ReflectionPad1dParams
+from app.network.neuron.reflectionpad2d.params import ReflectionPad2dParams
+from app.network.neuron.reflectionpad3d.params import ReflectionPad3dParams
 from app.network.neuron.linear.params import LinearParams
 
 from app.network.neuron.conv1d.options import Conv1dOptions
@@ -61,6 +64,9 @@ from app.network.neuron.adaptivemaxpool3d.options import AdaptiveMaxPool3dOption
 from app.network.neuron.adaptiveavgpool1d.options import AdaptiveAvgPool1dOptions
 from app.network.neuron.adaptiveavgpool2d.options import AdaptiveAvgPool2dOptions
 from app.network.neuron.adaptiveavgpool3d.options import AdaptiveAvgPool3dOptions
+from app.network.neuron.reflectionpad1d.options import ReflectionPad1dOptions
+from app.network.neuron.reflectionpad2d.options import ReflectionPad2dOptions
+from app.network.neuron.reflectionpad3d.options import ReflectionPad3dOptions
 from app.network.neuron.linear.options import LinearOptions
 
 from .strategy import NeuronStrategy
@@ -92,6 +98,9 @@ from .adaptivemaxpool3d import NeuronBuilderAdaptiveMaxPooling3dStrategy
 from .adaptiveavgpool1d import NeuronBuilderAdaptiveAveragePooling1dStrategy
 from .adaptiveavgpool2d import NeuronBuilderAdaptiveAveragePooling2dStrategy
 from .adaptiveavgpool3d import NeuronBuilderAdaptiveAveragePooling3dStrategy
+from .reflectionpad1d import NeuronBuilderReflectionPadding1dStrategy
+from .reflectionpad2d import NeuronBuilderReflectionPadding2dStrategy
+from .reflectionpad3d import NeuronBuilderReflectionPadding3dStrategy
 from .linear import NeuronBuilderLinearStrategy
 
 # Types
@@ -124,6 +133,9 @@ NeuronParams = Union[
     AdaptiveAvgPool1dParams,
     AdaptiveAvgPool2dParams,
     AdaptiveAvgPool3dParams,
+    ReflectionPad1dParams,
+    ReflectionPad2dParams,
+    ReflectionPad3dParams,
     LinearParams
 ]
 
@@ -155,6 +167,9 @@ NeuronOptions = Union[
     AdaptiveAvgPool1dOptions,
     AdaptiveAvgPool2dOptions,
     AdaptiveAvgPool3dOptions,
+    ReflectionPad1dOptions,
+    ReflectionPad2dOptions,
+    ReflectionPad3dOptions,
     LinearOptions
 ]
 
@@ -200,6 +215,10 @@ class NeuronBuilderSwitcher(
     _adaptive_average_pooling1d_strategy: NeuronBuilderAdaptiveAveragePooling1dStrategy
     _adaptive_average_pooling2d_strategy: NeuronBuilderAdaptiveAveragePooling2dStrategy
     _adaptive_average_pooling3d_strategy: NeuronBuilderAdaptiveAveragePooling3dStrategy
+
+    _reflection_padding1d_strategy: NeuronBuilderReflectionPadding1dStrategy
+    _reflection_padding2d_strategy: NeuronBuilderReflectionPadding2dStrategy
+    _reflection_padding3d_strategy: NeuronBuilderReflectionPadding3dStrategy
 
     _linear_strategy: NeuronBuilderLinearStrategy
 

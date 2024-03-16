@@ -31,4 +31,7 @@ class NeuronType(Enum):
     ADAPTIVEAVGPOOL1D = "adaptiveavgpool1d"
     ADAPTIVEAVGPOOL2D = "adaptiveavgpool2d"
     ADAPTIVEAVGPOOL3D = "adaptiveavgpool3d"
+    REFLECTIONPAD1D = "reflectionpad1d"
+    REFLECTIONPAD2D = "reflectionpad2d"
+    REFLECTIONPAD3D = "reflectionpad3d"
     LINEAR = "linear"

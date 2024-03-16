@@ -57,6 +57,9 @@ from app.network.neuron.adaptivemaxpool3d import AdaptiveMaxPooling3d
 from app.network.neuron.adaptiveavgpool1d import AdaptiveAveragePooling1d
 from app.network.neuron.adaptiveavgpool2d import AdaptiveAveragePooling2d
 from app.network.neuron.adaptiveavgpool3d import AdaptiveAveragePooling3d
+from app.network.neuron.reflectionpad1d import ReflectionPadding1d
+from app.network.neuron.reflectionpad2d import ReflectionPadding2d
+from app.network.neuron.reflectionpad3d import ReflectionPadding3d
 from app.network.neuron.linear import Linear
 from app.gui.neuron import NeuronBuilderSwitcher
 from app.gui.neuron.dependencies import NeuronBuilderDependencies
@@ -452,6 +455,25 @@ class NeuronOperationCreationStrategy(SwitcherStrategy):
                                 NeuronOperationCreationStrategy.NeuronGroup.POOL,
                                 AdaptiveAveragePooling3d.title(),
                                 AdaptiveAveragePooling3d
+                            )
+                            .Group(
+                                NeuronOperationCreationStrategy.NeuronGroup.PAD,
+                                "Padding"
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.PAD,
+                                ReflectionPadding1d.title(),
+                                ReflectionPadding1d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.PAD,
+                                ReflectionPadding2d.title(),
+                                ReflectionPadding2d
+                            )
+                            .Option(
+                                NeuronOperationCreationStrategy.NeuronGroup.PAD,
+                                ReflectionPadding3d.title(),
+                                ReflectionPadding3d
                             )
                             .Group(
                                 NeuronOperationCreationStrategy.NeuronGroup.LIN,

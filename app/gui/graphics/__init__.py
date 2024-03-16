@@ -54,6 +54,9 @@ class NetworkBuilderCanvasProgram(CanvasProgram):
         self._color_adaptiveavgpool1d = QColor(32, 255, 132)
         self._color_adaptiveavgpool2d = QColor(32, 255, 164)
         self._color_adaptiveavgpool3d = QColor(32, 255, 196)
+        self._color_reflectionpad1d = QColor(255, 96, 96)
+        self._color_reflectionpad2d = QColor(255, 96, 128)
+        self._color_reflectionpad3d = QColor(255, 96, 156)
         self._color_linear = QColor(128, 255, 128)
 
         self._cursor_active = QCursor(Qt.PointingHandCursor)
@@ -198,6 +201,12 @@ class NetworkBuilderCanvasProgram(CanvasProgram):
                 return self.color_adaptiveavgpool2d
             case NeuronType.ADAPTIVEAVGPOOL3D:
                 return self.color_adaptiveavgpool3d
+            case NeuronType.REFLECTIONPAD1D:
+                return self.color_reflectionpad1d
+            case NeuronType.REFLECTIONPAD2D:
+                return self.color_reflectionpad2d
+            case NeuronType.REFLECTIONPAD3D:
+                return self.color_reflectionpad3d
             case NeuronType.LINEAR:
                 return self.color_linear
             case _:
@@ -385,6 +394,18 @@ class NetworkBuilderCanvasProgram(CanvasProgram):
     @property
     def color_adaptiveavgpool3d(self):
         return self._color_adaptiveavgpool3d
+
+    @property
+    def color_reflectionpad1d(self):
+        return self._color_reflectionpad1d
+
+    @property
+    def color_reflectionpad2d(self):
+        return self._color_reflectionpad1d
+
+    @property
+    def color_reflectionpad3d(self):
+        return self._color_reflectionpad1d
 
     @property
     def color_linear(self):

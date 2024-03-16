@@ -31,4 +31,7 @@ class NeuronType(Enum):
     ADAPTIVEAVGPOOL1D = ...  #type:NeuronType
     ADAPTIVEAVGPOOL2D = ...  #type:NeuronType
     ADAPTIVEAVGPOOL3D = ...  #type:NeuronType
+    REFLECTIONPAD1D = ...  #type:NeuronType
+    REFLECTIONPAD2D = ...  #type:NeuronType
+    REFLECTIONPAD3D = ...  #type:NeuronType
     LINEAR = ... #type: NeuronType

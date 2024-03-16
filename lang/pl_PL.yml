@@ -350,6 +350,33 @@ window:
           labels:
             cube: "Wymiary sześcienne: "
             output: "Rozmiar wyjściowy: "
+        reflectionpad1d:
+          boundaries:
+            left: "Z lewej: "
+            right: "Z prawej: "
+          labels:
+            bounded: "Symetryczny: "
+            padding: "Margines: "
+        reflectionpad2d:
+          boundaries:
+            left: "Z lewej: "
+            right: "Z prawej: "
+            top: "Od góry: "
+            bottom: "Od dołu: "
+          labels:
+            bounded: "Symetryczny: "
+            padding: "Margines: "
+        reflectionpad3d:
+          boundaries:
+            left: "Z lewej: "
+            right: "Z prawej: "
+            top: "Od góry: "
+            bottom: "Od dołu: "
+            front: "Z przodu: "
+            back: "Z tyłu: "
+          labels:
+            bounded: "Symetryczny: "
+            padding: "Margines: "
         linear:
           labels:
             input: "Wejście: "
@@ -364,3 +391,7 @@ window:
               ratio: "Stosunek"
               output_size: "Rozmiar wyniku: "
               output_ratio: "Stosunek wyniku: "
+        reflectionpad:
+          bounded:
+            labels:
+              padding: "Margines: "

@@ -55,6 +55,9 @@ class NetworkBuilderCanvasProgram(CanvasProgram[NetworkBuilderVariantType]):
     _color_adaptiveavgpool1d: QColor
     _color_adaptiveavgpool2d: QColor
     _color_adaptiveavgpool3d: QColor
+    _color_reflectionpad1d: QColor
+    _color_reflectionpad2d: QColor
+    _color_reflectionpad3d: QColor
     _color_linear: QColor
 
     _cursor_active: QCursor
@@ -220,6 +223,15 @@ class NetworkBuilderCanvasProgram(CanvasProgram[NetworkBuilderVariantType]):
 
     @property
     def color_adaptiveavgpool3d(self) -> QColor: ...
+
+    @property
+    def color_reflectionpad1d(self) -> QColor: ...
+
+    @property
+    def color_reflectionpad2d(self) -> QColor: ...
+
+    @property
+    def color_reflectionpad3d(self) -> QColor: ...
 
     @property
     def color_linear(self) -> QColor: ...
